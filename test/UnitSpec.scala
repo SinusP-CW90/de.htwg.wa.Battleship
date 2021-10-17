@@ -8,9 +8,9 @@ import play.api.test.FakeRequest
  * Unit tests can run without a full Play application.
  */
 class UnitSpec extends PlaySpec {
-/*
-  "CountController" should {
 
+  "CountController" should {
+/*
     "return a valid result with action" in {
       val controller = new CountController(stubControllerComponents(), () => 49)
       val result = controller.count(FakeRequest())
@@ -33,7 +33,7 @@ class UnitSpec extends PlaySpec {
         actorSystem.terminate()
       }
     }
-
-  }
 */
+  }
+
 }
