@@ -1,0 +1,30 @@
+@(controller:de.htwg.se.battleship.controller.controllerComponent.ControllerInterface)
+
+@size= @{ controller.battlefieldSize }
+@main("battleshipHTML") {
+
+
+  <h1>Battleship HTML Site</h1>
+
+  <div class="gamecontainer">
+    <div class="game">
+    @for(row <- 0 until size) {
+      <div class="house size@size">
+      @for(col <- 0 until size) {
+        <span class="cell">
+          <span class="@{"number"}">
+          @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}
+          </span>
+
+        </span>
+      }
+      </div>
+      <div class="clear"></div>
+    }
+    </div>
+  </div>
+
+
+
+
+}

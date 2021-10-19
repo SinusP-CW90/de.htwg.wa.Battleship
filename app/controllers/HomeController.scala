@@ -7,7 +7,6 @@ import play.api.mvc._
 import de.htwg.se.battleship.Battleship
 import de.htwg.se.battleship.controller.controllerComponent.ControllerInterface
 
-
 /**
  * This controller creates an `Action` to handle HTTP requests to the
  * application's home page.
@@ -15,7 +14,8 @@ import de.htwg.se.battleship.controller.controllerComponent.ControllerInterface
 @Singleton
 class HomeController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
   val gameController: ControllerInterface = Battleship.controller
-  def battleshipAsText =  "Batlleship Game (console output)" + gameController.playgroundToString
+  def battleshipAsText: String =  "Batlleship Game (console output)" + gameController.playgroundToString
+
 
   /**
    * Create an Action to render an HTML page.
@@ -34,12 +34,19 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     // Ok("ABOUT TEXT")
   }
 
-  def battleship: Action[AnyContent] = Action {
+  def battleshipConsoleOutput: Action[AnyContent] = Action {
     Ok(battleshipAsText)
   }
 
+  def test: Action[AnyContent] = Action {
+    Ok(views.html.test())
+    Ok(views.html.index())
+    // Ok("ABOUT TEXT")
+  }
+
   def battleshipHTML: Action[AnyContent] = Action {
-    Ok(views.html.battleship())
+    Ok(views.html.battleshipHTML(gameController))
+    // Ok("ABOUT TEXT")
   }
 
 }
