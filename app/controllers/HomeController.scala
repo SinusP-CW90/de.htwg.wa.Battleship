@@ -15,7 +15,7 @@ import de.htwg.se.battleship.controller.controllerComponent.ControllerInterface
 @Singleton
 class HomeController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
   val gameController: ControllerInterface = Battleship.controller
-  def sudokuAsText =  "testi"//gameController.createEmptyBattlefield(6)
+  def battleshipAsText =  "Batlleship Game (console output)" + gameController.playgroundToString
 
   /**
    * Create an Action to render an HTML page.
@@ -26,14 +26,20 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
    */
   def index(): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     Ok(views.html.index())
+    //Ok(sudokuAsText)
   }
 
   def about: Action[AnyContent] = Action {
-    Ok(views.html.index())
+    Ok(views.html.about())
+    // Ok("ABOUT TEXT")
   }
 
-  def sudoku: Action[AnyContent] = Action {
-    Ok(sudokuAsText)
+  def battleship: Action[AnyContent] = Action {
+    Ok(battleshipAsText)
+  }
+
+  def battleshipHTML: Action[AnyContent] = Action {
+    Ok(views.html.battleship())
   }
 
 }
