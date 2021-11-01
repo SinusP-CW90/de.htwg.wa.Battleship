@@ -9,6 +9,23 @@ resolvers += Resolver.sonatypeRepo("snapshots")
 
 scalaVersion := "2.13.6"
 
+scalacOptions ++= Seq(
+  "-encoding", "utf8",
+  "-Xfatal-warnings",
+  "-deprecation",
+  "-unchecked",
+  "-language:implicitConversions",
+  "-language:higherKinds",
+  "-language:existentials",
+  "-language:postfixOps"
+)
+
+libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test
+
+lazy val sourceDependency: RootProject = RootProject(uri("git://github.com/SinusP-CW90/Battleship#customized"))
+lazy val project: Project = Project("Battleship", file(".")).enablePlugins(PlayScala).aggregate(sourceDependency).dependsOn(sourceDependency)
+
+
 libraryDependencies += guice
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.9" % "test"
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test

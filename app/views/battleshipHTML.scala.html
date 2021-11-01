@@ -9,10 +9,17 @@
   <div class="gamecontainer">
     <div class="game">
     @for(row <- 0 until size) {
-      <div class="house size@size">
+      <span class="frame">
+      @{row+1}
+        </span>
+    }
+    @for(row <- 0 until size) {
+      <div class="battlefiled size@size">
+        @{("A"(0) + row).toChar.toString} |
       @for(col <- 0 until size) {
         <span class="cell">
           <span class="@{"number"}">
+            @{}
           @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}
           </span>
 
