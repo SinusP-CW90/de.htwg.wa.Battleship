@@ -1,0 +1,94 @@
+body {
+    background: lightblue url("images/battleship.jpg") repeat;
+}
+
+.gameTitle {
+    text-align: center;
+    font-family: "Verdana",Geneva, sans-serif;
+    font-weight: bold;
+    color:black;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.battleshipTitle{
+    width: 50%;
+}
+
+.battlefieldLeft{
+    justify-content: left;
+}
+
+.battlefieldRight{
+    justify-content: right;
+}
+.gamecontainer {
+    height: 100%;
+    width: 100%;
+    margin: 1em;
+    display:flex;
+    font-size:40px;
+    font-family: "Verdana",Geneva, sans-serif;
+    font-weight: bold;
+    color:black;
+}
+
+.numberRow{
+    color:white;
+    display: inline-block;
+    float:left;
+    border-style: outset;
+    border-width: 0.05em;
+    /*background-color: black;*/
+    border-color: darkgray;
+    width: 1.2em;
+    height: 1.2em;
+    margin:0.1em;
+    text-align: center;
+}
+
+.abcCol{
+    color:white;
+    display: inline-block;
+    float:left;
+    border-style: outset;
+    border-width: 0.05em;
+    border-color: darkgray;
+    width: 1.2em;
+    height: 1.2em;
+    margin:0.1em;
+    text-align: center;
+}
+
+.game {
+    border-style: inset;
+    border-width: 0.05em;
+    border-spacing: 0;
+    border-color: #f6f6FF;
+    background-color: black;
+    padding: 0.05em;
+    margin:auto;
+    width: auto;
+}
+
+.clear {
+    clear:both;
+}
+
+.cell {
+    display: inline-block;
+    float:left;
+    border-style: outset;
+    border-width: 0.05em;
+    /*background-color: #E0E0FF;*/
+    background-color: Blue;
+    border-color: #f6f6FF;
+    width: 1.2em;
+    height: 1.2em;
+    margin:0.1em;
+    text-align: center;
+}

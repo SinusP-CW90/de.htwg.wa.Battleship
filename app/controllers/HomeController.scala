@@ -49,4 +49,14 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     // Ok("ABOUT TEXT")
   }
 
+  def newBattlefiled: Action[AnyContent] = Action {
+    gameController.createEmptyBattlefield(gameController.battlefieldSize)
+    Ok(views.html.battleshipHTML(gameController))
+  }
+
+  def resize(size:Int): Action[AnyContent] = Action {
+    gameController.resize(size)
+    Ok(views.html.battleshipHTML(gameController))
+  }
+
 }

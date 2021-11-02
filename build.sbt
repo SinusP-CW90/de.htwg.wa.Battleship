@@ -22,9 +22,10 @@ scalacOptions ++= Seq(
 
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test
 
-lazy val sourceDependency: RootProject = RootProject(uri("git://github.com/SinusP-CW90/Battleship#customized"))
+lazy val sourceDependency: RootProject = RootProject(uri("git://github.com/SinusP-CW90/Battleship#main"))
 lazy val project: Project = Project("Battleship", file(".")).enablePlugins(PlayScala).aggregate(sourceDependency).dependsOn(sourceDependency)
 
+dependencyOverrides += "org.scala-lang.modules" %% "scala-xml" % "2.0.1"
 
 libraryDependencies += guice
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.9" % "test"

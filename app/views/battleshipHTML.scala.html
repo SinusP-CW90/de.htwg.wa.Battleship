@@ -3,35 +3,46 @@
 @size= @{ controller.battlefieldSize }
 @main("battleshipHTML") {
 
-
-  <h1>Battleship HTML Site</h1>
+  <!--<h1 class="gameTitle">Battleship HTML Site</h1>*/-->
+  <span class="header">
+    <img class="battleshipTitle" src=@routes.Assets.versioned("images/battleship.jpg")>
+  </span>
 
   <div class="gamecontainer">
     <div class="game">
-    @for(row <- 0 until size) {
-      <span class="frame">
-      @{row+1}
+      <div class="battlefieldLeft">
+        <!--Numbers -->
+        <span class="numberRow">
+        X
         </span>
-    }
-    @for(row <- 0 until size) {
-      <div class="battlefiled size@size">
-        @{("A"(0) + row).toChar.toString} |
-      @for(col <- 0 until size) {
-        <span class="cell">
-          <span class="@{"number"}">
-            @{}
-          @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}
+        @for(row <- 0 until size) {
+          <span class="numberRow">
+          @{row+1}
           </span>
+        }
 
-        </span>
-      }
-      </div>
-      <div class="clear"></div>
-    }
-    </div>
+        @for(row <- 0 until size) {
+
+            <div class="house size@size">
+              <span class="abcCol">
+              @{("A"(0) + row).toChar.toString}
+              </span>
+
+            @for(col <- 0 until size) {
+
+              <span class="cell">
+
+                <span class="@{"number"}">
+                @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}
+                </span>
+
+              </span>
+            }
+            </div>
+
+            <div class="clear"></div>
+          }
+          </div>
+        </div>
   </div>
-
-
-
-
 }
