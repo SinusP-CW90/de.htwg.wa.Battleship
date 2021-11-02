@@ -9,10 +9,11 @@
   </span>
 
   <div class="gamecontainer">
-    <div class="game">
+    <span class="game">
+
       <div class="battlefieldLeft">
         <!--Numbers -->
-        <span class="numberRow">
+        <span class="xNumberRow">
         X
         </span>
         @for(row <- 0 until size) {
@@ -33,16 +34,53 @@
               <span class="cell">
 
                 <span class="@{"number"}">
-                @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}
+                @{if(controller.cellL(row, col).isSet) {controller.cellL(row,col).toString.take(1)} else "_"}
                 </span>
 
               </span>
             }
             </div>
-
-            <div class="clear"></div>
           }
           </div>
-        </div>
+
+      <div class="battlefieldRight">
+          <!--Numbers -->
+        <span class="xNumberRow">
+          X
+        </span>
+        @for(row <- 0 until size) {
+          <span class="numberRow">
+          @{row+1}
+          </span>
+        }
+        <span class="xNumberRow">
+          X
+        </span>
+
+        @for(row <- 0 until size) {
+
+          <div class="house size@size">
+            <span class="abcCol">
+            @{("A"(0) + row).toChar.toString}
+            </span>
+
+            @for(col <- 0 until size) {
+
+              <span class="cell">
+
+                <span class="@{"number"}">
+                @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}
+                </span>
+
+              </span>
+            }
+            <span class="abcColRight">
+            @{("A"(0) + row).toChar.toString}
+            </span>
+          </div>
+        }
+      </div>
+      <div class="clear"></div>
+        </span>
   </div>
 }

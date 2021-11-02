@@ -1,5 +1,5 @@
 body {
-    background: lightblue url("images/battleship.jpg") repeat;
+    background: lightblue url("images/seaBackground1.jpg") repeat;
 }
 
 .gameTitle {
@@ -20,10 +20,12 @@ body {
 }
 
 .battlefieldLeft{
+    float: left;
     justify-content: left;
 }
 
 .battlefieldRight{
+    float: right;
     justify-content: right;
 }
 .gamecontainer {
@@ -50,9 +52,46 @@ body {
     margin:0.1em;
     text-align: center;
 }
+.xNumberRow{
+    color:black;
+    display: inline-block;
+    float:left;
+    border-style: outset;
+    border-width: 0.05em;
+    border-color: darkgray;
+    width: 1.2em;
+    height: 1.2em;
+    margin:0.1em;
+    text-align: center;
+}
 
 .abcCol{
     color:white;
+    display: inline-block;
+    float:left;
+    border-style: outset;
+    border-width: 0.05em;
+    border-color: darkgray;
+    width: 1.2em;
+    height: 1.2em;
+    margin:0.1em;
+    text-align: center;
+}
+
+.abcColRight{
+    color:white;
+    display: inline-block;
+    float:right;
+    border-style: outset;
+    border-width: 0.05em;
+    border-color: darkgray;
+    width: 1.2em;
+    height: 1.2em;
+    margin:0.1em;
+    text-align: center;
+}
+middleCutLine{
+    color:black;
     display: inline-block;
     float:left;
     border-style: outset;
@@ -73,6 +112,9 @@ body {
     padding: 0.05em;
     margin:auto;
     width: auto;
+
+    display: inline-block;
+    float:left;
 }
 
 .clear {
