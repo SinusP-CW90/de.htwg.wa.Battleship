@@ -8,7 +8,7 @@
     <img class="battleshipTitle" src=@routes.Assets.versioned("images/battleship.jpg")>
   </span>
 
-  <div class="gamecontainer">
+  <div class="gameContainer">
     <span class="game">
 
       <div class="battlefieldLeft">
@@ -24,7 +24,7 @@
 
         @for(row <- 0 until size) {
 
-            <div class="house size@size">
+            <div class="battlefield size@size">
               <span class="abcCol">
               @{("A"(0) + row).toChar.toString}
               </span>
@@ -34,7 +34,7 @@
               <span class="cell">
 
                 <span class="@{"number"}">
-                @{if(controller.cellL(row, col).isSet) {controller.cellL(row,col).toString.take(1)} else "_"}
+                @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}
                 </span>
 
               </span>
@@ -45,8 +45,8 @@
 
       <div class="battlefieldRight">
           <!--Numbers -->
-        <span class="xNumberRow">
-          X
+        <span class="middleCutLine">
+          |
         </span>
         @for(row <- 0 until size) {
           <span class="numberRow">
@@ -59,9 +59,9 @@
 
         @for(row <- 0 until size) {
 
-          <div class="house size@size">
-            <span class="abcCol">
-            @{("A"(0) + row).toChar.toString}
+          <div class="battlefield size@size">
+            <span class="middleCutLine">
+            |
             </span>
 
             @for(col <- 0 until size) {
