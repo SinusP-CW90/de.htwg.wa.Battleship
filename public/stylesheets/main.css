@@ -1,0 +1,147 @@
+body {
+    /* The image used */
+    background-image: url("../images/seaBackground1.jpg");
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.gameTitle {
+    text-align: center;
+    font-family: "Verdana",Geneva, sans-serif;
+    font-weight: bold;
+    color:black;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.battleshipTitle{
+    width: 50%;
+}
+
+.battlefieldLeft{
+    float: left;
+    justify-content: left;
+}
+
+.battlefieldRight{
+    float: right;
+    justify-content: right;
+}
+.gameContainer {
+    height: 100%;
+    width: 100%;
+    display:flex;
+    font-size:40px;
+    font-family: "Verdana",Geneva, sans-serif;
+    font-weight: bold;
+    color:black;
+    justify-content: center;
+    align-items: center;
+}
+
+.numberRow{
+    color:white;
+    display: inline-block;
+    float:left;
+    border-style: outset;
+    border-width: 0.05em;
+    /*background-color: black;*/
+    border-color: darkgray;
+    width: 1.2em;
+    height: 1.2em;
+    margin:0.1em;
+    text-align: center;
+}
+.xNumberRow{
+    color:black;
+    display: inline-block;
+    float:left;
+    border-style: outset;
+    border-width: 0.05em;
+    border-color: darkgray;
+    width: 1.2em;
+    height: 1.2em;
+    margin:0.1em;
+    text-align: center;
+}
+
+.abcCol{
+    color:white;
+    display: inline-block;
+    float:left;
+    border-style: outset;
+    border-width: 0.05em;
+    border-color: darkgray;
+    width: 1.2em;
+    height: 1.2em;
+    margin:0.1em;
+    text-align: center;
+}
+
+.abcColRight{
+    color:white;
+    display: inline-block;
+    float:right;
+    border-style: outset;
+    border-width: 0.05em;
+    border-color: darkgray;
+    width: 1.2em;
+    height: 1.2em;
+    margin:0.1em;
+    text-align: center;
+}
+.middleCutLine{
+    display: inline-block;
+    float:left;
+    border-style: outset;
+    border-width: 0.05em;
+    /*background-color: #E0E0FF;*/
+    background-color: black;
+    border-color: #f6f6FF;
+    width: 0.4em;
+    height: 1.2em;
+    margin:0.1em;
+    text-align: center;
+}
+
+.game {
+    border-style: inset;
+    border-width: 0.05em;
+    border-spacing: 0;
+    border-color: #f6f6FF;
+    background-color: black;
+    padding: 0.05em;
+    margin:auto;
+    width: auto;
+
+    display: inline-block;
+    float:left;
+}
+
+.clear {
+    clear:both;
+}
+
+.cell {
+    display: inline-block;
+    float:left;
+    border-style: outset;
+    border-width: 0.05em;
+    /*background-color: #E0E0FF;*/
+    background-color: Blue;
+    border-color: #f6f6FF;
+    width: 1.2em;
+    height: 1.2em;
+    margin:0.1em;
+    text-align: center;
+}
