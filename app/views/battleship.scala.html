@@ -1,23 +1,86 @@
 @(controller:de.htwg.se.battleship.controller.controllerComponent.ControllerInterface)
 
 @size= @{ controller.battlefieldSize }
+@main("battleship") {
 
-@main("HTWG Battleship") {
-    <div class="gamecontainer">
-        <div class="game">
+  <!--<h1 class="gameTitle">Battleship HTML Site</h1>*/-->
+  <span class="header">
+    <img class="battleshipTitle" src=@routes.Assets.versioned("images/battleship.jpg") alt="">
+  </span>
+
+  <div class="gameContainer">
+    <span class="game">
+
+      <div class="battlefieldLeft">
+        <!--Numbers -->
+        <span class="xNumberRow">
+        X
+        </span>
         @for(row <- 0 until size) {
-            <div class="house size@size">
-            @for(col <- 0 until size) {
-                <span class="cell">
-                    <span class="@{"number"}">
-                    @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}
-                    </span>
+          <span class="numberRow">
+          @{row+1}
+          </span>
+        }
 
+        @for(row <- 0 until size) {
+
+            <div class="battlefield size@size">
+              <span class="abcCol">
+              @{("A"(0) + row).toChar.toString}
+              </span>
+
+            @for(col <- 0 until size) {
+
+              <span class="cell">
+
+                <span class="@{"number"}">
+                @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}
                 </span>
+
+              </span>
             }
             </div>
-            <div class="clear"></div>
+          }
+          </div>
+
+      <div class="battlefieldRight">
+          <!--Numbers -->
+        <span class="middleCutLine">
+          |
+        </span>
+        @for(row <- 0 until size) {
+          <span class="numberRow">
+          @{row+1}
+          </span>
         }
-        </div>
-    </div>
+        <span class="xNumberRow">
+          X
+        </span>
+
+        @for(row <- 0 until size) {
+
+          <div class="battlefield size@size">
+            <span class="middleCutLine">
+            |
+            </span>
+
+            @for(col <- 0 until size) {
+
+              <span class="cell">
+
+                <span class="@{"number"}">
+                @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}
+                </span>
+
+              </span>
+            }
+            <span class="abcColRight">
+            @{("A"(0) + row).toChar.toString}
+            </span>
+          </div>
+        }
+      </div>
+      <div class="clear"></div>
+        </span>
+  </div>
 }

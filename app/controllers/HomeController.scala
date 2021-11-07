@@ -34,18 +34,14 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     // Ok("ABOUT TEXT")
   }
 
-  def battleshipConsoleOutput: Action[AnyContent] = Action {
-    Ok(battleshipAsText)
-  }
-
   def test: Action[AnyContent] = Action {
     Ok(views.html.test())
     Ok(views.html.index())
     // Ok("ABOUT TEXT")
   }
 
-  def battleshipHTML: Action[AnyContent] = Action {
-    Ok(views.html.battleshipHTML(gameController))
+  def battleship: Action[AnyContent] = Action {
+    Ok(views.html.battleship(gameController))
     // Ok("ABOUT TEXT")
   }
 

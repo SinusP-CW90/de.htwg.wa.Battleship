@@ -5,17 +5,13 @@
 
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index()
-
-GET     /battleshipConsoleOutput                      controllers.HomeController.battleshipConsoleOutput
-
 GET     /about                      controllers.HomeController.about
+GET     /test                       controllers.HomeController.test
 
-GET     /test                      controllers.HomeController.test
+GET     /battleship                             controllers.HomeController.battleship
+GET     /battleship/new                         controllers.HomeController.newBattlefiled
+GET     /battleship/resize/:size                controllers.HomeController.resize(size:Int)
+GET     /battleship/set/:row/:col               controllers.HomeController.set(row:String,col:String)
 
-GET     /battleshipHTML                      controllers.HomeController.battleshipHTML
-
-GET     /new                        controllers.HomeController.newBattlefiled
-GET     /resize/:size               controllers.HomeController.resize(size:Int)
-GET     /set/:row/:col              controllers.HomeController.set(row:String,col:String)
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
