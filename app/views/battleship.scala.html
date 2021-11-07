@@ -2,48 +2,61 @@
 
 @size= @{ controller.battlefieldSize }
 
-@main("Battleship") {
-  <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/main.css")' />
-  <script src='@routes.Assets.versioned("javascripts/bootstrap.js")'> </script>
+@main("Welcome to Battelship") {
 
-  <header class="p-3 bg-dark text-white">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
     <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/index" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-          <a class="navbar-brand" href="index">
-            <img src=@routes.Assets.versioned("/icons/bootstrap.svg") alt="B" width="32" height="32">
-            attleship Game</a>
-          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-        </a>
+      <img src=@routes.Assets.versioned("/images/battleshipTitle2.png") alt="B" width="120" height="40">
+      <img src=@routes.Assets.versioned("/icons/bootstrap.svg") alt="B" width="40" height="35" class="d-inline-block align-text-top">
+      <a class="navbar-brand" href="#">attleship</a>
 
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample03">
+        <ul class="navbar-nav me-auto mb-2 mb-sm-0">
           <li class="nav-item">
-            <a class="nav-link" href="/battleship/new">New</a>
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">New Game</a>
           </li>
 
+          </li>
           <li class="nav-item">
-            <a class="nav-link" href="/battleship/SP">Switch Player</a>
+            <a class="nav-link" href="/save">Save the Game</a>
+          </li>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/load">Load the Game</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Resize the Battlefiled</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdown03">
+              <a class="dropdown-item" href="/battleship/resize/9">extra Large (9*9)</a>
+              <a class="dropdown-item" href="/battleship/resize/2">Large (6*6)</a>
+              <a class="dropdown-item" href="/battleship/resize/4">medium (4*4)</a>
+              <a class="dropdown-item" href="/battleship/resize/2">Tiny (3*3)</a>
+              <a class="dropdown-item" href="/battleship/resize/2">extra Tiny (2*2)</a>
+            </ul>
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <!--img src=@routes.Assets.versioned("/icons/border-middle.svg") alt="" width="32" height="32"> Size-->
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/battleship/resize/9">Large (9*9)</a>
-              <a class="dropdown-item" href="/battleship/resize/2">Lage (6*6)</a>
-              <a class="dropdown-item" href="/battleship/resize/4">Small (4*4)</a>
-              <a class="dropdown-item" href="/battleship/resize/2">Tiny (3*3)</a>
-              <a class="dropdown-item" href="/battleship/resize/2">Tiny (2*2)</a>
-            </div>
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Admin Options</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdown03">
+              <a class="dropdown-item" href="/battleship/switch">Player switch</a>
+            </ul>
           </li>
         </ul>
       </div>
     </div>
-  </header>
+  </nav>
 
-  <div class="b-example-divider"></div>
-<!-- Game -->
+    <!-- Game -->
   <span class="header">
     <img class="battleshipTitle" src=@routes.Assets.versioned("images/battleship.jpg") alt="">
   </span>
@@ -125,10 +138,16 @@
   </div>
 
 
-    <div class="alert alert-primary" role="alert">
-    message
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-2">
+      </div>
+      <div class="col-md-auto alert alert-primary" role="alert">
+        Gamestate: @controller.currentGameState
+      </div>
+      <div class="col col-lg-2">
+      </div>
     </div>
-
   </div>
 
 }
