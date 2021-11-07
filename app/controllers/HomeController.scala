@@ -59,4 +59,9 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     Ok(views.html.battleshipHTML(gameController))
   }
 
+  def set(row:String, col:String): Action[AnyContent] = Action {
+    gameController.set(row,col)
+    Ok(views.html.battleshipHTML(gameController))
+  }
+
 }
