@@ -1,9 +1,49 @@
 @(controller:de.htwg.se.battleship.controller.controllerComponent.ControllerInterface)
 
 @size= @{ controller.battlefieldSize }
-@main("battleship") {
 
-  <!--<h1 class="gameTitle">Battleship HTML Site</h1>*/-->
+@main("Battleship") {
+  <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/main.css")' />
+  <script src='@routes.Assets.versioned("javascripts/bootstrap.js")'> </script>
+
+  <header class="p-3 bg-dark text-white">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/index" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+          <a class="navbar-brand" href="index">
+            <img src=@routes.Assets.versioned("/icons/bootstrap.svg") alt="B" width="32" height="32">
+            attleship Game</a>
+          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+        </a>
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/battleship/new">New</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/battleship/SP">Switch Player</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <!--img src=@routes.Assets.versioned("/icons/border-middle.svg") alt="" width="32" height="32"> Size-->
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/battleship/resize/9">Large (9*9)</a>
+              <a class="dropdown-item" href="/battleship/resize/2">Lage (6*6)</a>
+              <a class="dropdown-item" href="/battleship/resize/4">Small (4*4)</a>
+              <a class="dropdown-item" href="/battleship/resize/2">Tiny (3*3)</a>
+              <a class="dropdown-item" href="/battleship/resize/2">Tiny (2*2)</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <div class="b-example-divider"></div>
+<!-- Game -->
   <span class="header">
     <img class="battleshipTitle" src=@routes.Assets.versioned("images/battleship.jpg") alt="">
   </span>
@@ -12,9 +52,9 @@
     <span class="game">
 
       <div class="battlefieldLeft">
-        <!--Numbers -->
+          <!--Numbers -->
         <span class="xNumberRow">
-        X
+          X
         </span>
         @for(row <- 0 until size) {
           <span class="numberRow">
@@ -24,10 +64,10 @@
 
         @for(row <- 0 until size) {
 
-            <div class="battlefield size@size">
-              <span class="abcCol">
-              @{("A"(0) + row).toChar.toString}
-              </span>
+          <div class="battlefield size@size">
+            <span class="abcCol">
+            @{("A"(0) + row).toChar.toString}
+            </span>
 
             @for(col <- 0 until size) {
 
@@ -39,9 +79,9 @@
 
               </span>
             }
-            </div>
-          }
           </div>
+        }
+      </div>
 
       <div class="battlefieldRight">
           <!--Numbers -->
@@ -81,6 +121,14 @@
         }
       </div>
       <div class="clear"></div>
-        </span>
+    </span>
   </div>
+
+
+    <div class="alert alert-primary" role="alert">
+    message
+    </div>
+
+  </div>
+
 }

@@ -15,6 +15,7 @@ import de.htwg.se.battleship.controller.controllerComponent.ControllerInterface
 class HomeController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
   val gameController: ControllerInterface = Battleship.controller
   def battleshipAsText: String =  "Batlleship Game (console output)" + gameController.playgroundToString
+  def message =  "Batlleship Game (console output)" + gameController.playgroundToString
 
 
   /**
