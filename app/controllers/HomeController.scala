@@ -15,6 +15,7 @@ import de.htwg.se.battleship.controller.controllerComponent.ControllerInterface
 class HomeController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
   val gameController: ControllerInterface = Battleship.controller
   def battleshipAsText: String =  "Batlleship Game (console output)" + gameController.playgroundToString
+  def message =  "Batlleship Game (console output)" + gameController.playgroundToString
 
 
   /**
@@ -34,29 +35,48 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     // Ok("ABOUT TEXT")
   }
 
-  def battleshipConsoleOutput: Action[AnyContent] = Action {
-    Ok(battleshipAsText)
-  }
-
   def test: Action[AnyContent] = Action {
-    Ok(views.html.test())
-    Ok(views.html.index())
+    Ok(views.html.test(gameController))
     // Ok("ABOUT TEXT")
   }
 
-  def battleshipHTML: Action[AnyContent] = Action {
-    Ok(views.html.battleshipHTML(gameController))
+  def battleship: Action[AnyContent] = Action {
+    Ok(views.html.battleship(gameController))
     // Ok("ABOUT TEXT")
   }
 
   def newBattlefiled: Action[AnyContent] = Action {
     gameController.createEmptyBattlefield(gameController.battlefieldSize)
-    Ok(views.html.battleshipHTML(gameController))
+    Ok(views.html.battleship(gameController))
   }
 
   def resize(size:Int): Action[AnyContent] = Action {
     gameController.resize(size)
-    Ok(views.html.battleshipHTML(gameController))
+    Ok(views.html.battleship(gameController))
+  }
+  def save: Action[AnyContent] = Action {
+    gameController.save()
+    Ok(views.html.battleship(gameController))
+  }
+
+  def load: Action[AnyContent] = Action {
+    gameController.load()
+    Ok(views.html.battleship(gameController))
+  }
+
+  def undo: Action[AnyContent] = Action {
+    gameController.undo()
+    Ok(views.html.battleship(gameController))
+  }
+
+  def redo: Action[AnyContent] = Action {
+    gameController.redo()
+    Ok(views.html.battleship(gameController))
+  }
+
+  def set(row:String, col:String): Action[AnyContent] = Action {
+    gameController.set(row,col)
+    Ok(views.html.battleship(gameController))
   }
 
 }

@@ -1,13 +1,103 @@
-@()
+@(controller:de.htwg.se.battleship.controller.controllerComponent.ControllerInterface)
+
+    @size= @{ controller.battlefieldSize }
 
 @main("Welcome to Battelship") {
 
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
+        <div class="container">
+            <img src=@routes.Assets.versioned("/images/battleshipTitle2.png") alt="B" width="120" height="40">
+            <img src=@routes.Assets.versioned("/icons/bootstrap.svg") alt="B" width="40" height="35" class="d-inline-block align-text-top">
+            <a class="navbar-brand" href="#">attleship</a>
 
-    <h1>Battleship TEST Site</h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-    <p>
-       TEST<br>
-    </p>
+            <div class="collapse navbar-collapse" id="navbarsExample03">
+                <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">New Game</a>
+                    </li>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/save">Save the Game</a>
+                    </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/load">Load the Game</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Disabled</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Resize the Battlefiled</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                            <a class="dropdown-item" href="/battleship/resize/9">extra Large (9*9)</a>
+                            <a class="dropdown-item" href="/battleship/resize/2">Large (6*6)</a>
+                            <a class="dropdown-item" href="/battleship/resize/4">medium (4*4)</a>
+                            <a class="dropdown-item" href="/battleship/resize/2">Tiny (3*3)</a>
+                            <a class="dropdown-item" href="/battleship/resize/2">extra Tiny (2*2)</a>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Admin Options</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                            <a class="dropdown-item" href="/battleship/switch">Player switch</a>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+        <!--Test Content -->
+    <div class="container bg-primary mt-3">
+        <div class="row">
+            <div class="battlefieldLeft col-5">
+                    <!--Numbers -->
+                <span class="xNumberRow">
+                    X
+                </span>
+                @for(row <- 0 until size) {
+                    <span class="numberRow">
+                    @{row+1}
+                    </span>
+                }
+                <br>
+                @for(row <- 0 until size) {
+
+                    <div class="battlefield size@size">
+                        <span class="abcCol">
+                        @{("A"(0) + row).toChar.toString}
+                        </span>
+
+                        @for(col <- 0 until size) {
+
+                            <span class="cell">
+
+                                <span class="@{"number"}">
+                                @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}
+                                </span>
+
+                            </span>
+                        }
+                    </div>
+                }
+            </div>
+            <div class="col-7 bg-success">
+                Column
+            </div>
+            <div class="col-12 bg-warning">
+                Column
+            </div>
+        </div>
+    </div>
 
 
 
