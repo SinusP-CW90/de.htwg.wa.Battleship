@@ -11,6 +11,8 @@ GET     /test                       controllers.HomeController.test
 GET     /battleship                             controllers.HomeController.battleship
 GET     /battleship/new                         controllers.HomeController.newBattlefiled
 GET     /battleship/resize/:size                controllers.HomeController.resize(size:Int)
+GET     /battleship/save                        controllers.HomeController.save
+GET     /battleship/load                        controllers.HomeController.load
 GET     /battleship/set/:row/:col               controllers.HomeController.set(row:String,col:String)
 
 # Map static resources from the /public folder to the /assets URL path
