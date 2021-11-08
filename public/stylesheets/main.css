@@ -41,7 +41,7 @@ body {
     height: 100%;
     width: 100%;
     display:flex;
-    font-size:40px;
+    font-size:calc(100% + 2.2vw);
     font-family: "Verdana",Geneva, sans-serif;
     font-weight: bold;
     color:black;

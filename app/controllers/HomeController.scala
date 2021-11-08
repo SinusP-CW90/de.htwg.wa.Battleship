@@ -64,6 +64,16 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     Ok(views.html.battleship(gameController))
   }
 
+  def undo: Action[AnyContent] = Action {
+    gameController.undo()
+    Ok(views.html.battleship(gameController))
+  }
+
+  def redo: Action[AnyContent] = Action {
+    gameController.redo()
+    Ok(views.html.battleship(gameController))
+  }
+
   def set(row:String, col:String): Action[AnyContent] = Action {
     gameController.set(row,col)
     Ok(views.html.battleship(gameController))
