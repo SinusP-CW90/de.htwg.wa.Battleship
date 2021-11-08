@@ -128,10 +128,6 @@ body {
     float:left;
 }
 
-.clear {
-    clear:both;
-}
-
 .cell {
     display: inline-block;
     float:left;
@@ -144,4 +140,10 @@ body {
     height: 1.2em;
     margin:0.1em;
     text-align: center;
+}
+
+@media only screen and (max-width: 700px) {
+    .clear {
+        clear:both;
+    }
 }

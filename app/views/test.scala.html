@@ -1,4 +1,6 @@
-@()
+@(controller:de.htwg.se.battleship.controller.controllerComponent.ControllerInterface)
+
+    @size= @{ controller.battlefieldSize }
 
 @main("Welcome to Battelship") {
 
@@ -53,6 +55,49 @@
             </div>
         </div>
     </nav>
+
+        <!--Test Content -->
+    <div class="container bg-primary mt-3">
+        <div class="row">
+            <div class="battlefieldLeft col-5">
+                    <!--Numbers -->
+                <span class="xNumberRow">
+                    X
+                </span>
+                @for(row <- 0 until size) {
+                    <span class="numberRow">
+                    @{row+1}
+                    </span>
+                }
+                <br>
+                @for(row <- 0 until size) {
+
+                    <div class="battlefield size@size">
+                        <span class="abcCol">
+                        @{("A"(0) + row).toChar.toString}
+                        </span>
+
+                        @for(col <- 0 until size) {
+
+                            <span class="cell">
+
+                                <span class="@{"number"}">
+                                @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}
+                                </span>
+
+                            </span>
+                        }
+                    </div>
+                }
+            </div>
+            <div class="col-7 bg-success">
+                Column
+            </div>
+            <div class="col-12 bg-warning">
+                Column
+            </div>
+        </div>
+    </div>
 
 
 

@@ -36,7 +36,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
   }
 
   def test: Action[AnyContent] = Action {
-    Ok(views.html.test())
+    Ok(views.html.test(gameController))
     // Ok("ABOUT TEXT")
   }
 
