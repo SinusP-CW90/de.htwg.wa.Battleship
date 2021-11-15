@@ -75,8 +75,21 @@
 
     <!-- Game -->
   <span class="header">
-    <img class="battleshipTitle" src=@routes.Assets.versioned("images/battleship.jpg") alt="">
+    <img class="battleshipTitle" src=@routes.Assets.versioned("images/battleship.jpg") alt="" id="testPic">
   </span>
+  </h1>
+
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-6">
+      </div>
+      <div class="col-md-auto alert alert-primary" role="alert">
+        Current Player: @controller.currentGameState
+      </div>
+      <div class="col col-lg-6">
+      </div>
+    </div>
+  </div>
 
   <div class="gameContainer">
     <span class="game">
@@ -101,12 +114,11 @@
 
             @for(col <- 0 until size) {
 
-              <span class="cell">
+              <span class="cell" id="cell-R@row-C@col">
 
-                <span class="@{"number"}">
-                @{if(controller.cell(row, col).isSetR) {controller.cell(row,col).toString.take(1)} else "_"}
+                <span class="@{"number"}" id="cellValue-R@row-C@col">
+                @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}
                 </span>
-
               </span>
             }
           </div>
