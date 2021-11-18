@@ -9,7 +9,7 @@ GET     /about                      controllers.HomeController.about
 GET     /test                       controllers.HomeController.test
 
 GET     /battleship                             controllers.HomeController.battleship
-GET     /battleship/new                         controllers.HomeController.newBattlefiled
+GET     /battleship/newBattlefiled              controllers.HomeController.newBattlefiled
 GET     /battleship/resize/:size                controllers.HomeController.resize(size:Int)
 GET     /battleship/save                        controllers.HomeController.save
 GET     /battleship/load                        controllers.HomeController.load

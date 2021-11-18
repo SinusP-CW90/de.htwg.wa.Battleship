@@ -21,7 +21,7 @@
             <a class="nav-link active" aria-current="page" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">New Game</a>
+            <a class="nav-link" href="newBattlefiled">New Game</a>
           </li>
 
           </li>
@@ -72,29 +72,42 @@
       </div>
     </div>
   </nav>
+  <!-- End Navbar-->
 
     <!-- Game -->
-  <span class="header">
-    <img class="battleshipTitle" src=@routes.Assets.versioned("images/battleship.jpg") alt="" id="testPic">
-  </span>
-  </h1>
+  <div class="container ">
+    <div class="col-5"></div>
 
-  <div class="container">
-    <div class="row justify-content-md-center">
-      <div class="col col-lg-6">
+    <div class="col"></div>
+  </div>
+
+  <div class="container text-center">
+    <div class="row">
+      <div class="col"></div>
+
+      <div class="card col-6 bg-dark bg-gradient text-white" style="width:60%">
+        <img class="card-img-top battleshipTitle" src=@routes.Assets.versioned("images/battleship.jpg") alt="" id="testPic">
+        <div class="card-body">
+          <h1 class="card-title" >Welcomme to Battleship</h1>
+          <h4 class="card-title"><a class="btn btn-primary" id="startButton">START the Game</a></h4>
+          <p class="card-text" id="infoText"></p>
+          <br>
+          <div class="col-md-auto alert alert-primary" role="alert">
+            Current Player: @controller.currentGameState
+          </div>
+
+        </div>
       </div>
-      <div class="col-md-auto alert alert-primary" role="alert">
-        Current Player: @controller.currentGameState
-      </div>
-      <div class="col col-lg-6">
-      </div>
+
+      <div class="col"></div>
     </div>
   </div>
 
-  <div class="gameContainer">
+  <div class="gameContainer" id="gameContainer">
     <span class="game">
 
       <div class="battlefieldLeft">
+
           <!--Numbers -->
         <span class="xNumberRow">
           X
@@ -113,13 +126,15 @@
             </span>
 
             @for(col <- 0 until size) {
-
-              <span class="cell" id="cell-R@row-C@col">
-
-                <span class="@{"number"}" id="cellValue-R@row-C@col">
-                @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}
+              <!--a href="/battleship/set/@{("A"(0) + row).toChar.toString}/@{col+1}"-->
+                <span class="cell cellLeft" id="cell-R@row-C@col">
+                  <span class="@{"number"}" id="cellValue-R@row-C@col">
+                  @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}
+                  </span>
                 </span>
-              </span>
+              <!--/a-->
+
+
             }
           </div>
         }
@@ -148,7 +163,7 @@
 
             @for(col <- 0 until size) {
 
-              <span class="cell">
+              <span class="cell cellRight" data-bs-toggle="tooltip" title="wrong side ;-)">
 
                 <span class="@{"number"}">
                 @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}

@@ -1,11 +1,33 @@
 let cellV00 = document.getElementById("cellValue-R0-C0")
 let cellClass = document.getElementsByClassName("cell")
-let cell00 = document.getElementById("cell-R0-C0")
 let cell00C = document.getElementById("cell-R0-C0").firstElementChild
-let pic = document.getElementById("testPic")
+let Player1ShipCount = 4;
 
 function change(){
-    this.firstElementChild.innerHTML = "X";
+    this.firstElementChild.innerHTML = "<img src='http://localhost:9000/assets/images/boat1.png' alt='S' class='gameContainer' id=this.value/>";
+    Player1ShipCount -= 1;
+    document.getElementById("infoText").innerHTML = "Player 1 - please set "+ Player1ShipCount +" ships on your left Side!";
+}
+
+function refreshPage(){
+    window.location.reload();
+}
+
+var clicks = 0;
+
+function onClick() {
+    clicks += 1;
+
+};
+
+function startGame(){
+    document.getElementById("gameContainer").style.visibility = "visible";
+    document.getElementById("startButton").style.display = "none";
+    document.getElementById("infoText").innerHTML="Player 1 - please set "+ Player1ShipCount +" ships on your left Side!";
+}
+
+function shipSetDekrement(){
+
 }
 
 function setUpEvents(){
@@ -19,5 +41,8 @@ function setUpEvents(){
 }
 
 window.onload = function(){
+    document.getElementById("gameContainer").style.visibility = "hidden";
     setUpEvents();
+    document.getElementById("startButton").addEventListener('click', startGame, false);
+    onClick();
 }

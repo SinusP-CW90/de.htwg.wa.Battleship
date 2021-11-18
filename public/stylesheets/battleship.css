@@ -142,8 +142,32 @@ body {
     text-align: center;
 }
 
-.cell:hover {
+.cellLeft:hover {
+    background-color: darkgreen;
+}
+
+.cellRight:hover {
     background-color: darkred;
+}
+
+/* unvisited link */
+a:link {
+    color: black;
+}
+
+/* visited link */
+a:visited {
+    color: black;
+}
+
+/* mouse over link */
+a:hover {
+    color: black;
+}
+
+/* selected link */
+a:active {
+    color: black;
 }
 
 @media only screen and (max-width: 700px) {
