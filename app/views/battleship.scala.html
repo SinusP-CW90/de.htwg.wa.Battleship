@@ -97,15 +97,16 @@
             </div>
           </div>
 
-
           <br>
-          <!--div class="col-md-auto alert alert-primary" role="alert">
-            Current Player: @controller.currentGameState
-          </div-->
 
         </div>
       </div>
       <div class="col"></div>
+
+    </div>
+
+    <div class="progress border">
+      <div class="progress-bar progress-bar-striped progress-bar-animated" id="progressBar" style="width:0%"></div>
     </div>
   </div>
 
@@ -170,7 +171,7 @@
 
             @for(col <- 0 until size) {
 
-              <span class="cell cellRight" id="cellRight-R@row-C@col" data-bs-toggle="tooltip" title="wrong side ;-)">
+              <span class="cell cellRight" id="cellRight-R@row-C@col cellRightTest" data-bs-toggle="tooltip" title="wrong side ;-)">
 
                 <span class="@{"number"}" id="cellRightValue-R@row-C@col">
                 @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}

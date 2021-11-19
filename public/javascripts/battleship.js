@@ -1,4 +1,3 @@
-let cellV00 = document.getElementById("cellValue-R0-C0");
 let cellClassLeft = document.getElementsByClassName("cellLeft");
 let cellClassRight = document.getElementsByClassName("cellRight");
 let cell00C = document.getElementById("cellLeft-R0-C0").firstElementChild;
@@ -7,16 +6,7 @@ let player1ShipCount = playgroundSize;
 let shootPlayer2Count = 0;
 let gameState = "start";
 let player1Ship;
-
-function change(){
-
-    this.firstElementChild.innerHTML = "<img src='http://localhost:9000/assets/images/"+player1Ship+".png' alt='S' class='gameContainer' id=this.value/>";
-    player1ShipCount -= 1;
-    document.getElementById("infoText").innerHTML = "Player 1 - please set "+ player1ShipCount +" ships on your left side!";
-    if(player1ShipCount <= 0){
-        phase2();
-    }
-}
+let progressBarWidth = 0;
 
 function startGame(){
     document.getElementById("gameContainer").style.visibility = "visible";
@@ -43,6 +33,16 @@ function ValidateForm()
     }
 }
 
+function setOwnShips(){
+    this.firstElementChild.innerHTML = "<img src='http://localhost:9000/assets/images/"+player1Ship+".png' alt='S' class='gameContainer' id=this.value/>";
+    player1ShipCount -= 1;
+    document.getElementById("infoText").innerHTML = "Player 1 - please set "+ player1ShipCount +" ships on your left side!";
+
+    if(player1ShipCount <= 0){
+        phase2();
+    }
+}
+
 function setRandomPlayer2Ships(){
     for (let i = 0; i < playgroundSize; i++) {
         let currentCell = "cellRightValue-R"+i+"-C"+Math.floor(Math.random() * 4);
@@ -52,7 +52,9 @@ function setRandomPlayer2Ships(){
 }
 
 function phase2(){
-    alert("You set all your Ships");
+    setTimeout(function(){ alert("You set all your Ships");}, 1000);
+    setRandomPlayer2Ships();
+    //document.getElementById("cellRightTest").setAttribute("title","");
     document.getElementById("infoText").innerHTML = "Player 1 - Now shoot Player2´s ships:\n" +
         "you hit "+ shootPlayer2Count +" already";
     removeLeftCellEvents();
@@ -62,17 +64,19 @@ function phase2(){
         this.style.backgroundColor = "darkred";
     }
     for (let i = 0; i < cellClassRight.length; i++) {
-        cellClassRight[i].addEventListener('click', shoot2, false);
+        cellClassRight[i].addEventListener("click", shoot, false);
     }
 }
 
-function shoot2(){
+function shoot(){
     console.log("test");
     console.log(this.firstElementChild.classList.value);
     if(this.firstElementChild.classList.value === "number shipIsSet"){
 
         this.firstElementChild.innerHTML = "<img src='http://localhost:9000/assets/images/shootShip1.png' alt='S' class='gameContainer' id=this.value/>";
         shootPlayer2Count +=1;
+        progressBarWidth +=25;
+        document.getElementById("progressBar").style.width =  progressBarWidth+"%";
         document.getElementById("infoText").innerHTML = "Player 1 - Now shoot Player2´s ships:\n" +
             "you hit "+ shootPlayer2Count +" already";
     }
@@ -85,36 +89,29 @@ function shoot2(){
     winCheck();
 }
 
-function TEST (){
-    console.log("test");
-    this.firstElementChild.innerHTML = "<img src='http://localhost:9000/assets/images/missAfter.png' alt='S' class='gameContainer' id=this.value/>";
-    document.getElementById("infoText").innerHTML = "TESTZIMTER";
-}
-
 function winCheck(){
     console.log("pg Size:" +playgroundSize);
 
     if(shootPlayer2Count === playgroundSize){
         document.getElementById("infoText").innerHTML = "Player 1 WON!!!!!!!!!!!!"
-        alert("You WON!!!");
+        setTimeout(function(){ alert("You WON!!!");}, 1000);
     }
 }
 
 function addLeftCellEvents(){
     for (let i = 0; i < cellClassLeft.length; i++) {
-        cellClassLeft[i].addEventListener('click', change, false);
+        cellClassLeft[i].addEventListener("click", setOwnShips, false);
     }
 }
 
 function removeLeftCellEvents(){
     for (let i = 0; i < cellClassLeft.length; i++) {
-        cellClassLeft[i].removeEventListener('click', change, false);
+        cellClassLeft[i].removeEventListener("click", setOwnShips, false);
     }
 }
 
 window.onload = function(){
     document.getElementById("gameContainer").style.visibility = "hidden";
     addLeftCellEvents();
-    document.getElementById("startButton").addEventListener('click', startGame, false);
-    setRandomPlayer2Ships();
+    document.getElementById("startButton").addEventListener("click", startGame, false);
 }

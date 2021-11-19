@@ -41,7 +41,7 @@ body {
     height: 100%;
     width: 100%;
     display:flex;
-    font-size:calc(100% + 3.3vw);
+    font-size:calc(100% + 2.7vw);
     font-family: "Verdana",Geneva, sans-serif;
     font-weight: bold;
     color:black;
@@ -134,7 +134,7 @@ body {
     border-style: outset;
     border-width: 0.05em;
     /*background-color: #E0E0FF;*/
-    background-color: Blue;
+    background-color: #1668b5;
     border-color: #f6f6FF;
     width: 1.2em;
     height: 1.2em;
