@@ -35,6 +35,7 @@ function ValidateForm()
 
 function setOwnShips(){
     this.firstElementChild.innerHTML = "<img src='http://localhost:9000/assets/images/"+player1Ship+".png' alt='S' class='gameContainer' id=this.value/>";
+    this.firstElementChild.setAttribute("shoot","shipIsSet")
     player1ShipCount -= 1;
     document.getElementById("infoText").innerHTML = "Player 1 - please set "+ player1ShipCount +" ships on your left side!";
 
@@ -47,7 +48,8 @@ function setRandomPlayer2Ships(){
     for (let i = 0; i < playgroundSize; i++) {
         let currentCell = "cellRightValue-R"+i+"-C"+Math.floor(Math.random() * 4);
         document.getElementById(currentCell).classList.add("shipIsSet");
-        document.getElementById(currentCell).innerHTML="S";
+        //document.getElementById(currentCell).innerHTML="S";
+        document.getElementById(currentCell).innerHTML="<img src='http://localhost:9000/assets/images/pirateShip.png' alt='S' class='gameContainer' id=this.value/>";
     }
 }
 
@@ -74,6 +76,7 @@ function shoot(){
     if(this.firstElementChild.classList.value === "number shipIsSet"){
 
         this.firstElementChild.innerHTML = "<img src='http://localhost:9000/assets/images/shootShip1.png' alt='S' class='gameContainer' id=this.value/>";
+        this.style.borderColor="red"
         shootPlayer2Count +=1;
         progressBarWidth +=25;
         document.getElementById("progressBar").style.width =  progressBarWidth+"%";
@@ -87,7 +90,10 @@ function shoot(){
         setTimeout(function(){ thisCell.firstElementChild.innerHTML = "<img src='http://localhost:9000/assets/images/missAfterAfter.png' alt='S' class='gameContainer' id=this.value/>"}, 3000);
     }
     winCheck();
+    setTimeout(    function(){shootRandomLeftShips()}, 1500);
 }
+
+
 
 function winCheck(){
     console.log("pg Size:" +playgroundSize);
@@ -96,6 +102,30 @@ function winCheck(){
         document.getElementById("infoText").innerHTML = "Player 1 WON!!!!!!!!!!!!"
         setTimeout(function(){ alert("You WON!!!");}, 1000);
     }
+}
+
+function shootRandomLeftShips(){
+    let currentCell = "cellLeftValue-R"+Math.floor(Math.random() * 4)+"-C"+Math.floor(Math.random() * 4);
+    switch(document.getElementById(currentCell).getAttribute("shoot")) {
+        case "shipIsSet":
+            document.getElementById(currentCell).setAttribute("shoot","hit")
+            document.getElementById(currentCell).innerHTML = "<img src='http://localhost:9000/assets/images/"+player1Ship+"Hit.png' alt='S' class='gameContainer' id=this.value/>";
+            document.getElementById(currentCell).parentElement.style.borderColor="red"
+            break;
+        case "hit":
+            shootRandomLeftShips()
+            break;
+        case "miss":
+            shootRandomLeftShips()
+            break;
+        case "":
+            document.getElementById(currentCell).setAttribute("shoot","miss");
+            document.getElementById(currentCell).innerHTML = "<img src='http://localhost:9000/assets/images/miss2.png' alt='S' class='gameContainer' id=this.value/>";
+            setTimeout(function(){ document.getElementById(currentCell).innerHTML = "<img src='http://localhost:9000/assets/images/missAfter.png' alt='S' class='gameContainer' id=this.value/>"}, 1500);
+            setTimeout(function(){ document.getElementById(currentCell).innerHTML = "<img src='http://localhost:9000/assets/images/missAfterAfter.png' alt='S' class='gameContainer' id=this.value/>"}, 3000);
+            break;
+        default:
+            }
 }
 
 function addLeftCellEvents(){

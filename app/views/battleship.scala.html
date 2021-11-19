@@ -136,7 +136,7 @@
             @for(col <- 0 until size) {
               <!--a href="/battleship/set/@{("A"(0) + row).toChar.toString}/@{col+1}"-->
                 <span class="cell cellLeft" id="cellLeft-R@row-C@col">
-                  <span class="@{"number"}" id="cellLeftValue-R@row-C@col">
+                  <span class="@{"number"}" id="cellLeftValue-R@row-C@col" shoot="">
                   @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}
                   </span>
                 </span>
