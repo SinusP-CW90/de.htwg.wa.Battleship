@@ -3,7 +3,7 @@
 @size= @{ controller.battlefieldSize }
 
 @main("Welcome to Battelship") {
-
+  <!--Navbar-->
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
     <div class="container">
       <img src=@routes.Assets.versioned("/images/battleshipTitle2.png") alt="B" width="120" height="40">
@@ -72,15 +72,9 @@
       </div>
     </div>
   </nav>
-  <!-- End Navbar-->
+  <!--End Navbar-->
 
-    <!-- Game -->
-  <div class="container ">
-    <div class="col-5"></div>
-
-    <div class="col"></div>
-  </div>
-
+    <!-- Game header -->
   <div class="container text-center">
     <div class="row">
       <div class="col"></div>
@@ -88,21 +82,34 @@
       <div class="card col-6 bg-dark bg-gradient text-white" style="width:60%">
         <img class="card-img-top battleshipTitle" src=@routes.Assets.versioned("images/battleship.jpg") alt="" id="testPic">
         <div class="card-body">
-          <h1 class="card-title" >Welcomme to Battleship</h1>
+          <h1 class="card-title" id="infoText">Welcomme to Battleship</h1>
           <h4 class="card-title"><a class="btn btn-primary" id="startButton">START the Game</a></h4>
-          <p class="card-text" id="infoText"></p>
-          <br>
-          <div class="col-md-auto alert alert-primary" role="alert">
-            Current Player: @controller.currentGameState
+          <p class="card-text text-danger"></p>
+
+          <div class="bd-example">
+            <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
+              <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" value="whiteShip">
+              <label class="btn btn-outline-danger" for="vbtn-radio1">white Ships</label>
+              <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off" value="shipRed" checked>
+              <label class="btn btn-outline-danger" for="vbtn-radio2">red Ships</label>
+              <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off" value="pirateShip">
+              <label class="btn btn-outline-danger" for="vbtn-radio3">pirate Ships</label>
+            </div>
           </div>
+
+
+          <br>
+          <!--div class="col-md-auto alert alert-primary" role="alert">
+            Current Player: @controller.currentGameState
+          </div-->
 
         </div>
       </div>
-
       <div class="col"></div>
     </div>
   </div>
 
+    <!-- Game -->
   <div class="gameContainer" id="gameContainer">
     <span class="game">
 
@@ -127,8 +134,8 @@
 
             @for(col <- 0 until size) {
               <!--a href="/battleship/set/@{("A"(0) + row).toChar.toString}/@{col+1}"-->
-                <span class="cell cellLeft" id="cell-R@row-C@col">
-                  <span class="@{"number"}" id="cellValue-R@row-C@col">
+                <span class="cell cellLeft" id="cellLeft-R@row-C@col">
+                  <span class="@{"number"}" id="cellLeftValue-R@row-C@col">
                   @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}
                   </span>
                 </span>
@@ -163,9 +170,9 @@
 
             @for(col <- 0 until size) {
 
-              <span class="cell cellRight" data-bs-toggle="tooltip" title="wrong side ;-)">
+              <span class="cell cellRight" id="cellRight-R@row-C@col" data-bs-toggle="tooltip" title="wrong side ;-)">
 
-                <span class="@{"number"}">
+                <span class="@{"number"}" id="cellRightValue-R@row-C@col">
                 @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}
                 </span>
 

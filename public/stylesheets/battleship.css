@@ -41,7 +41,7 @@ body {
     height: 100%;
     width: 100%;
     display:flex;
-    font-size:calc(100% + 2.2vw);
+    font-size:calc(100% + 3.3vw);
     font-family: "Verdana",Geneva, sans-serif;
     font-weight: bold;
     color:black;
@@ -140,6 +140,14 @@ body {
     height: 1.2em;
     margin:0.1em;
     text-align: center;
+}
+
+.cellLeftTurn:hover {
+    background-color: darkred;
+}
+
+.cellRightTurn:hover {
+    background-color: darkgreen;
 }
 
 .cellLeft:hover {
