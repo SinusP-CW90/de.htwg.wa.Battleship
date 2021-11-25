@@ -8,11 +8,13 @@ let gameState = "start";
 let player1Ship;
 let progressBarWidth = 0;
 
+
 function startGame(){
-    document.getElementById("gameContainer").style.visibility = "visible";
-    document.getElementById("startButton").style.display = "none";
-    document.getElementById("infoText").classList.add("text-danger");
-    document.getElementById("infoText").innerHTML="Player 1 - please set "+ player1ShipCount +" ships on your left side!";
+    $("#gameContainer").style.visibility = "visible";
+
+    $("#startButton").style.display = "none";
+    $("#infoText").classList.add("text-danger");
+    $("#infoText").innerHTML="Player 1 - please set "+ player1ShipCount +" ships on your left side!";
     ValidateForm();
 }
 
@@ -37,7 +39,7 @@ function setOwnShips(){
     this.firstElementChild.innerHTML = "<img src='http://localhost:9000/assets/images/"+player1Ship+".png' alt='S' class='gameContainer' id=this.value/>";
     this.firstElementChild.setAttribute("shoot","shipIsSet")
     player1ShipCount -= 1;
-    document.getElementById("infoText").innerHTML = "Player 1 - please set "+ player1ShipCount +" ships on your left side!";
+    $("#infoText").innerHTML = "Player 1 - please set "+ player1ShipCount +" ships on your left side!";
 
     if(player1ShipCount <= 0){
         phase2();
@@ -57,11 +59,11 @@ function phase2(){
     setTimeout(function(){ alert("You set all your Ships");}, 1000);
     setRandomPlayer2Ships();
     //document.getElementById("cellRightTest").setAttribute("title","");
-    document.getElementById("infoText").innerHTML = "Player 1 - Now shoot Player2´s ships:\n" +
+    $("#infoText").innerHTML = "Player 1 - Now shoot Player2´s ships:\n" +
         "you hit "+ shootPlayer2Count +" already";
     removeLeftCellEvents();
     //TODO change bg by player switch
-    document.getElementsByClassName("cellLeft").onmouseover = function()
+    $(".cellLeft").onmouseover = function()
     {
         this.style.backgroundColor = "darkred";
     }
@@ -139,9 +141,79 @@ function removeLeftCellEvents(){
         cellClassLeft[i].removeEventListener("click", setOwnShips, false);
     }
 }
+//------------------------ new
+/*
+let size = 4
 
-window.onload = function(){
+function row(scalar) {
+    return (Math.floor((scalar % size) /blocksize)) + (blocksize * Math.floor((scalar /(size*blocksize))));
+}
+
+function col(scalar) {
+    return (scalar %blocksize) + (blocksize *Math.floor((scalar/size))) - (size*Math.floor((scalar/(size*blocksize))));
+}
+
+function cell(houseIndex, cellIndex) {
+    return row(toScalar(houseIndex,cellIndex)),col(toScalar(houseIndex,cellIndex))
+}
+
+class Grid {
+    constructor(size){
+        this.size = size;
+        this.cellvalue = [];
+    }
+
+    fill(json) {
+        for (let i=0; i <this.size*this.size;i++) {
+            this.cellvalue[i]=(json[row(i),col(i)].cell.value);
+        }
+    }
+}
+
+let grid = new Grid(9)
+
+function updateGrid(grid) {
+    for (let scalar=0; scalar <grid.size*grid.size;scalar++) {
+        if (grid.cellvalue[scalar] != 0) {
+            $("#scalar"+scalar).html(grid.cellvalue[scalar]);
+        }
+    }
+}
+
+function setCell(scalar, value) {
+    console.log("Setting cell " + scalar + " to " + value);
+    grid.cellvalue[scalar] = value;
+    $("#scalar"+scalar).html(" "+grid.cellvalue[scalar]);
+    setCellOnServer(row(scalar), col(scalar), value)
+    $("#scalar"+scalar).off("click");
+}
+*/
+
+function setCellOnServer(row, col, value) {
+    $.get("/set/"+row+"/"+col+"/"+value, function(data) {
+        console.log("Set cell on Server");
+    });
+}
+
+function loadJson() {
+    $.ajax({
+        method: "GET",
+        url: "battleship/json",
+        dataType: "json",
+
+        success: function (result) {
+            grid = new Grid(result.grid.size);
+            grid.fill(result.grid.cells);
+            updateGrid(grid);
+            registerClickListener();
+        }
+    });
+}
+
+$( document ).ready(function() {
+    console.log( "Document is ready, filling grid" );
+    loadJson();
     document.getElementById("gameContainer").style.visibility = "hidden";
     addLeftCellEvents();
     document.getElementById("startButton").addEventListener("click", startGame, false);
-}
+});
