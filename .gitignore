@@ -6,6 +6,6 @@ target
 /.classpath
 /.project
 /.settings
-/.null
-/.public/icons
+/null
+/public/icons
 /RUNNING_PID
