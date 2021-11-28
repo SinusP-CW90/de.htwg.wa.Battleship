@@ -10,11 +10,16 @@ let progressBarWidth = 0;
 
 
 function startGame(){
-    $("#gameContainer").style.visibility = "visible";
+    //$("#gameContainer").style.visibility = "visible";
+    $("#gameContainer").show()
 
-    $("#startButton").style.display = "none";
-    $("#infoText").classList.add("text-danger");
-    $("#infoText").innerHTML="Player 1 - please set "+ player1ShipCount +" ships on your left side!";
+    //$("#startButton").style.display = "none";
+    $("#startButton").hide();
+    $("#shipChoose").hide();
+    //$("#infoText").classList.add("text-danger");
+    $("#infoText").addClass("intro");
+    $("#infoText").html("<b>Player 1 - please set "+ player1ShipCount +" ships on your left side!</b>");
+    //$("#infoText").innerHTML="Player 1 - please set "+ player1ShipCount +" ships on your left side!";
     ValidateForm();
 }
 
@@ -157,29 +162,6 @@ function cell(houseIndex, cellIndex) {
     return row(toScalar(houseIndex,cellIndex)),col(toScalar(houseIndex,cellIndex))
 }
 
-class Grid {
-    constructor(size){
-        this.size = size;
-        this.cellvalue = [];
-    }
-
-    fill(json) {
-        for (let i=0; i <this.size*this.size;i++) {
-            this.cellvalue[i]=(json[row(i),col(i)].cell.value);
-        }
-    }
-}
-
-let grid = new Grid(9)
-
-function updateGrid(grid) {
-    for (let scalar=0; scalar <grid.size*grid.size;scalar++) {
-        if (grid.cellvalue[scalar] != 0) {
-            $("#scalar"+scalar).html(grid.cellvalue[scalar]);
-        }
-    }
-}
-
 function setCell(scalar, value) {
     console.log("Setting cell " + scalar + " to " + value);
     grid.cellvalue[scalar] = value;
@@ -188,6 +170,42 @@ function setCell(scalar, value) {
     $("#scalar"+scalar).off("click");
 }
 */
+
+class Grid {
+    constructor(size){
+        this.size = playgroundSize;
+        this.cellvalue = [];
+    }
+
+    fill(json) {
+        for (let scalar=0; scalar <this.size*this.size;scalar++) {
+            this.cellvalue[scalar]=(json[toScalar(row(scalar),col(scalar))].cell.value);
+        }
+    }
+}
+
+let grid = new Grid(9)
+
+/*
+function updateGrid(grid) {
+    for (let col=0; col <grid.size*grid.size;col++) {
+        if (grid.cellvalue[i] != 0) {
+            $("#scalar"+scalar).html(grid.cellvalue[scalar]);
+        }
+    }
+}*/
+
+function updateGrid(grid) {
+    for (let row=0; row <playgroundSize;row++) {
+        for (let col=0; col <playgroundSize;col++) {
+            if (grid.cellvalue[i] != 0) {
+                $("cellRightValue-R"+row+"-C"+col).html((json[row(i),col(i)].cell.value));
+            }
+        }
+    }
+}
+
+//cellRightValue-R@row-C
 
 function setCellOnServer(row, col, value) {
     $.get("/set/"+row+"/"+col+"/"+value, function(data) {
@@ -202,18 +220,21 @@ function loadJson() {
         dataType: "json",
 
         success: function (result) {
-            grid = new Grid(result.grid.size);
-            grid.fill(result.grid.cells);
-            updateGrid(grid);
-            registerClickListener();
+            grid = new Grid(result.battlefield.leftSide.grid.size);
+            alert("result:: " +result.battlefield.leftSide.grid.size
+            +"\ncells:: --> " + (result.battlefield.leftSide.grid.cells[0].cell.value))
+            //grid.fill(result.grid.cells);
+            //updateGrid(grid);
+            //registerClickListener();
         }
     });
 }
-
-$( document ).ready(function() {
+//window.onload = function(){
+$(document).ready(function(){
     console.log( "Document is ready, filling grid" );
     loadJson();
-    document.getElementById("gameContainer").style.visibility = "hidden";
+    //document.getElementById("gameContainer").style.visibility = "hidden";
+    $(gameContainer).hide();
     addLeftCellEvents();
     document.getElementById("startButton").addEventListener("click", startGame, false);
 });

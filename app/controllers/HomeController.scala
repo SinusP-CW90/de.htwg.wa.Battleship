@@ -1,7 +1,6 @@
 package controllers
 
 import javax.inject._
-import play.api._
 import play.api.mvc._
 
 import de.htwg.se.battleship.Battleship
@@ -78,5 +77,12 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     gameController.set(row,col)
     Ok(views.html.battleship(gameController))
   }
+
+
+  def battlefieldSidesToJson: Action[AnyContent] = Action {
+    Ok(gameController.battlefieldSidesToJson)
+  }
+
+
 
 }
