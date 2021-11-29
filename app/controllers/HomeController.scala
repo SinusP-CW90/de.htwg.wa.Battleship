@@ -2,16 +2,24 @@ package controllers
 
 import javax.inject._
 import play.api.mvc._
-
 import de.htwg.se.battleship.Battleship
-import de.htwg.se.battleship.controller.controllerComponent.ControllerInterface
+import de.htwg.se.battleship.controller.controllerComponent.controllerBaseImpl.CellChanged
+import de.htwg.se.battleship.controller.controllerComponent.{BattlefieldSizeChanged, ControllerInterface}
+//import de.htwg.se.battleship.controller.controllerComponent.{CellChanged, GameStatus, BattleshipSizeChanged}
+import play.api.libs.streams.ActorFlow
+import akka.actor.ActorSystem
+import akka.stream.Materializer
+import akka.actor._
+
+import scala.swing.Reactor
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
  * application's home page.
  */
 @Singleton
-class HomeController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
+class HomeController @Inject()(cc: ControllerComponents) (implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc) {
+//class HomeController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
   val gameController: ControllerInterface = Battleship.controller
   def battleshipAsText: String =  "Batlleship Game (console output)" + gameController.playgroundToString
   def message =  "Batlleship Game (console output)" + gameController.playgroundToString
@@ -86,6 +94,39 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
 
   def battlefieldSidesToJson: Action[AnyContent] = Action {
     Ok(gameController.battlefieldSidesToJson)
+  }
+//new Sockets
+def socket = WebSocket.accept[String, String] { request =>
+  ActorFlow.actorRef { out =>
+    println("Connect received")
+    BattleshipWebSocketActorFactory.create(out)
+  }
+}
+
+  object BattleshipWebSocketActorFactory {
+    def create(out: ActorRef) = {
+      Props(new BattleshipWebSocketActor(out))
+    }
+  }
+
+  class BattleshipWebSocketActor(out: ActorRef) extends Actor with Reactor{
+    listenTo(gameController)
+
+    def receive = {
+      case msg: String =>
+        out ! (gameController.battlefieldSidesToJson.toString)
+        println("Sent Json to Client"+ msg)
+    }
+
+    reactions += {
+      case event: BattlefieldSizeChanged => sendJsonToClient
+      case event: CellChanged     => sendJsonToClient
+    }
+
+    def sendJsonToClient = {
+      println("Received event from Controller")
+      out ! (gameController.battlefieldSidesToJson.toString)
+    }
   }
 
 
