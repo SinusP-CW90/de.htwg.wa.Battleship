@@ -16,6 +16,7 @@ GET     /battleship/load                        controllers.HomeController.load
 GET     /battleship/undo                        controllers.HomeController.undo
 GET     /battleship/redo                        controllers.HomeController.redo
 GET     /battleship/set/:row/:col               controllers.HomeController.set(row:String,col:String)
+GET     /battleship/setL/:row/:col/:value        controllers.HomeController.setL(row:Int,col:Int,value:Int)
 
 GET     /battleship/json                       controllers.HomeController.battlefieldSidesToJson
 

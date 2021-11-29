@@ -1,51 +1,40 @@
-let cellClassLeft = document.getElementsByClassName("cellLeft");
-let cellClassRight = document.getElementsByClassName("cellRight");
-let cell00C = document.getElementById("cellLeft-R0-C0").firstElementChild;
-let playgroundSize = 4;
+var playgroundSize =4;
 let player1ShipCount = playgroundSize;
 let shootPlayer2Count = 0;
-let gameState = "start";
-let player1Ship;
+let player1Ship ="shipRed";
 let progressBarWidth = 0;
 
-
 function startGame(){
-    //$("#gameContainer").style.visibility = "visible";
     $("#gameContainer").show()
-
-    //$("#startButton").style.display = "none";
     $("#startButton").hide();
     $("#shipChoose").hide();
-    //$("#infoText").classList.add("text-danger");
     $("#infoText").addClass("intro");
     $("#infoText").html("<b>Player 1 - please set "+ player1ShipCount +" ships on your left side!</b>");
-    //$("#infoText").innerHTML="Player 1 - please set "+ player1ShipCount +" ships on your left side!";
     ValidateForm();
 }
 
-function ValidateForm()
-{
+function ValidateForm() {
     let radioButtons = document.getElementsByName("vbtn-radio");
     for(let i = 0; i < radioButtons.length; i++)
     {
         if(radioButtons[i].checked == true)
         {
             player1Ship = radioButtons[i].value;
-            if(confirm("You have selected " + radioButtons[i].value + " as your favorite ship. Is that correct?"))
-
-                return true;
-            else
-                return false;
+            console.log("You have selected " + radioButtons[i].value + " as your favorite ship.")
         }
     }
 }
 
 function setOwnShips(){
+    setCell("l", this.firstElementChild.getAttribute("cellValueIndex"),1)
+    //this.firstElementChild.getAttribute("cellValueIndex")
+    //console.log("TESTid: " +$(this).attr("cellValueIndex"));
+    //$(this).children().first().html =("<img src='http://localhost:9000/assets/images/"+player1Ship+".png' alt='S' class='gameContainer' id=this.value/>");
     this.firstElementChild.innerHTML = "<img src='http://localhost:9000/assets/images/"+player1Ship+".png' alt='S' class='gameContainer' id=this.value/>";
     this.firstElementChild.setAttribute("shoot","shipIsSet")
     player1ShipCount -= 1;
-    $("#infoText").innerHTML = "Player 1 - please set "+ player1ShipCount +" ships on your left side!";
-
+    $("#infoText").html("Player 1 - please set "+ player1ShipCount +" ships on your left side!")
+    //loadJson();
     if(player1ShipCount <= 0){
         phase2();
     }
@@ -53,10 +42,9 @@ function setOwnShips(){
 
 function setRandomPlayer2Ships(){
     for (let i = 0; i < playgroundSize; i++) {
-        let currentCell = "cellRightValue-R"+i+"-C"+Math.floor(Math.random() * 4);
-        document.getElementById(currentCell).classList.add("shipIsSet");
-        //document.getElementById(currentCell).innerHTML="S";
-        document.getElementById(currentCell).innerHTML="<img src='http://localhost:9000/assets/images/pirateShip.png' alt='S' class='gameContainer' id=this.value/>";
+        let currentCell = "#cellRightValue-R"+i+"-C"+Math.floor(Math.random() * 4);
+        $(currentCell).addClass("shipIsSet");
+        $(currentCell).html("<img src='http://localhost:9000/assets/images/pirateShip.png' alt='S' class='gameContainer' id=this.value/>");
     }
 }
 
@@ -64,22 +52,21 @@ function phase2(){
     setTimeout(function(){ alert("You set all your Ships");}, 1000);
     setRandomPlayer2Ships();
     //document.getElementById("cellRightTest").setAttribute("title","");
-    $("#infoText").innerHTML = "Player 1 - Now shoot Player2´s ships:\n" +
-        "you hit "+ shootPlayer2Count +" already";
+    $("#infoText").html = ("Player 1 - Now shoot Player2´s ships:\n you hit "+ shootPlayer2Count +" already");
     removeLeftCellEvents();
     //TODO change bg by player switch
     $(".cellLeft").onmouseover = function()
     {
         this.style.backgroundColor = "darkred";
     }
-    for (let i = 0; i < cellClassRight.length; i++) {
-        cellClassRight[i].addEventListener("click", shoot, false);
+    for (let i = 0; i < $(".cellRight").length; i++) {
+        $(".cellRight")[i].addEventListener("click", shoot, false);
     }
 }
 
 function shoot(){
-    console.log("test");
-    console.log(this.firstElementChild.classList.value);
+    //console.log("test");
+    console.log("in shoot) this.firstChild is: "+this.firstElementChild.classList.value);
     if(this.firstElementChild.classList.value === "number shipIsSet"){
 
         this.firstElementChild.innerHTML = "<img src='http://localhost:9000/assets/images/shootShip1.png' alt='S' class='gameContainer' id=this.value/>";
@@ -93,6 +80,7 @@ function shoot(){
     else{
         this.firstElementChild.innerHTML = "<img src='http://localhost:9000/assets/images/miss2.png' alt='S' class='gameContainer' id=this.value/>";
         let thisCell = this;
+        //$("#div3").fadeIn(3000);
         setTimeout(function(){ thisCell.firstElementChild.innerHTML = "<img src='http://localhost:9000/assets/images/missAfter.png' alt='S' class='gameContainer' id=this.value/>"}, 1500);
         setTimeout(function(){ thisCell.firstElementChild.innerHTML = "<img src='http://localhost:9000/assets/images/missAfterAfter.png' alt='S' class='gameContainer' id=this.value/>"}, 3000);
     }
@@ -103,7 +91,7 @@ function shoot(){
 
 
 function winCheck(){
-    console.log("pg Size:" +playgroundSize);
+    //console.log("winCheck) pg Size:" +playgroundSize);
 
     if(shootPlayer2Count === playgroundSize){
         document.getElementById("infoText").innerHTML = "Player 1 WON!!!!!!!!!!!!"
@@ -126,90 +114,138 @@ function shootRandomLeftShips(){
             shootRandomLeftShips()
             break;
         case "":
+            //let currentCellJQ = "#"+currentCell;
+            $("#"+currentCell).parent().css('border-color', 'darkblue');
             document.getElementById(currentCell).setAttribute("shoot","miss");
             document.getElementById(currentCell).innerHTML = "<img src='http://localhost:9000/assets/images/miss2.png' alt='S' class='gameContainer' id=this.value/>";
             setTimeout(function(){ document.getElementById(currentCell).innerHTML = "<img src='http://localhost:9000/assets/images/missAfter.png' alt='S' class='gameContainer' id=this.value/>"}, 1500);
             setTimeout(function(){ document.getElementById(currentCell).innerHTML = "<img src='http://localhost:9000/assets/images/missAfterAfter.png' alt='S' class='gameContainer' id=this.value/>"}, 3000);
             break;
         default:
-            }
+    }
 }
 
+/* //JQ try
+function shootRandomLeftShips(){
+    let currentCell = "#cellLeftValue-R"+Math.floor(Math.random() * 4)+"-C"+Math.floor(Math.random() * 4);
+    console.log("shoot: " + currentCell);
+    switch($(currentCell).attr("shoot")) {
+        case "shipIsSet":
+            $(currentCell).attr("shoot","hit")
+            //let urlStr = "<img src='http://localhost:9000/assets/images/"+player1Ship+"Hit.png' alt='S' className='gameContainer' id=this.value/>";
+            $(currentCell).html("<img src='http://localhost:9000/assets/images/"+player1Ship+"Hit.png' alt='S' className='gameContainer' id=this.value/>");
+
+            //$(currentCell).html = (urlStr);
+            $(currentCell).parent().css('border-color', 'red');
+            break;
+        case "hit":
+            shootRandomLeftShips()
+            break;
+        case "miss":
+            $(currentCell).parent().css('border-color', 'black');
+            shootRandomLeftShips()
+            break;
+        case "":
+            $(currentCell).attr("shoot","miss");
+            $(currentCell).html = ("<img src='http://localhost:9000/assets/images/miss2.png' alt='S' class='gameContainer' id=this.value/>");
+            //setTimeout(function(){ $(currentCell).html = ("<img src='http://localhost:9000/assets/images/missAfter.png' alt='S' class='gameContainer' id=this.value/>")}, 1500);
+            //setTimeout(function(){ $(currentCell).html = ("<img src='http://localhost:9000/assets/images/missAfterAfter.png' alt='S' class='gameContainer' id=this.value/>")}, 3000);
+            break;
+        default:
+            }
+}*/
+
 function addLeftCellEvents(){
-    for (let i = 0; i < cellClassLeft.length; i++) {
-        cellClassLeft[i].addEventListener("click", setOwnShips, false);
+    for (let i = 0; i < $(".cellLeft").length; i++) {
+        $(".cellLeft")[i].addEventListener("click", setOwnShips, false);
     }
 }
 
 function removeLeftCellEvents(){
-    for (let i = 0; i < cellClassLeft.length; i++) {
-        cellClassLeft[i].removeEventListener("click", setOwnShips, false);
+    for (let i = 0; i < $(".cellLeft").length; i++) {
+        $(".cellLeft")[i].removeEventListener("click", setOwnShips, false);
     }
 }
 //------------------------ new
-/*
-let size = 4
 
-function row(scalar) {
-    return (Math.floor((scalar % size) /blocksize)) + (blocksize * Math.floor((scalar /(size*blocksize))));
+function indexTorRow(index) {
+    return (Math.floor(index / playgroundSize));
 }
 
-function col(scalar) {
-    return (scalar %blocksize) + (blocksize *Math.floor((scalar/size))) - (size*Math.floor((scalar/(size*blocksize))));
+function indexToCol(index) {
+   return (Math.floor(index % playgroundSize));
 }
 
-function cell(houseIndex, cellIndex) {
-    return row(toScalar(houseIndex,cellIndex)),col(toScalar(houseIndex,cellIndex))
+function cellToIndex(row,col){
+    return (Math.floor(row*playgroundSize+col));
 }
 
-function setCell(scalar, value) {
-    console.log("Setting cell " + scalar + " to " + value);
-    grid.cellvalue[scalar] = value;
-    $("#scalar"+scalar).html(" "+grid.cellvalue[scalar]);
-    setCellOnServer(row(scalar), col(scalar), value)
-    $("#scalar"+scalar).off("click");
+function setCell(side, index, value) {
+    let sideString;
+    if(side === "l"){
+        sideString="#cellLeftValue-R";
+        battlefieldSide= battlefieldLeft;
+    }
+    if(side === "r"){
+        sideString="#cellRightValue-R";
+        battlefieldSide= battlefieldRight;
+    }
+    console.log("Set "+side +" json-cell " + index + " to " + value);
+    battlefieldSide.cellvalue[index] = value;
+    $(sideString+indexTorRow(index)+"-C"+indexToCol(index)).html(" "+battlefieldSide.cellvalue[index]);
+    setCellOnServer(side, indexTorRow(index), indexToCol(index), value)
+    $(sideString+indexTorRow(index)+"-C"+indexToCol(index)).off("click");
 }
-*/
 
-class Grid {
-    constructor(size){
+class Battlefield {
+    constructor(side, playgroundSize){
+        this.side = side;
         this.size = playgroundSize;
         this.cellvalue = [];
     }
 
     fill(json) {
-        for (let scalar=0; scalar <this.size*this.size;scalar++) {
-            this.cellvalue[scalar]=(json[toScalar(row(scalar),col(scalar))].cell.value);
+        for (let i=0; i < this.size*this.size;i++) {
+            console.log(json[i].cell.value)
+            this.cellvalue[i]=(json[i].cell.value);
         }
     }
 }
 
-let grid = new Grid(9)
+let battlefieldLeft = new Battlefield("l", playgroundSize)
+let battlefieldRight = new Battlefield("r", playgroundSize)
 
-/*
-function updateGrid(grid) {
-    for (let col=0; col <grid.size*grid.size;col++) {
-        if (grid.cellvalue[i] != 0) {
-            $("#scalar"+scalar).html(grid.cellvalue[scalar]);
-        }
-    }
-}*/
-
-function updateGrid(grid) {
-    for (let row=0; row <playgroundSize;row++) {
+function updateBattlefield(side, battlefield) {
+    for (let row=0; row < playgroundSize; row++) {
         for (let col=0; col <playgroundSize;col++) {
-            if (grid.cellvalue[i] != 0) {
-                $("cellRightValue-R"+row+"-C"+col).html((json[row(i),col(i)].cell.value));
+            if (battlefield.cellvalue[cellToIndex(row, col)] != 0) {
+                console.log("side: "+side+" - row: " +row +" | col :"+col +" has the value: "+battlefield.cellvalue[cellToIndex(row, col)]);
+                if(side === "l"){
+                    //+battlefield.cellvalue[cellToIndex(row, col)])+">"
+                    if (battlefield.cellvalue[cellToIndex(row, col)] === 1) {
+                        console.log("<img src='http://localhost:9000/assets/images/"+player1Ship+".png' alt='S' class='gameContainer' id=this.value")
+                        $("#cellLeftValue-R"+row+"-C"+col).html("S");
+                        //$("#cellLeftValue-R"+row+"-C"+col).html("<img src='http://localhost:9000/assets/images/"+player1Ship+".png' alt='S' class='gameContainer' id=this.value");
+                        //this.firstElementChild.innerHTML = "<img src='http://localhost:9000/assets/images/"+player1Ship+".png' alt='S' class='gameContainer' id=this.value/>";
+                        $("#cellLeftValue-R"+row+"-C"+col).attr("shoot","shipIsSet")
+                    }
+                }
+                if(side === "r"){
+                    $("#cellRightValue-R"+row+"-C"+col).html(battlefield.cellvalue[cellToIndex(row, col)]);
+                    if (battlefield.cellvalue[cellToIndex(row, col)] === 1) {
+
+                    }
+                }
             }
         }
     }
 }
 
-//cellRightValue-R@row-C
-
-function setCellOnServer(row, col, value) {
-    $.get("/set/"+row+"/"+col+"/"+value, function(data) {
-        console.log("Set cell on Server");
+function setCellOnServer(side, row, col, value) {
+    //TODO implemnet side
+    //$.get("/set/"+side+"/"+row+"/"+col+"/"+value, function(data) {
+    $.get("battleship/setL/"+row+"/"+col+"/"+value, function(data) {
+        console.log("Set cell on side: "+side+" - row: " +row +" | col :"+col +" on Server");
     });
 }
 
@@ -220,21 +256,38 @@ function loadJson() {
         dataType: "json",
 
         success: function (result) {
-            grid = new Grid(result.battlefield.leftSide.grid.size);
-            alert("result:: " +result.battlefield.leftSide.grid.size
-            +"\ncells:: --> " + (result.battlefield.leftSide.grid.cells[0].cell.value))
-            //grid.fill(result.grid.cells);
-            //updateGrid(grid);
+            console.log("right: "+result.battlefield.rightSide.cells[0].cell.value);
+            console.log("json - success")
+            console.log("playgroundSize: "+result.battlefield.leftSide.size);
+            playgroundSize = result.battlefield.leftSide.size;
+            player1ShipCount = result.battlefield.leftSide.size;
+
+            battlefieldLeft = new Battlefield("l",result.battlefield.leftSide.size);
+            battlefieldRight = new Battlefield("r", result.battlefield.rightSide.size);
+            //console.log("result:: " +result.battlefield.leftSide.size \n cells:: --> " + (result.battlefield.leftSide.cells[0].cell.value))
+            battlefieldLeft.fill(result.battlefield.leftSide.cells);
+            battlefieldRight.fill(result.battlefield.rightSide.cells);
+            updateBattlefield("l", battlefieldLeft);
+            updateBattlefield("r", battlefieldRight);
             //registerClickListener();
+
+            addLeftCellEvents();
+            document.getElementById("startButton").addEventListener("click", startGame, false);
+
         }
     });
 }
-//window.onload = function(){
 $(document).ready(function(){
-    console.log( "Document is ready, filling grid" );
+    console.log( "Document is ready, filling battlefield" );
     loadJson();
-    //document.getElementById("gameContainer").style.visibility = "hidden";
-    $(gameContainer).hide();
-    addLeftCellEvents();
-    document.getElementById("startButton").addEventListener("click", startGame, false);
+    $(gameContainer).hide()
+
+
+/*
+    for (let i = 0; i < playgroundSize*playgroundSize; i++){
+        console.log("index "+i + "\n row: "+ indexTorRow(i)+"\n col: "+ indexToCol(i)+"\n");
+        console.log("cell : "+ cellToIndex(indexTorRow(i),indexToCol(i)));
+    }
+*/
+
 });

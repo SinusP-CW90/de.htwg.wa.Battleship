@@ -78,6 +78,11 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     Ok(views.html.battleship(gameController))
   }
 
+  def setL(row:Int, col:Int, value:Int): Action[AnyContent] = Action {
+    gameController.setL(row,col,value)
+    Ok(views.html.battleship(gameController))
+  }
+
 
   def battlefieldSidesToJson: Action[AnyContent] = Action {
     Ok(gameController.battlefieldSidesToJson)

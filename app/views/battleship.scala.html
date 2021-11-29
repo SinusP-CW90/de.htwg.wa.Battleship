@@ -135,14 +135,12 @@
 
             @for(col <- 0 until size) {
               <!--a href="/battleship/set/@{("A"(0) + row).toChar.toString}/@{col+1}"-->
-                <span class="cell cellLeft" id="cellLeft-R@row-C@col">
-                  <span class="@{"number"}" id="cellLeftValue-R@row-C@col" shoot="">
+                <span class="cell cellLeft" id="cellLeft-R@row-C@col" cellIndex=@(row*size+col)>
+                  <span class="@{"number"}" id="cellLeftValue-R@row-C@col"  shoot="" cellValueIndex=@(row*size+col)>
                   @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}
                   </span>
                 </span>
               <!--/a-->
-
-
             }
           </div>
         }
@@ -171,9 +169,9 @@
 
             @for(col <- 0 until size) {
 
-              <span class="cell cellRight" id="cellRight-R@row-C@col cellRightTest" data-bs-toggle="tooltip" title="wrong side ;-)">
+              <span class="cell cellRight" id="cellRight-R@row-C@col cellRightTest" data-bs-toggle="tooltip" title="wrong side ;-)" cellIndex=@(row*size+col)>
 
-                <span class="@{"number"}" id="cellRightValue-R@row-C@col">
+                <span class="@{"number"}" id="cellRightValue-R@row-C@col" cellValueIndex=@(row*size+col)>
                 @{if(controller.cell(row, col).isSet) {controller.cell(row,col).toString.take(1)} else "_"}
                 </span>
 
