@@ -95,10 +95,10 @@ class HomeController @Inject()(cc: ControllerComponents) (implicit system: Actor
   def battlefieldSidesToJson: Action[AnyContent] = Action {
     Ok(gameController.battlefieldSidesToJson)
   }
-//new Sockets
+//new WebSocket
 def socket = WebSocket.accept[String, String] { request =>
   ActorFlow.actorRef { out =>
-    println("Connect received")
+    println("Socket connect received")
     BattleshipWebSocketActorFactory.create(out)
   }
 }
@@ -128,6 +128,18 @@ def socket = WebSocket.accept[String, String] { request =>
       out ! (gameController.battlefieldSidesToJson.toString)
     }
   }
+
+  //SSE
+  /*
+  def stream = Action { implicit req =>
+    Ok.feed(out &> EventSource()).as("text/event-stream")
+  }
+
+  def stream: Action[AnyContent] = Action {
+    Ok(gameController.battlefieldSidesToJson)
+  }
+
+   */
 
 
 
