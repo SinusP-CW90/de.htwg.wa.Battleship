@@ -11,26 +11,32 @@
     <head>
         @* Here's where we render the page title `String`. *@
         <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/battleship.css")">
-            <!-- Bootstrap CSS -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/bootstrap.css")" >
 
+        @* favicon *@
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
 
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        @* CSS *@
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/battleship.css")">
+        @* Bootstrap CSS *@
+        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/bootstrap.css")" >
+
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
     </head>
     <body>
         @* And here's where we render the `Html` object containing
         * the page content.
-       * <script src=@{"https://unpkg.com/vue@3.2.22"}></script>
+        <script src=@{"https://unpkg.com/vue@3.2.24"}></script>
+        <script src=@{"https://unpkg.com/vue@2.6.14"}></script>
         *@
+        @* vue *@
+        <script src="@routes.Assets.versioned("javascripts/vue3.js")" ></script>
 
         @content
 
-    <script src="@routes.Assets.versioned("javascripts/battleship.js")" ></script>
-    <script src="@routes.Assets.versioned("javascripts/bootstrap.bundle.min.js")" ></script>
+        @* javaScript *@
+        <script src="@routes.Assets.versioned("javascripts/battleshipVue.js")" ></script>
+        <script src="@routes.Assets.versioned("javascripts/battleship.js")" ></script>
+        <script src="@routes.Assets.versioned("javascripts/bootstrap.bundle.min.js")" ></script>
     </body>
 </html>

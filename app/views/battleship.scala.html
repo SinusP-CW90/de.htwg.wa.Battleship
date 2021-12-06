@@ -88,6 +88,21 @@
 
             <!-- vue test -->
 
+          <div id="counter">
+            Counter: {{ counter }}
+          </div>
+
+          <div id="bind-attribute" class="demo">
+            <span v-bind:title="message">
+              Hover your mouse over me for a few seconds to see my dynamically-bound
+              title!
+            </span>
+          </div>
+
+          <div id="two-way-binding" class="demo">
+            <p>{{ message }}</p>
+            <input v-model="message" />
+          </div>
 
 
 
