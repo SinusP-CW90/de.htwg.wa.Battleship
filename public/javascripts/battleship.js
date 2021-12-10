@@ -307,56 +307,10 @@ function connectWebSocket() {
     };
 }
 
-//comet
-let text = '{ "player" : [' +
-    '{ "firstName":"John" , "lastName":"Doe" },' +
-    '{ "firstName":"Anna" , "lastName":"Smith" },' +
-    '{ "firstName":"Peter" , "lastName":"Jones" } ]}';
-
-const obj = JSON.parse(text);
-
-var str = $("#send-message-box").first().text();
-//$( "p" ).last().html( str );
-
-function connect() {
-    //console.log("comet Timestamp: "+ event.timeStamp)
-    //console.log("comet url: "+ window.location.href)
-    $.ajax({
-        type : 'get',
-        url : "battleship/json",
-        dataType : 'json',
-        //data : {'timestamp' : event.timeStamp},
-        success : function(response) {
-            //console.log("comet connect success: ");
-            console.log("comet connect success: " +response.battlefield.leftSide.cells);
-            //timestamp = response.timestamp;
-            //$('#chat-area').append('<p>' + response.msg + '</p>');
-            $('#chat-area').append('<p>' + str + '</p>');
-            noerror = true;
-        },
-        complete : function(response) {
-            console.log("comet complete: ");
-            // send a new ajax request when this request is finished
-            if (!self.noerror) {
-                console.log("comet noError: ");
-                // if a connection problem occurs, try to reconnect each 10 seconds
-                setTimeout(function(){ connect(); }, 10000);
-            }else {
-                console.log("comet else selfCall: ");
-                // persistent connection
-                connect();
-            }
-            noerror = false;
-        }
-    });
-}
-
-
 $(document).ready(function(){
     console.log( "Document is ready, filling battlefield" );
     loadJson();
     connectWebSocket();
-    connect();
     $(gameContainer).hide()
 
 });

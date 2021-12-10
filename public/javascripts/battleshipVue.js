@@ -1,125 +1,162 @@
-let sudokuHighlightButtons =[{text: "None", link: "/highlight/0"}]
-for(let index=1; index <=9; index++){
-    sudokuHighlightButtons.push({text: index, link: "/highlight/"+index})
-}
+//let sudokuHouses = [cells(0),cells(1),cells(2),cells(3),cells(4),cells(5),cells(6),cells(7),cells(8)]
+let vuePlaygroundSize = 4;
+let battleshipCells = cellIndex();
+battleshipCells[4] = 9;
 
-let sudokuHouses = [cells(0),cells(1),cells(2),cells(3),cells(4),cells(5),cells(6),cells(7),cells(8)]
+function cellMatrix(rows, cols, defaultValue) {
+    let arr = [];
+    // Creates all lines:
+    for (let i = 0; i < rows; i++) {
+        // Creates an empty line
+        arr.push([]);
+        // Adds cols to the empty line:
+        arr[i].push(new Array(cols));
 
-
-function cells(house) {
-    let sudokuCells = []
-    for (let cell = 0; cell < 9; cell++) {
-        sudokuCells.push({house: house, cell: cell, scalar: "scalar" + toScalar(house, cell)})
+        for (let j = 0; j < cols; j++) {
+            // Initializes:
+            arr[i][j] = defaultValue;
+        }
     }
-    return sudokuCells
+    return arr;
 }
 
+function cellIndex() {
+    let battleshipCells = []
+    for (let i = 0; i < vuePlaygroundSize * vuePlaygroundSize; i++) {
+        battleshipCells.push(0)
+    }
+    return battleshipCells
+}
+
+(function loadJson() {
+    $.ajax({
+        method: "GET",
+        url: "battleship/json",
+        dataType: "json",
+
+        success: function (result) {
+            console.log("Vue playgroundSize: " + result.battlefield.leftSide.size);
+            vuePlaygroundSize = result.battlefield.leftSide.size;
+        }
+    });
+})();
 
 $(document).ready(function () {
 
-    var sudokuVueMenu = new Vue({
-        el: '#sudoku-vue-menu',
-        data: {
-            menuItems: sudokuHighlightButtons
-        }
-    })
-
-
-    var sudokuGame = new Vue({
-        el:'#sudoku-game'
-    })
-
-})
-
-
-
-function toScalar(house, cell) {
-    return house*size + cell;
-}
-
-function row(scalar) {
-    return (Math.floor((scalar % size) /blocksize)) + (blocksize * Math.floor((scalar /(size*blocksize))));
-}
-
-function col(scalar) {
-    return (scalar %blocksize) + (blocksize *Math.floor((scalar/size))) - (size*Math.floor((scalar/(size*blocksize))));
-}
-
-function cell(houseIndex, cellIndex) {
-    return row(toScalar(houseIndex,cellIndex)),col(toScalar(houseIndex,cellIndex))
-}
-
-Vue.component('sudoku-highlight-button-bar', {
-    template:`
-        <div class="buttonbarcontainer">
-            <label>
-                Highlight
-            </label>
-            <div  class=" btn-group" >
-                <a v-for="item in menuItems" v-bind:href="item.link" class="btn btn-primary"> {{item.text}} </a>
-            </div>
-        </div>
-    `,
-    data: function () {
-        return {
-            menuItems: sudokuHighlightButtons
-        }
+    function indexTorRow(index) {
+        return (Math.floor(index / vuePlaygroundSize));
     }
 
-})
-
-Vue.component('sudoku-field', {
-    template:`
-        <div class="gamecontainer">
-            <div class="game">
-                <div v-for="house in houses" class="house size9">
-                    <div v-for="cell in house" class="cell" v-bind:id="cell.scalar"></div>
-                </div>
-            </div>
-        </div>
-    `,
-    data: function () {
-        return {
-            houses: sudokuHouses
-        }
-    },
-
-})
-
-
-/* --- following is Just a Test --- */
-const Counter = {
-    data() {
-        return {
-            counter: 0
-        }
-    },
-    mounted() {
-        setInterval(() => {
-            this.counter++
-        }, 1000)
+    function indexToCol(index) {
+        return (Math.floor(index % vuePlaygroundSize));
     }
-}
 
-Vue.createApp(Counter).mount('#counter')
-
-
-const AttributeBinding = {
-    data() {
-        return {
-            message: 'You loaded this page on ' + new Date().toLocaleString()
-        }
+    function cellToIndex(row, col) {
+        return (Math.floor(row * vuePlaygroundSize + col));
     }
-}
 
-Vue.createApp(AttributeBinding).mount('#bind-attribute')
+    console.log(cellMatrix(vuePlaygroundSize, vuePlaygroundSize, 0));
+    console.log("cell value: " + battleshipCells[3]);
 
-const TwoWayBindingApp = {
-    data() {
-        return {
-            message: 'Hello Vue!'
-        }
-    }
-}
+    /*
+    const gameButton = Vue.createApp({})
+    gameButton.component('startGameButton', {
+        methods: {
+            showTheGame() {
+                return "index: " + n
+            }
+            },
+        template: `
+          <h4 class="card-title"><a class="btn btn-primary" id="startButton">START the Game</a></h4>
+    `})
+    gameButton.mount('#startGameButton')
+*/
 
-Vue.createApp(TwoWayBindingApp).mount('#two-way-binding')
+// Create a Vue application
+    const game = Vue.createApp({})
+    console.log("Vue value: " + vuePlaygroundSize);
+
+// Define a new global component called gameboard
+    game.component('gameboard', {
+        data() {
+            return {
+                test: battleshipCells,
+                size: vuePlaygroundSize,
+                attrib: "Test"
+            }
+        },
+        methods: {
+            push(n) {
+                return "index: " + n
+            },
+            intToABC(row) {
+                return String.fromCharCode(row + 64)
+            },
+            cellValue(col) {
+                return battleshipCells[col]
+            },
+            changeZero(col){
+
+                if(battleshipCells[col] === 0){
+                    return "_"
+                }
+            },
+            onEnlargeText(enlargeAmount) {
+                this.Test += "TESTXXX"
+            }
+
+        },
+        template: `
+            <div class="gameContainer">
+                <span class="game" v-bind:id="'bf-size'+size">
+                    <div class="battlefieldLeft">
+                            <!--Numbers -->
+                            <span class="xNumberRow">X</span>
+                            <span class="numberRow" v-for="n in size">{{ n }}</span>
+                            
+                            <!--row Left -->
+                            <div class="battlefield size{{vuePlaygroundSize}}" v-for="row in size">
+                                <span class="abcCol">{{intToABC(row)}}</span>
+                                <!--col Left -->
+                                <div v-for="col in size">
+                                    <span class="cell cellLeft" v-bind:id="'cellLeft-R'+row+'-C'+col" v-bind:cellIndex='row*size+col'>
+                                        <span class="cellValueLeft" v-bind:id="'cellValueLeft-R'+row+'-C'+col" v-bind:cellValue='row*size+col' shoot="">
+                                        {{changeZero(col)}}
+                                          </span>
+                                    </span>
+                                </div>
+                            </div>
+                    </div><!--battlefieldLeft END -->
+                    
+                    <div class="battlefieldRight clear">
+                        <!--Numbers -->
+                        <span class="middleCutLine"> | </span>
+                        <span class="numberRow" v-for="n in size">{{ n }}</span>
+                        <span class="xNumberRow">X</span>
+           
+                        <!--row Right-->
+                        <div class="battlefield size{{vuePlaygroundSize}}" v-for="row in size">
+                            <span class="middleCutLine"> | </span>
+                    
+                            <!--col Right-->
+                            <div v-for="col in size">
+                                <span class="cell cellRight" v-bind:id="'cellRight-R'+row+'-C'+col" v-bind:cellRightIndex='row*size+col' data-bs-toggle="tooltip" title="wrong side ;-)">
+                                    <span class="cellValueRight" v-bind:id="'cellValueRight-R'+row+'-C'+col" v-bind:cellRightValue='row*size+col' shoot="">
+                                        {{changeZero(col)}}
+                                    </span>
+                                </span>
+                            </div>
+                        
+                            <span class="abcColRight">{{intToABC(row)}}</span>
+                        </div><!--battlefield END -->
+                        
+                        <div class="clear"></div>
+                  </div><!--battlefieldRight END -->
+                    
+                </span><!--game span END -->
+            </div><!--gameContainer END -->
+`})
+
+    game.mount('#gamefield')
+
+});
