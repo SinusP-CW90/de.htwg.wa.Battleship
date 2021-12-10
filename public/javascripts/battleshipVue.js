@@ -1,7 +1,7 @@
-//let sudokuHouses = [cells(0),cells(1),cells(2),cells(3),cells(4),cells(5),cells(6),cells(7),cells(8)]
-let vuePlaygroundSize = 4;
+let vuePlaygroundSize = 2;
 let battleshipCells = cellIndex();
-battleshipCells[4] = 9;
+let battleshipCellMatrix = cellMatrix(vuePlaygroundSize, vuePlaygroundSize, 0)
+let testArray = [0,1,2,3]
 
 function cellMatrix(rows, cols, defaultValue) {
     let arr = [];
@@ -100,11 +100,7 @@ $(document).ready(function () {
                 if(battleshipCells[col] === 0){
                     return "_"
                 }
-            },
-            onEnlargeText(enlargeAmount) {
-                this.Test += "TESTXXX"
             }
-
         },
         template: `
             <div class="gameContainer">
