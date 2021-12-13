@@ -22,6 +22,7 @@
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                 dolore magna aliqua.
               </div>
+              <Battleground></Battleground>
             </q-card-section>
 
             <q-card-actions>
@@ -44,6 +45,7 @@
               <div v-show="expanded">
                 <q-separator></q-separator>
                 <q-card-section class="text-subitle2">
+test
                   {{ lorem }}
                 </q-card-section>
               </div>
@@ -60,9 +62,21 @@
 </template>
 
 <script>
+import component1TEST from "components/component1TEST";
+import Battleground from "components/Battleground";
+
 export default {
-  name: "BattleshipGame.vue"
+  name: "BattleshipGame.vue",
+  components: {
+    component1TEST: component1TEST,
+    Battleground: Battleground
+
+  }
+
 }
+
+//battleship.JS
+
 </script>
 
 <style scoped>

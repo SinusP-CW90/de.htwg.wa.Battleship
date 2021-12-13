@@ -9,7 +9,9 @@ const routes = [
       { path: '/aboutTheGame',
         component: () => import('pages/AboutTheGame.vue') },
       { path: '',
-        component: () => import('pages/BattleshipGame.vue') }
+        component: () => import('pages/BattleshipGame.vue') },
+      { path: '/page4',
+        component: () => import('pages/Error404.vue') }
     ]
   },
 
