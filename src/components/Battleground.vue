@@ -50,8 +50,10 @@
 </template>
 
 <script>
+import battleshipJS from "../public/javascripts/battleship.js"
 import BattlefieldLeftSide from "components/BattlefieldLeftSide";
 import BattlefieldRightSide from "components/BattlefieldRightSide";
+
 
 export default {
   name: "Battleground",
@@ -134,23 +136,6 @@ console.log("cell value: " + battleshipCells[3]);
 
 
 <style>
-.gameTitle {
-  text-align: center;
-  font-family: "Verdana",Geneva, sans-serif;
-  font-weight: bold;
-  color:black;
-}
-
-.header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.battleshipTitle{
-  width: 50%;
-}
-
 .battlefieldLeft{
   float: left;
   justify-content: left;

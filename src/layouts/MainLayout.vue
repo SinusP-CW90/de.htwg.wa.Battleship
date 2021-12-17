@@ -21,8 +21,8 @@
       <q-tabs align="left" class="text-center">
         <q-route-tab to="/" label="The Game" />
         <q-route-tab to="/aboutTheGame" label="About Battleship" />
-        <q-route-tab to="/index" label="Page Three" />
-        <q-route-tab to="/page4" label="Page four" />
+        <q-route-tab to="/index" label="Test Page" />
+        <q-route-tab to="/page4" label="Error Page" />
       </q-tabs>
     </q-header>
 
