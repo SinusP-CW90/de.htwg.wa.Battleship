@@ -1,23 +1,63 @@
 <template>
   <div class="gameContainer">
                 <span class="game" v-bind:id="'bf-size'+size">
-<BattlefieldLeftSide></BattlefieldLeftSide>
-                  <BattlefieldRightSide></BattlefieldRightSide>
+                    <div class="battlefieldLeft">
+                            <!--Numbers -->
+                            <span class="xNumberRow">X</span>
+                            <span class="numberRow" v-for="n in size">{{ n }}</span>
+
+                      <!--row Left -->
+                            <div class="battlefield size{{vuePlaygroundSize}}" v-for="row in size">
+                                <span class="abcCol">{{intToABC(row)}}</span>
+                              <!--col Left -->
+                                <div v-for="col in size">
+                                    <span class="cell cellLeft" v-bind:id="'cellLeft-R'+row+'-C'+col" v-bind:cellIndex='row*size+col'>
+                                        <span class="cellValueLeft" v-bind:id="'cellValueLeft-R'+row+'-C'+col" v-bind:cellValue='row*size+col' shoot="">
+                                        {{changeZero(col)}}
+                                          </span>
+                                    </span>
+                                </div>
+                            </div>
+                    </div><!--battlefieldLeft END -->
+
+                    <div class="battlefieldRight clear">
+                        <!--Numbers -->
+                        <span class="middleCutLine"> | </span>
+                        <span class="numberRow" v-for="n in size">{{ n }}</span>
+                        <span class="xNumberRow">X</span>
+
+                      <!--row Right-->
+                        <div class="battlefield size{{vuePlaygroundSize}}" v-for="row in size">
+                            <span class="middleCutLine"> | </span>
+
+                          <!--col Right-->
+                            <div v-for="col in size">
+                                <span class="cell cellRight" v-bind:id="'cellRight-R'+row+'-C'+col" v-bind:cellRightIndex='row*size+col' data-bs-toggle="tooltip" title="wrong side ;-)">
+                                    <span class="cellValueRight" v-bind:id="'cellValueRight-R'+row+'-C'+col" v-bind:cellRightValue='row*size+col' shoot="">
+                                        {{changeZero(col)}}
+                                    </span>
+                                </span>
+                            </div>
+
+                            <span class="abcColRight">{{intToABC(row)}}</span>
+                        </div><!--battlefield END -->
+
+                        <div class="clear"></div>
+                  </div><!--battlefieldRight END -->
+
                 </span><!--game span END -->
   </div><!--gameContainer END -->
 </template>
 
 <script>
-import component1TEST from "components/component1TEST";
 import BattlefieldLeftSide from "components/BattlefieldLeftSide";
 import BattlefieldRightSide from "components/BattlefieldRightSide";
 
 export default {
   name: "Battleground",
   components: {
-    component1TEST: component1TEST,
-    BattlefieldLeftSide: BattlefieldLeftSide,
-    BattlefieldRightSide: BattlefieldRightSide
+    //BattlefieldLeftSide: BattlefieldLeftSide,
+    //BattlefieldRightSide: BattlefieldRightSide
   },
   data() {
     return {
@@ -44,7 +84,7 @@ export default {
     }
   }
 }
-let vuePlaygroundSize = 2;
+let vuePlaygroundSize = 6;
 let battleshipCells = cellIndex();
 let battleshipCellMatrix = cellMatrix(vuePlaygroundSize, vuePlaygroundSize, 0)
 let testArray = [0,1,2,3]
@@ -123,22 +163,24 @@ console.log("cell value: " + battleshipCells[3]);
 .gameContainer {
   height: 100%;
   width: 100%;
+  min-width: 330px;
   display:flex;
-  font-size:calc(100% + 2.7vw);
+  font-size:calc(100% + 2.0vw);
   font-family: "Verdana",Geneva, sans-serif;
   font-weight: bold;
   color:black;
   justify-content: center;
   align-items: center;
+  line-height: 1;
 }
 
 .numberRow{
-  color:white;
-  display: inline-block;
-  float:left;
-  border-style: outset;
-  border-width: 0.05em;
-  /*background-color: black;*/
+color:white;
+display: inline-block;
+float:left;
+border-style: outset;
+border-width: 0.05em;
+/*background-color: black;*/
   border-color: darkgray;
   width: 1.2em;
   height: 1.2em;
@@ -206,7 +248,7 @@ console.log("cell value: " + battleshipCells[3]);
   padding: 0.05em;
   margin:auto;
   width: auto;
-
+  min-width: 375px;
   display: inline-block;
   float:left;
 }

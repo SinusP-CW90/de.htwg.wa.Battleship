@@ -1,12 +1,6 @@
 <template>
-  <div class="q-pa-md">
+  <div class="q-pa-md bg-image">
     <div class="q-gutter-md row items-start">
-      <q-img
-        class="bg-image"
-        :key="contain"
-        src="images/seaBackground1Wide.jpg"
-      >
-
         <div class="q-pa-md row items-start q-gutter-md">
           <q-card dark bordered center class="bg-grey-9 my-card">
             <q-card-section>
@@ -103,7 +97,6 @@
 
 
         </div>
-      </q-img>
     </div>
   </div>
 
@@ -116,12 +109,12 @@ export default {
 </script>
 
 
-<style>
+<style >
 
- .bg-image {
-   background-repeat: no-repeat;
-   background-size: contain;
- }
-
+.bg-image{
+  background-image: url("/images/seaBackground1Wide.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
 </style>

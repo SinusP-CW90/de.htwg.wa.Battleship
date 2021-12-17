@@ -135,9 +135,9 @@ module.exports = configure(function (ctx) {
       },
 
       manifest: {
-        name: `Quasar App`,
-        short_name: `Quasar App`,
-        description: `A Quasar Framework app`,
+        name: `Battleship App`,
+        short_name: `Battleship`,
+        description: `A Quasar Framework Battleship app`,
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
