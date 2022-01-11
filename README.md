@@ -1,3 +1,6 @@
+#de.htwg.wa.Battleship
+##This is a Battleship WebApp in Scala
+
 # Quasar App (battleship)
 
 A Quasar Framework app
