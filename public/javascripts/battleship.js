@@ -1,3 +1,4 @@
+
 var playgroundSize =4;
 let player1ShipCount = playgroundSize;
 let shootPlayer2Count = 0;
@@ -284,3 +285,4 @@ $(document).ready(function(){
     $(gameContainer).hide()
 
 });
+

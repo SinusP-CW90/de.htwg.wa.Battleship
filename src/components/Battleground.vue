@@ -50,7 +50,6 @@
 </template>
 
 <script>
-import battleshipJS from "../public/javascripts/battleship.js"
 import BattlefieldLeftSide from "components/BattlefieldLeftSide";
 import BattlefieldRightSide from "components/BattlefieldRightSide";
 
@@ -86,7 +85,7 @@ export default {
     }
   }
 }
-let vuePlaygroundSize = 6;
+let vuePlaygroundSize = 4;
 let battleshipCells = cellIndex();
 let battleshipCellMatrix = cellMatrix(vuePlaygroundSize, vuePlaygroundSize, 0)
 let testArray = [0,1,2,3]
