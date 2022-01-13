@@ -12,6 +12,7 @@ const { configure } = require('quasar/wrappers');
 
 module.exports = configure(function (ctx) {
   return {
+		publicPath: process.env.NODE_ENV === "production" ? "/de.htwg.wa.Battleship/" : "/",
     // https://quasar.dev/quasar-cli/supporting-ts
     supportTS: false,
 
