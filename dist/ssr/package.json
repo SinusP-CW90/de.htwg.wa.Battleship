@@ -1,0 +1,42 @@
+{
+  "name": "battleship",
+  "version": "0.0.1",
+  "description": "Battleship Game - A Quasar Framework app",
+  "author": "SinusP-CW90 <chwerner@htwg-konstanz.de>",
+  "private": true,
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "connect-history-api-fallback": "1.6.0",
+    "core-js": "3.20.2",
+    "express": "^4.0.0",
+    "quasar": "2.4.9",
+    "register-service-worker": "1.7.2",
+    "serve-static": "1.14.2",
+    "compression": "^1.0.0",
+    "vue": "3.2.26",
+    "@quasar/ssr-helpers": "2.1.1",
+    "vue-router": "4.0.12",
+    "@quasar/babel-preset-app": "2.0.1"
+  },
+  "engines": {
+    "node": ">= 12.22.1",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  },
+  "browserslist": [
+    "last 10 Chrome versions",
+    "last 10 Firefox versions",
+    "last 4 Edge versions",
+    "last 7 Safari versions",
+    "last 8 Android versions",
+    "last 8 ChromeAndroid versions",
+    "last 8 FirefoxAndroid versions",
+    "last 10 iOS versions",
+    "last 5 Opera versions"
+  ],
+  "quasar": {
+    "ssr": true
+  }
+}
