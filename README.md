@@ -34,5 +34,8 @@ quasar build
 heroku config:set YARN_PRODUCTION=false
 ```
 
+###github Pages
+git remote add gh-pages git@github.com:SinusP-CW90/SinusP-CW90.github.io.git
+
 ### Customize the configuration
 See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).

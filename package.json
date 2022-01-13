@@ -9,6 +9,7 @@
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"No test specified\" && exit 0",
     "build": "npx quasar build -m ssr",
+    "deploy": "push-dir --dir=dist/spa --remote=gh-pages --branch=WA-12-Deployment",
     "start": "cd dist/ssr; npm i; npm start",
     "heroku-postbuild": "yarn && yarn build"
   },
@@ -27,6 +28,7 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^7.0.0",
     "eslint-webpack-plugin": "^2.4.0",
+    "push-dir": "^0.4.1",
     "workbox-webpack-plugin": "^6.0.0"
   },
   "browserslist": [
