@@ -4,13 +4,17 @@
                     <div class="battlefieldLeft">
                             <!--Numbers -->
                             <span class="xNumberRow">X</span>
-                            <span class="numberRow" v-for="n in size">{{ n }}</span>
+                      <!--span class="numberRow" v-for="n in size">{{ n }} </span-->
+                              <span class="numberRow" v-for="(n, index) in size" :key="index">{{ n }}</span>
 
                       <!--row Left -->
-                            <div class="battlefield size{{vuePlaygroundSize}}" v-for="row in size">
+                              <!--div class="battlefield size{{vuePlaygroundSize}}" v-for="row in size"-->
+                              <div class="battlefield size{{vuePlaygroundSize}}" v-for="(row, index) in size" :key="index">
+
                                 <span class="abcCol">{{intToABC(row)}}</span>
                               <!--col Left -->
-                                <div v-for="col in size">
+                                   <!--div v-for="col in size"-->
+                                  <div v-for="(col, index) in size" :key="index">
                                     <span class="cell cellLeft" v-bind:id="'cellLeft-R'+row+'-C'+col" v-bind:cellIndex='row*size+col'>
                                         <span class="cellValueLeft" v-bind:id="'cellValueLeft-R'+row+'-C'+col" v-bind:cellValue='row*size+col' shoot="">
                                         {{changeZero(col)}}
@@ -23,15 +27,19 @@
                     <div class="battlefieldRight clear">
                         <!--Numbers -->
                         <span class="middleCutLine"> | </span>
-                        <span class="numberRow" v-for="n in size">{{ n }}</span>
+                      <!--span class="numberRow" v-for="n in size">{{ n }}</span-->
+                      <span class="numberRow" v-for="(n, index) in size" :key="index">{{ n }}</span>
                         <span class="xNumberRow">X</span>
 
                       <!--row Right-->
-                        <div class="battlefield size{{vuePlaygroundSize}}" v-for="row in size">
+
+                      <!--div class="battlefield size{{vuePlaygroundSize}}" v-for="row in size"-->
+                          <div class="battlefield size{{vuePlaygroundSize}}" v-for="(row, index) in size" :key="index">
                             <span class="middleCutLine"> | </span>
 
                           <!--col Right-->
-                            <div v-for="col in size">
+                            <!--div v-for="col in size"-->
+                              <div v-for="(col, index) in size" :key="index">
                                 <span class="cell cellRight" v-bind:id="'cellRight-R'+row+'-C'+col" v-bind:cellRightIndex='row*size+col' data-bs-toggle="tooltip" title="wrong side ;-)">
                                     <span class="cellValueRight" v-bind:id="'cellValueRight-R'+row+'-C'+col" v-bind:cellRightValue='row*size+col' shoot="">
                                         {{changeZero(col)}}
@@ -50,7 +58,6 @@
 </template>
 
 <script>
-import battleshipJS from "../public/javascripts/battleship.js"
 import BattlefieldLeftSide from "components/BattlefieldLeftSide";
 import BattlefieldRightSide from "components/BattlefieldRightSide";
 
@@ -86,7 +93,7 @@ export default {
     }
   }
 }
-let vuePlaygroundSize = 6;
+let vuePlaygroundSize = 4;
 let battleshipCells = cellIndex();
 let battleshipCellMatrix = cellMatrix(vuePlaygroundSize, vuePlaygroundSize, 0)
 let testArray = [0,1,2,3]

@@ -21,8 +21,22 @@ export default {
 </script>
 
 <style Sass>
-.q-img{
-  max-width:70%
+
+@media (min-width: 300px) {
+  .q-img{
+    max-width:90vw;
+  }
+}
+@media (min-width: 721px) {
+  .q-img{
+    max-width:75vw;
+  }
+}
+
+@media (min-width: 1001px) {
+  .q-img{
+    max-width:60vw;
+  }
 }
 
 </style>

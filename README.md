@@ -1,10 +1,10 @@
-# Quasar App (battleship)
+# Battleship Game - Quasar App
 
-A Quasar Framework app
+A Battleship Game with the Quasar Framework
 
 ## Install the dependencies
 ```bash
-npm install
+yarn
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
@@ -12,6 +12,10 @@ npm install
 quasar dev
 ```
 
+### Lint the files
+```bash
+yarn run lint
+```
 
 ### Build the app for production
 ```bash
