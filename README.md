@@ -12,8 +12,13 @@ yarn
 quasar dev
 ```
 ### PWA mode
+```bash
 quasar dev -m pwa
-
+```
+###If you want a production build with debugging enabled:
+```bash
+quasar build -m pwa -d
+```
 ### Lint the files
 ```bash
 yarn run lint
@@ -25,8 +30,9 @@ quasar build
 ```
 
 ### for deploy in Heroku
+```bash
 heroku config:set YARN_PRODUCTION=false
-
+```
 
 ### Customize the configuration
 See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
