@@ -80,11 +80,9 @@ export default {
 
 <style>
 .my-card {
-  width: 100%;
-  max-width: 85%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  width: 90%;
+  max-width: 95%;
+  /*display: block;*/
 }
 
 .bg-image {
@@ -92,8 +90,22 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
 }
-.b-img{
-  max-width: 35%;
+
+@media (min-width: 300px) {
+  .b-img{
+    max-width:60vw;
+  }
+}
+@media (min-width: 721px) {
+  .b-img{
+    max-width:50vw;
+  }
+}
+
+@media (min-width: 1001px) {
+  .b-img{
+    max-width:40vw;
+  }
 }
 
 </style>

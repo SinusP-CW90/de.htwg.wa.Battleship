@@ -68,6 +68,9 @@ export default {
     //BattlefieldLeftSide: BattlefieldLeftSide,
     //BattlefieldRightSide: BattlefieldRightSide
   },
+  mounted:function(){
+    this.method1() //method1 will execute at pageload
+  },
   data() {
     return {
       test: battleshipCells,
@@ -76,6 +79,10 @@ export default {
     }
   },
   methods: {
+    method1:function(){
+
+      //setOwnShips();
+    },
     push(n) {
       return "index: " + n
     },
@@ -92,6 +99,7 @@ export default {
       }
     }
   }
+
 }
 let vuePlaygroundSize = 4;
 let battleshipCells = cellIndex();
@@ -138,24 +146,29 @@ function cellToIndex(row, col) {
 console.log(cellMatrix(vuePlaygroundSize, vuePlaygroundSize, 0));
 console.log("cell value: " + battleshipCells[3]);
 
+//form Old Skript
+
+
 
 </script>
 
 
 <style>
-.battlefieldLeft{
+.battlefieldLeft,.battlefieldRight{
   float: left;
   justify-content: left;
 }
 
-.battlefieldRight{
-  float: right;
-  justify-content: right;
+@media (min-width: 400px) {
+  .battlefieldRight {
+    /*float: right;*/
+    justify-content: right;
+  }
 }
 .gameContainer {
   height: 100%;
   width: 100%;
-  min-width: 330px;
+  /*min-width: 330px;*/
   display:flex;
   font-size:calc(100% + 2.0vw);
   font-family: "Verdana",Geneva, sans-serif;
@@ -230,7 +243,22 @@ border-width: 0.05em;
   margin:0.1em;
   text-align: center;
 }
+@media (min-width: 300px) {
+  .game {
+    display: grid;
+    grid-template-columns: auto;
+    background-color: #2196F3;
+    padding: 10px;
+  }
 
+  .grid-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+  }
+}
 .game {
   border-style: inset;
   border-width: 0.05em;
@@ -238,9 +266,8 @@ border-width: 0.05em;
   border-color: #f6f6FF;
   background-color: black;
   padding: 0.05em;
-  margin:auto;
-  width: auto;
-  min-width: 375px;
+
+  /*min-width: 375px;*/
   display: inline-block;
   float:left;
 }
