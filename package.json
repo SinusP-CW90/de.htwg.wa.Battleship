@@ -8,10 +8,11 @@
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"No test specified\" && exit 0",
-    "build": "npx quasar build -m ssr",
+    "buildOLD": "quasar build",
+    "build": "npx quasar build -m spa",
     "start": "cd dist/ssr; npm i; npm start",
     "heroku-postbuild": "yarn && yarn build",
-    "deploy": "push-dir --dir=dist/spa --remote=gh-pages --branch=master",
+    "deploy": "push-dir --dir=dist/ssr --remote=gh-pages --branch=GH-Test",
     "gh-pages-deploy": "node scripts/gh-pages-deploy.js"
   },
   "dependencies": {
@@ -25,16 +26,16 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",
     "@quasar/app": "^3.0.0",
+    "chalk": "^4.0.0",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^7.0.0",
     "eslint-webpack-plugin": "^2.4.0",
+    "execa": "^4.0.0",
+    "node-emoji": "^1.10.0",
     "push-dir": "^0.4.1",
     "quasar-app-extension-gh-pages-auto-deploy": "^0.4.0",
-    "workbox-webpack-plugin": "^6.0.0",
-    "chalk": "^4.0.0",
-    "execa": "^4.0.0",
-    "node-emoji": "^1.10.0"
+    "workbox-webpack-plugin": "^6.0.0"
   },
   "browserslist": [
     "last 10 Chrome versions",
