@@ -1,5 +1,5 @@
 <template>
-  <div class="gameContainer">
+  <div class="gameContainer" style="">
                 <span class="game" v-bind:id="'bf-size'+size">
                     <div class="battlefieldLeft">
                             <!--Numbers -->
@@ -101,10 +101,10 @@ export default {
   }
 
 }
-let vuePlaygroundSize = 4;
+let vuePlaygroundSize = 6;
 let battleshipCells = cellIndex();
 let battleshipCellMatrix = cellMatrix(vuePlaygroundSize, vuePlaygroundSize, 0)
-let testArray = [0,1,2,3]
+let testArray = [0,1,2,3,4,5]
 
 function cellMatrix(rows, cols, defaultValue) {
   let arr = [];
@@ -170,13 +170,19 @@ console.log("cell value: " + battleshipCells[3]);
   width: 100%;
   /*min-width: 330px;*/
   display:flex;
-  font-size:calc(100% + 2.0vw);
+  font-size:calc(120% + 1.8vw);
   font-family: "Verdana",Geneva, sans-serif;
   font-weight: bold;
   color:black;
   justify-content: center;
   align-items: center;
   line-height: 1;
+}
+@media (min-width: 900px) {
+  .gameContainer {
+
+  font-size:calc(100% + 2.5vw);
+  }
 }
 
 .numberRow{
@@ -261,7 +267,7 @@ border-width: 0.05em;
 }
 .game {
   border-style: inset;
-  border-width: 0.05em;
+  /*border-width: 0.05em;*/
   border-spacing: 0;
   border-color: #f6f6FF;
   background-color: black;
