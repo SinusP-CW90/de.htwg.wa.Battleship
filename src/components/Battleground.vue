@@ -1,6 +1,6 @@
 <template>
   <div>{{currentState}}</div>
-  <div class="gameContainer" style="">
+  <div class="gameContainer" v-bind:style=scaleFont >
                 <span v-bind:id="'bf-size'+size" class="game">
                     <div class="battlefieldLeft">
                             <!--Numbers -->
@@ -77,6 +77,9 @@ export default {
   },
   data() {
     return {
+      BFsize:2,
+      scaleFont: calcScale(),
+      kp: String(100),
       leftSetShipsCounter: 0,
       rightSetShipsCounter: 0,
       leftShipHitCounter: 0,
@@ -89,7 +92,6 @@ export default {
       size: vuePlaygroundSize,
       shipLeft: "images/whiteShip.jpg",
       none: '',
-
       leftShipPic: '<img src=\'images/whiteShip.png\' alt=\'S\' class=\'gameContainer\' value="1">',
       rightShipPic: '<img src=\'images/pirateShip.png\' alt=\'S\' class=\'gameContainer\'value="1">',
       leftShipHitPic: 'images/whiteShipHit.png',
@@ -99,6 +101,7 @@ export default {
     };
   },
   methods: {
+
     //Phase1
     setLeftShips(event) {
       this.currentState="setLeftShips";
@@ -301,7 +304,9 @@ console.log("cell value: " + battleshipCells[3]);
 
 //form Old Skript
 
-
+function calcScale(){
+  return "font-size:calc(125% + "+Math.round((4.2+vuePlaygroundSize)/vuePlaygroundSize)+"vw);"
+}
 
 </script>
 
@@ -323,7 +328,7 @@ console.log("cell value: " + battleshipCells[3]);
   width: 100%;
   /*min-width: 330px;*/
   display:flex;
-  font-size:calc(120% + 1.8vw);
+
   font-family: "Verdana",Geneva, sans-serif;
   font-weight: bold;
   color:black;
