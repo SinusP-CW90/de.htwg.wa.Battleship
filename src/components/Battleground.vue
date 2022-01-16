@@ -1,4 +1,5 @@
 <template>
+  <div>{{currentState}}</div>
   <div class="gameContainer" style="">
                 <span class="game" v-bind:id="'bf-size'+size">
                     <div class="battlefieldLeft">
@@ -11,8 +12,10 @@
                                 <span class="abcCol">{{intToABC(row)}}</span>
                                   <!--col Left -->
                                   <div v-for="col in size" :key="col">
-                                    <span class="cell cellLeft" v-html="none"  v-bind:id="'cellLeft-R'+row+'-C'+col" v-bind:cellIndex='(row-1)*size+(col-1)' v-bind:row='(row-1)' v-bind:col='(col-1)' v-bind:value='0' valueshoot="" @click="clickOnLeft">
-
+                                    <span class="cell cellLeft" v-html="none"  v-bind:id="'cellLeft-R'+row+'-C'+col"
+                                          v-bind:cellIndex='(row-1)*size+(col-1)' v-bind:row='(row-1)' v-bind:col='(col-1)'
+                                          v-bind:value='0' valueshoot="" @click="clickOnLeft"
+                                          data-bs-toggle="tooltip" title="">
                                     </span>
                                 </div>
                             </div>
@@ -31,9 +34,13 @@
                           <!--col Right-->
 
                               <div v-for="(col, index) in size" :key="index">
-                                <span class="cell cellRight" v-bind:id="'cellRight-R'+row+'-C'+col" v-bind:cellRightIndex='row*size+col' data-bs-toggle="tooltip" title="wrong side ;-)" shoot="">
-                                        {{changeCellValueToSign(col)}}
-                                </span>
+
+                                <span class="cell cellRight" v-html="none"  v-bind:id="'cellRight-R'+row+'-C'+col"
+                                      v-bind:cellIndex='(row-1)*size+(col-1)' v-bind:row='(row-1)' v-bind:col='(col-1)'
+                                      v-bind:value='0' @click="clickOnRight"
+                                      data-bs-toggle="tooltip" title="wrong side ;-)">
+                                    </span>
+
                             </div>
 
                             <span class="abcColRight">{{intToABC(row)}}</span>
@@ -57,15 +64,24 @@ export default {
     //BattlefieldLeftSide: BattlefieldLeftSide,
     //BattlefieldRightSide: BattlefieldRightSide
   },
+  /*
   mounted:function(){
     this.method1() //method1 will execute at pageload
+  },*/
+  probs:{
+    testData: {
+      skrri: "0",
+      type:'test',
+      kp: true
+    }
   },
   data() {
     return {
       leftSetShipsCounter:"0",
       rightSetShipsCounter: "0",
       clickOnLeft: this.setLeftShips,
-
+      clickOnRight: '',
+      currentState:'',
       test: battleshipCells,
       size: vuePlaygroundSize,
       shipLeft: "images/whiteShip.jpg",
@@ -73,36 +89,67 @@ export default {
       score: 0,
       shipPic: 1,
       testX: "t",
-      pic: '<img src=\'images/whiteShip.png\' alt=\'S\' class=\'gameContainer\'>'
+      leftShipPic: '<img src=\'images/whiteShip.png\' alt=\'S\' class=\'gameContainer\' value="1">',
+      rightShipPic: '<img src=\'images/pirateShip.png\' alt=\'S\' class=\'gameContainer\'value="1">',
+      leftShipHitPic: '<img src=\'images/whiteShipHit.png\' alt=\'S\' class=\'gameContainer\'value="2">',
+      rightShipHitPic: '<img src=\'images/pirateShipHit.png\' alt=\'S\' class=\'gameContainer\'value="2">',
 
     };
   },
   methods: {
-    method1:function(){
-
-      //setOwnShips();
-    },
-    testFunction(){
-      //parent.getAttribute('cellIndex')
-    },
-    shipPicX() {
-      this.score = 12;
-    },
+    //Phase1
     setLeftShips(event) {
+      this.currentState="setLeftShips";
       // `event` is the native DOM event
+
       if (event) {
-        setCellValue(event.target.getAttribute('cellIndex'),1)
-        event.target.setAttribute('value',"1");
-        event.target.innerHTML = this.pic;
-        //this.changeCellValueToSign(1);
-        console.log(event.target.getAttribute('cellIndex'))
-        this.leftSetShipsCounter++;
-        console.log( this.leftSetShipsCounter)
-          if(this.leftSetShipsCounter===6){
-            console.log( "limit")
+        if(event.target.getAttribute('value')==="0"){
+          setCellValue(event.target.getAttribute('cellIndex'),1)
+          event.target.setAttribute('value',"1");
+          event.target.innerHTML = this.leftShipPic;
+          //this.changeCellValueToSign(1);
+          console.log(event.target.getAttribute('cellIndex'))
+          this.leftSetShipsCounter++;
+          console.log( this.leftSetShipsCounter)
+
+          if(this.leftSetShipsCounter===this.size){
+            console.log( "limit left")
             this.clickOnLeft=""
+            this.clickOnRight=this.setRightShips;
+            this.skrri="1";
+            event.target.addClass="XXXXXXXX"
+        }
           }
       }
+    },
+    //Phase2
+    setRightShips(event) {
+      this.currentState="setRightShips";
+      // `event` is the native DOM event
+      if (event) {
+        if(event.target.getAttribute('value')==="0"){
+        setCellValue(event.target.getAttribute('cellIndex'),1)
+        event.target.setAttribute('value',"1");
+        event.target.innerHTML = this.rightShipPic;
+        //this.changeCellValueToSign(1);
+        console.log(event.target.getAttribute('cellIndex'))
+        this.rightSetShipsCounter++;
+        console.log( this.rightSetShipsCounter)
+        if(this.rightSetShipsCounter===this.size){
+          console.log( "limit right")
+          this.clickOnRight=""
+          this.clickOnRight=this.shootRightShips;
+        }
+      }
+      }
+    },
+    //Phase 3
+    shootRightShips(event) {
+
+    },
+    //Phase 4
+    shootLeftShips(event) {
+
     },
     push(n) {
       return "index: " + n
@@ -127,8 +174,10 @@ export default {
   }
 
 }
-let vuePlaygroundSize = 6;
+let vuePlaygroundSize = 2;
 let battleshipCells = createEmpty1DBattlefield();
+let battleshipLeftCells = createEmpty1DBattlefield();
+let battleshipRightCells = createEmpty1DBattlefield();
 let battleshipCellMatrix = createBattlefieldMatrix(vuePlaygroundSize, vuePlaygroundSize, 0)
 
 function createBattlefieldMatrix(rows, cols, defaultValue) {
@@ -334,6 +383,14 @@ border-width: 0.05em;
 }
 
 .cellRight:hover {
+  background-color: darkred;
+}
+
+.cellHoverGreen:hover {
+  background-color: darkgreen;
+}
+
+.cellHoverRed:hover {
   background-color: darkred;
 }
 

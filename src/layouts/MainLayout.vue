@@ -170,7 +170,7 @@
           <q-avatar>
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
           </q-avatar>
-          INFOS????
+          {{info}}
 
         </q-toolbar-title>
       </q-toolbar>
@@ -181,10 +181,22 @@
 
 <script>
 import { ref } from 'vue'
+import Battleground from "components/Battleground";
 
 export default {
+  name: "MainLayout",
+  components: {
+    //Battleground: Battleground,
+    //BattlefieldRightSide: BattlefieldRightSide
+  },
+  data() {
+    return {
+      info: Battleground.probs
+
+    };
+  },
   setup () {
-    const leftDrawerOpen = ref(false)
+    const leftDrawerOpen = ref(true)
     const rightDrawerOpen = ref(false)
 
     return {

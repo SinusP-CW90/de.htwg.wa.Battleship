@@ -70,7 +70,7 @@ function shoot(){
     console.log("in shoot) this.firstChild is: "+this.firstElementChild.classList.value);
     if(this.firstElementChild.classList.value === "number shipIsSet"){
 
-        this.firstElementChild.innerHTML = "<img src='http://localhost:9000/assets/images/shootShip1.png' alt='S' class='gameContainer' id=this.value/>";
+        this.firstElementChild.innerHTML = "<img src='http://localhost:9000/assets/images/pirateShipHit.png' alt='S' class='gameContainer' id=this.value/>";
         this.style.borderColor="red"
         shootPlayer2Count +=1;
         progressBarWidth +=25;

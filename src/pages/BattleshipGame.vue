@@ -3,8 +3,8 @@
     <div class="q-pa-md row items-start q-gutter-md ">
 
       <q-card bordered class="my-card" flat style="background: radial-gradient(circle, #383838 0%, #1d1d1d 100%)">
-        <q-slide-transition>
 
+        <q-slide-transition>
 
           <div v-show="expandedPic">
 
