@@ -77,13 +77,13 @@ export default {
   },
   data() {
     return {
-      BFsize:2,
       scaleFont: calcScale(),
       kp: String(100),
       leftSetShipsCounter: 0,
       rightSetShipsCounter: 0,
       leftShipHitCounter: 0,
       rightShipHitCounter: 0,
+      randomShips: true,
       clickOnLeft: this.setLeftShips,
       clickOnRight: '',
       currentState:'',
@@ -124,8 +124,28 @@ export default {
             this.cellHoverGreen=!this.cellHoverGreen
             event.target.setAttribute('title',"Wrong Side!");
             this.currentState="P2 - setRightShips";
+
+            if(this.randomShips===true){
+              this.setRandomPlayer2Ships();
+            }
           }
         }
+      }
+    },
+    setRandomPlayer2Ships(){
+
+
+      for (let i = 0; i < vuePlaygroundSize; i++) {
+
+        //const xxx = JSON.stringify(this.$refs);
+       // alert(xxx)
+
+        /*
+        let currentCell = "#cellRightValue-R"+i+"-C"+Math.floor(Math.random() * 4);
+        //$(currentCell).addClass("shipIsSet");
+
+        //$(currentCell).html("<img src='http://localhost:9000/assets/images/pirateShip.png' alt='S' class='gameContainer' id=this.value/>");
+        */
       }
     },
     //Phase2
