@@ -79,7 +79,7 @@ function shoot(){
             "you hit "+ shootPlayer2Count +" already";
     }
     else{
-        this.firstElementChild.innerHTML = "<img src='http://localhost:9000/assets/images/miss2.png' alt='S' class='gameContainer' id=this.value/>";
+        this.firstElementChild.innerHTML = "<img src='http://localhost:9000/assets/images/miss.png' alt='S' class='gameContainer' id=this.value/>";
         let thisCell = this;
         //$("#div3").fadeIn(3000);
         setTimeout(function(){ thisCell.firstElementChild.innerHTML = "<img src='http://localhost:9000/assets/images/missAfter.png' alt='S' class='gameContainer' id=this.value/>"}, 1500);
@@ -118,7 +118,7 @@ function shootRandomLeftShips(){
             //let currentCellJQ = "#"+currentCell;
             $("#"+currentCell).parent().css('border-color', 'darkblue');
             document.getElementById(currentCell).setAttribute("shoot","miss");
-            document.getElementById(currentCell).innerHTML = "<img src='http://localhost:9000/assets/images/miss2.png' alt='S' class='gameContainer' id=this.value/>";
+            document.getElementById(currentCell).innerHTML = "<img src='http://localhost:9000/assets/images/miss.png' alt='S' class='gameContainer' id=this.value/>";
             setTimeout(function(){ document.getElementById(currentCell).innerHTML = "<img src='http://localhost:9000/assets/images/missAfter.png' alt='S' class='gameContainer' id=this.value/>"}, 1500);
             setTimeout(function(){ document.getElementById(currentCell).innerHTML = "<img src='http://localhost:9000/assets/images/missAfterAfter.png' alt='S' class='gameContainer' id=this.value/>"}, 3000);
             break;

@@ -77,23 +77,24 @@ export default {
   },
   data() {
     return {
-      leftSetShipsCounter:"0",
-      rightSetShipsCounter: "0",
+      leftSetShipsCounter: 0,
+      rightSetShipsCounter: 0,
+      leftShipHitCounter: 0,
+      rightShipHitCounter: 0,
       clickOnLeft: this.setLeftShips,
       clickOnRight: '',
       currentState:'',
       cellHoverGreen: true,
-      test: battleshipCells,
+      battleshipCells: createEmpty1DBattlefield(),
       size: vuePlaygroundSize,
       shipLeft: "images/whiteShip.jpg",
       none: '',
-      score: 0,
-      shipPic: 1,
-      testX: "t",
+
       leftShipPic: '<img src=\'images/whiteShip.png\' alt=\'S\' class=\'gameContainer\' value="1">',
       rightShipPic: '<img src=\'images/pirateShip.png\' alt=\'S\' class=\'gameContainer\'value="1">',
       leftShipHitPic: 'images/whiteShipHit.png',
       rightShipHitPic: 'images/pirateShipHit.png',
+      miss: '<img src=\'images/miss.png\' alt=\'S\' class=\'gameContainer\' value="0">',
 
     };
   },
@@ -117,9 +118,9 @@ export default {
             console.log( "limit left")
             this.clickOnLeft=""
             this.clickOnRight=this.setRightShips;
-            this.cellHoverGreen=!this.cellHoverGreen;
+            this.cellHoverGreen=!this.cellHoverGreen
             event.target.setAttribute('title',"Wrong Side!");
-
+            this.currentState="P2 - setRightShips";
           }
         }
       }
@@ -144,6 +145,7 @@ export default {
             this.clickOnRight=this.shootRightShips;
             this.cellHoverGreen=!this.cellHoverGreen;
             event.target.setAttribute('title',"Shoot!!!");
+            this.currentState="P3 - shootRightShips";
           }
         }
       }
@@ -153,7 +155,7 @@ export default {
       this.currentState="P3 - shootRightShips";
 
       if (event) {
-
+        //hit
         if(event.target.getAttribute('value')==="1"){
           setCellValue(event.target.getAttribute('cellIndex'),2);
           event.target.setAttribute('value',"2");
@@ -161,16 +163,67 @@ export default {
           event.target.parentNode.setAttribute("value","2");
           console.log(event.target.getAttribute('cellIndex'));
 
-          //this.rightShipsShootCounter++;
+          this.rightShipHitCounter++;
 
-          console.log( "treffer!");
+          console.log( "hit!");
+          if(this.rightShipHitCounter===this.size){
+            setTimeout(function(){alert("Left Player Won!!!!!")}, 500);
+          }
+        }
+
+        //miss
+        if(event.target.getAttribute('value')==="0"){
+          //miss pics
+          //event.target.setAttribute('src',"images/miss.png");
+          event.target.innerHTML = this.miss;
+          setTimeout(function(){ event.target.firstChild.setAttribute('src',"images/missAfter.png");}, 1000);
+          setTimeout(function(){ event.target.firstChild.setAttribute('src',"images/missAfterAfter.png");}, 1700);
+          console.log( "miss!");
         }
       }
-
+      //change Player
+      this.clickOnRight="";
+      this.clickOnLeft=this.shootLeftShips;
+      this.cellHoverGreen=!this.cellHoverGreen;
+      this.currentState="P4 - shootLeftShips";
     },
     //Phase 4
     shootLeftShips(event) {
+      this.currentState="P4 - shootLeftShips";
+      if (event) {
+        //hit
+        if(event.target.getAttribute('value')==="1"){
+          setCellValue(event.target.getAttribute('cellIndex'),2);
+          event.target.setAttribute('value',"2");
+          event.target.setAttribute('src',this.leftShipHitPic);
+          event.target.parentNode.setAttribute("value","2");
+          console.log(event.target.getAttribute('cellIndex'));
+
+          this.leftShipHitCounter++;
+
+          console.log( "hit!");
+          if(this.leftShipHitCounter===this.size){
+            setTimeout(function(){alert("Right Player Won!!!!!")}, 500);
+          }
+        }
+
+        //miss
+        if(event.target.getAttribute('value')==="0"){
+          //miss pics
+          event.target.innerHTML = this.miss;
+          setTimeout(function(){ event.target.firstChild.setAttribute('src',"images/missAfter.png");}, 1000);
+          setTimeout(function(){ event.target.firstChild.setAttribute('src',"images/missAfterAfter.png");}, 1700);
+          console.log( "miss!");
+        }
+      }
+      //change Player
+      this.clickOnLeft="";
+      this.clickOnRight=this.shootRightShips;
+      this.cellHoverGreen=!this.cellHoverGreen;
       this.currentState="P3 - shootRightShips";
+    },
+    //Phase 5 WIN!!
+    isWinning(){
 
     },
     push(n) {
