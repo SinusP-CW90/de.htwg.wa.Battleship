@@ -1,21 +1,21 @@
 <template>
   <div>{{currentState}}</div>
   <div class="gameContainer" style="">
-                <span class="game" v-bind:id="'bf-size'+size">
+                <span v-bind:id="'bf-size'+size" class="game">
                     <div class="battlefieldLeft">
                             <!--Numbers -->
                             <span class="xNumberRow">X</span>
-                              <span class="numberRow" v-for="n  in size" :key="n">{{ n }}</span>
+                              <span v-for="n  in size" :key="n" class="numberRow">{{ n }}</span>
 
-                              <!--row Left -->
-                              <div class="battlefield size{{vuePlaygroundSize}}" v-for="row in size" :key="row">
+                      <!--row Left -->
+                              <div v-for="row in size" :key="row" class="battlefield size{{vuePlaygroundSize}}">
                                 <span class="abcCol">{{intToABC(row)}}</span>
-                                  <!--col Left -->
+                                <!--col Left -->
                                   <div v-for="col in size" :key="col">
-                                    <span class="cell cellLeft" v-html="none"  v-bind:id="'cellLeft-R'+row+'-C'+col"
-                                          v-bind:cellIndex='(row-1)*size+(col-1)' v-bind:row='(row-1)' v-bind:col='(col-1)'
-                                          v-bind:value='0' valueshoot="" @click="clickOnLeft"
-                                          data-bs-toggle="tooltip" title="">
+                                    <span v-bind:id="'cellLeft-R'+row+'-C'+col" :class="[{'cellHoverGreen': cellHoverGreen}, {'cellHoverRed': !cellHoverGreen}]" class="cell cellLeft"  data-bs-toggle="tooltip"
+                                          title="click to set your Ship" v-bind:cellIndex='(row-1)*size+(col-1)' v-bind:col='(col-1)'
+                                          v-bind:row='(row-1)' v-bind:value='0' valueshoot=""
+                                          @click="clickOnLeft" v-html="none">
                                     </span>
                                 </div>
                             </div>
@@ -24,21 +24,21 @@
                     <div class="battlefieldRight clear">
                         <!--Numbers -->
                         <span class="middleCutLine"> | </span>
-                      <span class="numberRow" v-for="(n, index) in size" :key="index">{{ n }}</span>
+                      <span v-for="(n, index) in size" :key="index" class="numberRow">{{ n }}</span>
                         <span class="xNumberRow">X</span>
 
                       <!--row Right-->
-                          <div class="battlefield size{{vuePlaygroundSize}}" v-for="(row, index) in size" :key="index">
+                          <div v-for="(row, index) in size" :key="index" class="battlefield size{{vuePlaygroundSize}}">
                             <span class="middleCutLine"> | </span>
 
-                          <!--col Right-->
+                            <!--col Right-->
 
                               <div v-for="(col, index) in size" :key="index">
 
-                                <span class="cell cellRight" v-html="none"  v-bind:id="'cellRight-R'+row+'-C'+col"
-                                      v-bind:cellIndex='(row-1)*size+(col-1)' v-bind:row='(row-1)' v-bind:col='(col-1)'
-                                      v-bind:value='0' @click="clickOnRight"
-                                      data-bs-toggle="tooltip" title="wrong side ;-)">
+                                <span v-bind:id="'cellRight-R'+row+'-C'+col" :class="[{'cellHoverGreen': !cellHoverGreen}, {'cellHoverRed': cellHoverGreen}]" class="cell cellRight"  data-bs-toggle="tooltip"
+                                      title="wrong side ;-)" v-bind:cellIndex='(row-1)*size+(col-1)' v-bind:col='(col-1)'
+                                      v-bind:row='(row-1)' v-bind:value='0'
+                                      @click="clickOnRight" v-html="none">
                                     </span>
 
                             </div>
@@ -82,6 +82,7 @@ export default {
       clickOnLeft: this.setLeftShips,
       clickOnRight: '',
       currentState:'',
+      cellHoverGreen: true,
       test: battleshipCells,
       size: vuePlaygroundSize,
       shipLeft: "images/whiteShip.jpg",
@@ -91,8 +92,8 @@ export default {
       testX: "t",
       leftShipPic: '<img src=\'images/whiteShip.png\' alt=\'S\' class=\'gameContainer\' value="1">',
       rightShipPic: '<img src=\'images/pirateShip.png\' alt=\'S\' class=\'gameContainer\'value="1">',
-      leftShipHitPic: '<img src=\'images/whiteShipHit.png\' alt=\'S\' class=\'gameContainer\'value="2">',
-      rightShipHitPic: '<img src=\'images/pirateShipHit.png\' alt=\'S\' class=\'gameContainer\'value="2">',
+      leftShipHitPic: 'images/whiteShipHit.png',
+      rightShipHitPic: 'images/pirateShipHit.png',
 
     };
   },
@@ -116,39 +117,60 @@ export default {
             console.log( "limit left")
             this.clickOnLeft=""
             this.clickOnRight=this.setRightShips;
-            this.skrri="1";
-            event.target.addClass="XXXXXXXX"
-        }
+            this.cellHoverGreen=!this.cellHoverGreen;
+            event.target.setAttribute('title',"Wrong Side!");
+
           }
+        }
       }
     },
     //Phase2
     setRightShips(event) {
-      this.currentState="setRightShips";
+      this.currentState="P2 - setRightShips";
+      event.target.setAttribute('title',"click to Set your Ship");
       // `event` is the native DOM event
       if (event) {
         if(event.target.getAttribute('value')==="0"){
-        setCellValue(event.target.getAttribute('cellIndex'),1)
-        event.target.setAttribute('value',"1");
-        event.target.innerHTML = this.rightShipPic;
-        //this.changeCellValueToSign(1);
-        console.log(event.target.getAttribute('cellIndex'))
-        this.rightSetShipsCounter++;
-        console.log( this.rightSetShipsCounter)
-        if(this.rightSetShipsCounter===this.size){
-          console.log( "limit right")
-          this.clickOnRight=""
-          this.clickOnRight=this.shootRightShips;
+          setCellValue(event.target.getAttribute('cellIndex'),1);
+          event.target.setAttribute('value',"1");
+          event.target.innerHTML = this.rightShipPic;
+          //this.changeCellValueToSign(1);
+          console.log(event.target.getAttribute('cellIndex'));
+          this.rightSetShipsCounter++;
+          console.log( this.rightSetShipsCounter);
+          if(this.rightSetShipsCounter===this.size){
+            console.log( "limit right");
+            this.clickOnRight="";
+            this.clickOnRight=this.shootRightShips;
+            this.cellHoverGreen=!this.cellHoverGreen;
+            event.target.setAttribute('title',"Shoot!!!");
+          }
         }
-      }
       }
     },
     //Phase 3
     shootRightShips(event) {
+      this.currentState="P3 - shootRightShips";
+
+      if (event) {
+
+        if(event.target.getAttribute('value')==="1"){
+          setCellValue(event.target.getAttribute('cellIndex'),2);
+          event.target.setAttribute('value',"2");
+          event.target.setAttribute('src',this.rightShipHitPic);
+          event.target.parentNode.setAttribute("value","2");
+          console.log(event.target.getAttribute('cellIndex'));
+
+          //this.rightShipsShootCounter++;
+
+          console.log( "treffer!");
+        }
+      }
 
     },
     //Phase 4
     shootLeftShips(event) {
+      this.currentState="P3 - shootRightShips";
 
     },
     push(n) {
@@ -259,17 +281,17 @@ console.log("cell value: " + battleshipCells[3]);
 @media (min-width: 900px) {
   .gameContainer {
 
-  font-size:calc(100% + 2.5vw);
+    font-size:calc(100% + 2.5vw);
   }
 }
 
 .numberRow{
-color:white;
-display: inline-block;
-float:left;
-border-style: outset;
-border-width: 0.05em;
-/*background-color: black;*/
+  color:white;
+  display: inline-block;
+  float:left;
+  border-style: outset;
+  border-width: 0.05em;
+  /*background-color: black;*/
   border-color: darkgray;
   width: 1.2em;
   height: 1.2em;
@@ -378,13 +400,6 @@ border-width: 0.05em;
   background-color: darkgreen;
 }
 
-.cellLeft:hover {
-  background-color: darkgreen;
-}
-
-.cellRight:hover {
-  background-color: darkred;
-}
 
 .cellHoverGreen:hover {
   background-color: darkgreen;
