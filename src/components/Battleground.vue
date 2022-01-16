@@ -4,21 +4,15 @@
                     <div class="battlefieldLeft">
                             <!--Numbers -->
                             <span class="xNumberRow">X</span>
-                      <!--span class="numberRow" v-for="n in size">{{ n }} </span-->
-                              <span class="numberRow" v-for="(n, index) in size" :key="index">{{ n }}</span>
+                              <span class="numberRow" v-for="n  in size" :key="n">{{ n }}</span>
 
-                      <!--row Left -->
-                              <!--div class="battlefield size{{vuePlaygroundSize}}" v-for="row in size"-->
-                              <div class="battlefield size{{vuePlaygroundSize}}" v-for="(row, index) in size" :key="index">
-
+                              <!--row Left -->
+                              <div class="battlefield size{{vuePlaygroundSize}}" v-for="row in size" :key="row">
                                 <span class="abcCol">{{intToABC(row)}}</span>
-                              <!--col Left -->
-                                   <!--div v-for="col in size"-->
-                                  <div v-for="(col, index) in size" :key="index">
-                                    <span class="cell cellLeft" v-bind:id="'cellLeft-R'+row+'-C'+col" v-bind:cellIndex='row*size+col'>
-                                        <span class="cellValueLeft" v-bind:id="'cellValueLeft-R'+row+'-C'+col" v-bind:cellValue='row*size+col' shoot="">
-                                        {{changeZero(col)}}
-                                          </span>
+                                  <!--col Left -->
+                                  <div v-for="col in size" :key="col">
+                                    <span class="cell cellLeft" v-html="none"  v-bind:id="'cellLeft-R'+row+'-C'+col" v-bind:cellIndex='(row-1)*size+(col-1)' v-bind:row='(row-1)' v-bind:col='(col-1)' v-bind:value='0' valueshoot="" @click="clickOnLeft">
+
                                     </span>
                                 </div>
                             </div>
@@ -27,23 +21,18 @@
                     <div class="battlefieldRight clear">
                         <!--Numbers -->
                         <span class="middleCutLine"> | </span>
-                      <!--span class="numberRow" v-for="n in size">{{ n }}</span-->
                       <span class="numberRow" v-for="(n, index) in size" :key="index">{{ n }}</span>
                         <span class="xNumberRow">X</span>
 
                       <!--row Right-->
-
-                      <!--div class="battlefield size{{vuePlaygroundSize}}" v-for="row in size"-->
                           <div class="battlefield size{{vuePlaygroundSize}}" v-for="(row, index) in size" :key="index">
                             <span class="middleCutLine"> | </span>
 
                           <!--col Right-->
-                            <!--div v-for="col in size"-->
+
                               <div v-for="(col, index) in size" :key="index">
-                                <span class="cell cellRight" v-bind:id="'cellRight-R'+row+'-C'+col" v-bind:cellRightIndex='row*size+col' data-bs-toggle="tooltip" title="wrong side ;-)">
-                                    <span class="cellValueRight" v-bind:id="'cellValueRight-R'+row+'-C'+col" v-bind:cellRightValue='row*size+col' shoot="">
-                                        {{changeZero(col)}}
-                                    </span>
+                                <span class="cell cellRight" v-bind:id="'cellRight-R'+row+'-C'+col" v-bind:cellRightIndex='row*size+col' data-bs-toggle="tooltip" title="wrong side ;-)" shoot="">
+                                        {{changeCellValueToSign(col)}}
                                 </span>
                             </div>
 
@@ -73,15 +62,47 @@ export default {
   },
   data() {
     return {
+      leftSetShipsCounter:"0",
+      rightSetShipsCounter: "0",
+      clickOnLeft: this.setLeftShips,
+
       test: battleshipCells,
       size: vuePlaygroundSize,
-      attrib: "Test"
-    }
+      shipLeft: "images/whiteShip.jpg",
+      none: '',
+      score: 0,
+      shipPic: 1,
+      testX: "t",
+      pic: '<img src=\'images/whiteShip.png\' alt=\'S\' class=\'gameContainer\'>'
+
+    };
   },
   methods: {
     method1:function(){
 
       //setOwnShips();
+    },
+    testFunction(){
+      //parent.getAttribute('cellIndex')
+    },
+    shipPicX() {
+      this.score = 12;
+    },
+    setLeftShips(event) {
+      // `event` is the native DOM event
+      if (event) {
+        setCellValue(event.target.getAttribute('cellIndex'),1)
+        event.target.setAttribute('value',"1");
+        event.target.innerHTML = this.pic;
+        //this.changeCellValueToSign(1);
+        console.log(event.target.getAttribute('cellIndex'))
+        this.leftSetShipsCounter++;
+        console.log( this.leftSetShipsCounter)
+          if(this.leftSetShipsCounter===6){
+            console.log( "limit")
+            this.clickOnLeft=""
+          }
+      }
     },
     push(n) {
       return "index: " + n
@@ -92,21 +113,25 @@ export default {
     cellValue(col) {
       return battleshipCells[col]
     },
-    changeZero(col){
-
-      if(battleshipCells[col] === 0){
+    changeCellValueToSign(cellIndex){
+      if(battleshipCells[cellIndex] === 0){
         return "_"
+      }
+      if(battleshipCells[cellIndex] === 1){
+        return "S"
+      }
+      if(battleshipCells[cellIndex] === 2){
+        return "X"
       }
     }
   }
 
 }
 let vuePlaygroundSize = 6;
-let battleshipCells = cellIndex();
-let battleshipCellMatrix = cellMatrix(vuePlaygroundSize, vuePlaygroundSize, 0)
-let testArray = [0,1,2,3,4,5]
+let battleshipCells = createEmpty1DBattlefield();
+let battleshipCellMatrix = createBattlefieldMatrix(vuePlaygroundSize, vuePlaygroundSize, 0)
 
-function cellMatrix(rows, cols, defaultValue) {
+function createBattlefieldMatrix(rows, cols, defaultValue) {
   let arr = [];
   // Creates all lines:
   for (let i = 0; i < rows; i++) {
@@ -123,12 +148,16 @@ function cellMatrix(rows, cols, defaultValue) {
   return arr;
 }
 
-function cellIndex() {
+function createEmpty1DBattlefield() {
   let battleshipCells = []
   for (let i = 0; i < vuePlaygroundSize * vuePlaygroundSize; i++) {
     battleshipCells.push(0)
   }
   return battleshipCells
+}
+
+function setCellValue(index, cellValue) {
+  battleshipCells[index]=cellValue
 }
 
 function indexTorRow(index) {
@@ -143,7 +172,7 @@ function cellToIndex(row, col) {
   return (Math.floor(row * vuePlaygroundSize + col));
 }
 
-console.log(cellMatrix(vuePlaygroundSize, vuePlaygroundSize, 0));
+console.log(createBattlefieldMatrix(vuePlaygroundSize, vuePlaygroundSize, 0));
 console.log("cell value: " + battleshipCells[3]);
 
 //form Old Skript
