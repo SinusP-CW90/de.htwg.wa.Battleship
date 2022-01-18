@@ -9,7 +9,7 @@
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"No test specified\" && exit 0",
     "buildOLD": "quasar build",
-    "build": "npx quasar build -m spa",
+    "build": "npx quasar build -m ssr",
     "start": "cd dist/ssr; npm i; npm start",
     "heroku-postbuild": "yarn && yarn build",
     "deploy": "push-dir --dir=dist/spa --remote=gh-pages --branch=GH-Test",
