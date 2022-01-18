@@ -245,10 +245,6 @@ export default {
       this.cellHoverGreen=!this.cellHoverGreen;
       this.currentState="P3 - shootRightShips";
     },
-    //Phase 5 WIN!!
-    isWinning(){
-
-    },
     push(n) {
       return "index: " + n
     },

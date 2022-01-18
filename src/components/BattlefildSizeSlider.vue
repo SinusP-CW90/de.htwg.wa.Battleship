@@ -3,16 +3,15 @@
     <q-slider
       v-model="model"
       marker-labels
-      :min="0"
+      :min="1"
       :max="6"
     />
-
+{{text}}
   </div>
 </template>
 
 <script>
 import { ref, computed } from 'vue'
-import { example } from 'vue'
 
 export default {
   name: "BattlefildSizeSlider.vue",
@@ -21,10 +20,9 @@ export default {
     const priceModel = ref(4)
 
     return {
-      text: example,
+      text: example.text,
       model,
-      fnMarkerLabel: val => `${10 * val}%`,
-      objMarkerLabel: { 0: '0°C', 3: { label: '3°C' }, 5: '5°C', 6: '6°C' },
+      objMarkerLabel: { 0: example, 3: { label: '3°C' }, 5: '5°C', 6: '6°C' },
 
       priceModel,
       priceLabel: computed(() => `$ ${priceModel.value}`),

@@ -46,7 +46,7 @@
               <!--BattleshipStepper></BattleshipStepper-->
                 <BattleshipState></BattleshipState>
               <Battleground></Battleground>
-                <BattlefildSizeSlider :propsName="example"></BattlefildSizeSlider>
+                <!--BattlefildSizeSlider :propsName="example"></BattlefildSizeSlider-->
             </q-card-section>
           </div>
         </q-slide-transition>
@@ -61,18 +61,18 @@ import WelcomeLabel from "components/WelcomeLabel";
 import BattleshipSettings from "components/BattleshipSettings";
 import Battleground from "components/Battleground";
 import BattleshipState from "components/BattleshipState";
-import BattlefildSizeSlider from "components/BattlefildSizeSlider";
-import BattleshipStepper from "components/BattleshipStepper";
+//import BattlefildSizeSlider from "components/BattlefildSizeSlider";
+//import BattleshipStepper from "components/BattleshipStepper";
 import {ref} from 'vue'
 
 export default {
   name: "BattleshipGame.vue",
   components: {
-    WelcomeLabel: WelcomeLabel,
-    BattleshipSettings: BattleshipSettings,
-    Battleground: Battleground,
-    BattleshipState:BattleshipState,
-    BattlefildSizeSlider:BattlefildSizeSlider,
+    WelcomeLabel,
+    BattleshipSettings,
+    Battleground,
+    BattleshipState,
+    //BattlefildSizeSlider:BattlefildSizeSlider,
     //BattleshipStepper, BattleshipStepper,
 
   },
