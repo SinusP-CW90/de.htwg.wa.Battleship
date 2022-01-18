@@ -12,7 +12,7 @@
     "build": "npx quasar build -m spa",
     "start": "cd dist/ssr; npm i; npm start",
     "heroku-postbuild": "yarn && yarn build",
-    "deploy": "push-dir --dir=dist/ssr --remote=gh-pages --branch=GH-Test",
+    "deploy": "push-dir --dir=dist/spa --remote=gh-pages --branch=GH-Test",
     "gh-pages-deploy": "node scripts/gh-pages-deploy.js"
   },
   "dependencies": {
