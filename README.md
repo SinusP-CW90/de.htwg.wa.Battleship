@@ -13,7 +13,7 @@ quasar dev
 ```
 ### PWA mode
 ```bash
-quasar dev -m pwa
+
 ```
 ###If you want a production build with debugging enabled:
 ```bash
