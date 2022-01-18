@@ -8,13 +8,13 @@
                               <span v-for="n  in size" :key="n" class="numberRow">{{ n }}</span>
 
                       <!--row Left -->
-                              <div v-for="row in size" :key="row" class="battlefield size{{vuePlaygroundSize}}">
+                              <div v-for="row in size" :key="row" class="battlefield size{{this.size}}">
                                 <span class="abcCol">{{intToABC(row)}}</span>
                                 <!--col Left -->
                                   <div v-for="col in size" :key="col">
                                     <span v-bind:id="'cellLeft-R'+row+'-C'+col" :class="[{'cellHoverGreen': cellHoverGreen}, {'cellHoverRed': !cellHoverGreen}]" class="cell cellLeft"  data-bs-toggle="tooltip"
                                           title="click to set your Ship" v-bind:cellIndex='(row-1)*size+(col-1)' v-bind:col='(col-1)'
-                                          v-bind:row='(row-1)' v-bind:value='0' valueshoot=""
+                                          v-bind:row='(row-1)' v-bind:value='0'
                                           @click="clickOnLeft" v-html="none">
                                     </span>
                                 </div>
@@ -28,7 +28,7 @@
                         <span class="xNumberRow">X</span>
 
                       <!--row Right-->
-                          <div v-for="(row, index) in size" :key="index" class="battlefield size{{vuePlaygroundSize}}">
+                          <div v-for="(row, index) in size" :key="index" class="battlefield size{{this.size}}">
                             <span class="middleCutLine"> | </span>
 
                             <!--col Right-->
@@ -54,8 +54,8 @@
 </template>
 
 <script>
-import BattlefieldLeftSide from "components/BattlefieldLeftSide";
-import BattlefieldRightSide from "components/BattlefieldRightSide";
+//import BattlefieldLeftSide from "components/BattlefieldLeftSide";
+//import BattlefieldRightSide from "components/BattlefieldRightSide";
 
 
 export default {
@@ -92,8 +92,8 @@ export default {
       size: vuePlaygroundSize,
       shipLeft: "images/whiteShip.jpg",
       none: '',
-      leftShipPic: '<img src=\'images/whiteShip.png\' alt=\'S\' class=\'gameContainer\' value="1">',
-      rightShipPic: '<img src=\'images/pirateShip.png\' alt=\'S\' class=\'gameContainer\'value="1">',
+      leftShipPic: "<img src='images/whiteShip.png' alt='S' class='gameContainer' value='1'>",
+      rightShipPic: '<img src=\'images/pirateShip.png\' alt=\'S\' class=\'gameContainer\' value="1">',
       leftShipHitPic: 'images/whiteShipHit.png',
       rightShipHitPic: 'images/pirateShipHit.png',
       miss: '<img src=\'images/miss.png\' alt=\'S\' class=\'gameContainer\' value="0">',
@@ -272,7 +272,7 @@ export default {
   }
 
 }
-let vuePlaygroundSize = 2;
+let vuePlaygroundSize = 4;
 let battleshipCells = createEmpty1DBattlefield();
 let battleshipLeftCells = createEmpty1DBattlefield();
 let battleshipRightCells = createEmpty1DBattlefield();
@@ -469,15 +469,6 @@ function calcScale(){
   margin:0.1em;
   text-align: center;
 }
-
-.cellLeftTurn:hover {
-  background-color: darkred;
-}
-
-.cellRightTurn:hover {
-  background-color: darkgreen;
-}
-
 
 .cellHoverGreen:hover {
   background-color: darkgreen;

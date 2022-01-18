@@ -43,8 +43,10 @@
                      src="images/battleship.jpg"
               ></q-img>
                 </q-card-section>
+              <!--BattleshipStepper></BattleshipStepper-->
+                <BattleshipState></BattleshipState>
               <Battleground></Battleground>
-
+                <BattlefildSizeSlider :propsName="example"></BattlefildSizeSlider>
             </q-card-section>
           </div>
         </q-slide-transition>
@@ -58,6 +60,9 @@
 import WelcomeLabel from "components/WelcomeLabel";
 import BattleshipSettings from "components/BattleshipSettings";
 import Battleground from "components/Battleground";
+import BattleshipState from "components/BattleshipState";
+import BattlefildSizeSlider from "components/BattlefildSizeSlider";
+import BattleshipStepper from "components/BattleshipStepper";
 import {ref} from 'vue'
 
 export default {
@@ -66,12 +71,16 @@ export default {
     WelcomeLabel: WelcomeLabel,
     BattleshipSettings: BattleshipSettings,
     Battleground: Battleground,
+    BattleshipState:BattleshipState,
+    BattlefildSizeSlider:BattlefildSizeSlider,
+    //BattleshipStepper, BattleshipStepper,
 
   },
   setup() {
     return {
       expandedPic: ref(true),
       expanded: ref(false),
+      example: 'Send this variable to the child',
     }
   }
 }
