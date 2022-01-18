@@ -1,5 +1,13 @@
 <template>
-  <div>{{currentState}}</div>
+  <div></div>
+
+  <q-card class="cardState ">
+    <q-card-section class="bg-grey-8 text-white">
+      <div class="text-h6">current State:</div>
+      <div class="text-h6 bg-black">{{currentState}}</div>
+    </q-card-section>
+  </q-card>
+
   <div class="gameContainer" v-bind:style=scaleFont >
                 <span v-bind:id="'bf-size'+size" class="game">
                     <div class="battlefieldLeft">
@@ -479,5 +487,11 @@ function calcScale(){
     clear:both;
   }
 }
+
+.cardState{
+  width: 20vw;
+  max-width: 250px;
+}
+
 
 </style>

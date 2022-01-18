@@ -1,0 +1,152 @@
+
+.battlefieldLeft,.battlefieldRight{
+  float: left;
+  justify-content: left;
+}
+@media (min-width: 400px) {
+.battlefieldRight {
+    /*float: right;*/
+    justify-content: right;
+}
+}
+.gameContainer {
+  height: 100%;
+  width: 100%;
+  /*min-width: 330px;*/
+  display:flex;
+
+  font-family: "Verdana",Geneva, sans-serif;
+  font-weight: bold;
+  color:black;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+}
+@media (min-width: 900px) {
+.gameContainer {
+
+    font-size:calc(100% + 2.5vw);
+}
+}
+.numberRow{
+  color:white;
+  display: inline-block;
+  float:left;
+  border-style: outset;
+  border-width: 0.05em;
+  /*background-color: black;*/
+  border-color: darkgray;
+  width: 1.2em;
+  height: 1.2em;
+  margin:0.1em;
+  text-align: center;
+}
+.xNumberRow{
+  color:black;
+  display: inline-block;
+  float:left;
+  border-style: outset;
+  border-width: 0.05em;
+  border-color: darkgray;
+  width: 1.2em;
+  height: 1.2em;
+  margin:0.1em;
+  text-align: center;
+}
+.abcCol{
+  color:white;
+  display: inline-block;
+  float:left;
+  border-style: outset;
+  border-width: 0.05em;
+  border-color: darkgray;
+  width: 1.2em;
+  height: 1.2em;
+  margin:0.1em;
+  text-align: center;
+}
+.abcColRight{
+  color:white;
+  display: inline-block;
+  float:right;
+  border-style: outset;
+  border-width: 0.05em;
+  border-color: darkgray;
+  width: 1.2em;
+  height: 1.2em;
+  margin:0.1em;
+  text-align: center;
+}
+.middleCutLine{
+  display: inline-block;
+  float:left;
+  border-style: outset;
+  border-width: 0.05em;
+  /*background-color: #E0E0FF;*/
+  background-color: black;
+  border-color: #f6f6FF;
+  width: 0.4em;
+  height: 1.2em;
+  margin:0.1em;
+  text-align: center;
+}
+@media (min-width: 300px) {
+.game {
+    display: grid;
+    grid-template-columns: auto;
+    background-color: #2196F3;
+    padding: 10px;
+}
+.grid-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+}
+}
+.game {
+  border-style: inset;
+  /*border-width: 0.05em;*/
+  border-spacing: 0;
+  border-color: #f6f6FF;
+  background-color: black;
+  padding: 0.05em;
+
+  /*min-width: 375px;*/
+  display: inline-block;
+  float:left;
+}
+.cell {
+  display: inline-block;
+  float:left;
+  border-style: outset;
+  border-width: 0.05em;
+  /*background-color: #E0E0FF;*/
+  background-color: #1668b5;
+  border-color: #f6f6FF;
+  width: 1.2em;
+  height: 1.2em;
+  margin:0.1em;
+  text-align: center;
+}
+.cellHoverGreen:hover {
+  background-color: darkgreen;
+}
+.cellHoverRed:hover {
+  background-color: darkred;
+}
+@media only screen and (max-width: 700px) {
+.clear {
+    clear:both;
+}
+}
+.cardState{
+  width: 20vw;
+  max-width: 250px;
+}
+
+
+
+
+/*# sourceMappingURL=80.cf8b330e.css.map*/
