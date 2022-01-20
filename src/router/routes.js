@@ -1,3 +1,7 @@
+import { createRouter, createWebHistory } from 'vue-router'
+import BattleshipGame from '../pages/BattleshipGame.vue'
+import Login from '../pages/Login.vue'
+import { auth } from '../firebase'
 
 const routes = [
   {
@@ -5,14 +9,26 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: 'index',
+        name: 'Index',
         component: () => import('pages/Index.vue') },
       { path: '/aboutTheGame',
-        component: () => import('pages/AboutTheGame.vue') },
+        name: 'About The Game',
+        component: () => import('pages/AboutTheGame.vue'),
+        meta: {
+          requiresAuth: true
+        }},
+
       { path: '',
-        component: () => import('pages/BattleshipGame.vue') },
+        name: 'BattleshipGame',
+        component: () => import('pages/BattleshipGame.vue'),
+        meta: {
+          requiresAuth: true
+        }},
       { path: '/page4',
+        name: 'Error404',
         component: () => import('pages/Error404.vue') },
       { path: '/login',
+        name: 'Login',
         component: () => import('pages/Login.vue') }
     ]
   },
