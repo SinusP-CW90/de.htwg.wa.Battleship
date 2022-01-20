@@ -11,7 +11,9 @@ const routes = [
       { path: '',
         component: () => import('pages/BattleshipGame.vue') },
       { path: '/page4',
-        component: () => import('pages/Error404.vue') }
+        component: () => import('pages/Error404.vue') },
+      { path: '/login',
+        component: () => import('pages/Login.vue') }
     ]
   },
 

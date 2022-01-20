@@ -23,6 +23,7 @@
         <q-route-tab to="/aboutTheGame" label="About Battleship" />
         <q-route-tab to="/index" label="Test Page" />
         <q-route-tab to="/page4" label="Error Page" />
+        <q-route-tab to="/login" label="Login" />
       </q-tabs>
     </q-header>
 
