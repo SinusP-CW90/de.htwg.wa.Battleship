@@ -1,31 +1,33 @@
 {
   "name": "battleship",
   "version": "0.0.1",
-  "description": "Battleship Game - A Quasar Framework app",
-  "productName": "Battleship Game WebApp",
-  "author": "SinusP-CW90 <chwerner@htwg-konstanz.de>",
   "private": true,
+  "description": "Battleship Game - A Quasar Framework app",
+  "author": "SinusP-CW90 <chwerner@htwg-konstanz.de>",
   "scripts": {
-    "lint": "eslint --ext .js,.vue ./",
-    "test": "echo \"No test specified\" && exit 0",
-    "buildOLD": "quasar build",
     "build": "npx quasar build -m ssr",
-    "start": "cd dist/ssr; npm i; npm start",
-    "heroku-postbuild": "yarn && yarn build",
+    "lint": "eslint --ext .js,.vue ./",
     "deploy": "push-dir --dir=dist/spa --remote=gh-pages --branch=GH-Test",
-    "gh-pages-deploy": "node scripts/gh-pages-deploy.js"
+    "buildOLD": "quasar build",
+    "gh-pages-deploy": "node scripts/gh-pages-deploy.js",
+    "heroku-postbuild": "yarn && yarn build",
+    "start": "cd dist/ssr; npm i; npm start",
+    "test": "echo \"No test specified\" && exit 0"
   },
+  "main": ".eslintrc.js",
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "connect-history-api-fallback": "^1.6.0",
     "core-js": "^3.6.5",
     "express": "^4.17.2",
     "quasar": "^2.0.0",
+    "register-service-worker": "^1.7.1",
     "serve-static": "^1.14.2"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",
     "@quasar/app": "^3.0.0",
+    "@vue/cli-plugin-pwa": "~4.5.0",
     "chalk": "^4.0.0",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^8.1.0",
@@ -35,7 +37,7 @@
     "node-emoji": "^1.10.0",
     "push-dir": "^0.4.1",
     "quasar-app-extension-gh-pages-auto-deploy": "^0.4.0",
-    "workbox-webpack-plugin": "^6.0.0"
+    "workbox-webpack-plugin": "^6.4.2"
   },
   "browserslist": [
     "last 10 Chrome versions",
@@ -53,6 +55,6 @@
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
   },
-  "main": ".eslintrc.js",
-  "license": "ISC"
+  "license": "ISC",
+  "productName": "Battleship Game WebApp"
 }

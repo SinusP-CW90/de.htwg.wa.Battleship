@@ -19,6 +19,7 @@ quasar dev
 ```bash
 quasar build -m pwa -d
 ```
+quasar dev -m pwa
 ### Lint the files
 ```bash
 yarn run lint
