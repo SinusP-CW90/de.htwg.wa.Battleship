@@ -29,7 +29,10 @@ const routes = [
         component: () => import('pages/Error404.vue') },
       { path: '/login',
         name: 'Login',
-        component: () => import('pages/Login.vue') }
+        component: () => import('pages/Login.vue') },
+      { path: '/register',
+        name: 'Register',
+        component: () => import('pages/Register.vue') }
     ]
   },
 

@@ -30,6 +30,8 @@ export default {
 @media (min-width: 300px) {
   .q-img{
     max-width:90vw;
+    display: inline-block;
+
   }
 }
 @media (min-width: 721px) {

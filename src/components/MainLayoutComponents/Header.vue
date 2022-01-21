@@ -22,6 +22,8 @@
       <q-route-tab label="About Battleship" to="/aboutTheGame"/>
       <q-route-tab label="Test Page" to="/index"/>
       <q-route-tab label="Error Page" to="/page4"/>
+      <q-route-tab label="Login" to="/login"/>
+      <q-route-tab label="Register" to="/register"/>
       <button v-if="$store.state.user" @click="$store.dispatch('logout')">Logout</button>
     </q-tabs>
 

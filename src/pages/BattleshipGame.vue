@@ -10,8 +10,9 @@
 
             <WelcomeLabel></WelcomeLabel>
 
-            <BattleshipSettings></BattleshipSettings>
+            <!--BattleshipSettings></BattleshipSettings-->
           </div>
+
         </q-slide-transition>
         <q-btn
           :icon="expandedPic ?'keyboard_arrow_up' : 'keyboard_arrow_down'"
@@ -76,7 +77,7 @@ export default {
   },
   components: {
     WelcomeLabel,
-    BattleshipSettings,
+    //BattleshipSettings,
     Battleground,
     BattleshipState,
     //BattlefildSizeSlider:BattlefildSizeSlider,
