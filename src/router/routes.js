@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import BattleshipGame from '../pages/BattleshipGame.vue'
 import Login from '../pages/Login.vue'
+import Register from '../pages/Register.vue'
+import ForgotPW from '../pages/ForgotPW.vue'
 import { auth } from '../firebase'
 
 const routes = [
@@ -32,7 +34,10 @@ const routes = [
         component: () => import('pages/Login.vue') },
       { path: '/register',
         name: 'Register',
-        component: () => import('pages/Register.vue') }
+        component: () => import('pages/Register.vue') },
+      { path: '/forgotPW',
+        name: 'ForgotPW',
+        component: () => import('pages/ForgotPW.vue') },
     ]
   },
 

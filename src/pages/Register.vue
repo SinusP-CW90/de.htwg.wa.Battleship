@@ -1,5 +1,5 @@
 <template>
-  <main class="reg row items-center d-flex justify-center">
+  <main class="reg row items-center d-flex justify-center bg-image" style="height: 100vh" >
     <section class="forms">
       <div style="height: 200px">
         <q-img class="q-img"
@@ -54,6 +54,13 @@ export default {
 </script>
 
 <style>
+.bg-image {
+  background-image: url("/images/seaBackground1Wide.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  hight:100vh;
+}
+
 .forms {
   display: flex;
   max-width: 50vw;

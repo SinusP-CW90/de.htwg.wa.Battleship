@@ -15,6 +15,7 @@ export default createStore({
 
     SET_USER (state, user) {
       state.user = user
+      console.log("User: "+ state.user.email +" log in" )
     },
 
     CLEAR_USER (state) {
@@ -45,7 +46,7 @@ export default createStore({
 
       commit('SET_USER', auth.currentUser)
 
-      router.push('/')
+      this.$router.replace("/");
     },
 
     async register ({ commit}, details) {
@@ -76,7 +77,7 @@ export default createStore({
 
       commit('SET_USER', auth.currentUser)
 
-      router.push('/')
+      this.$router.replace("/");
     },
 
     async logout ({ commit }) {
@@ -84,7 +85,7 @@ export default createStore({
 
       commit('CLEAR_USER')
 
-      router.push('/login')
+      this.$router.replace("/login");
     },
 
     fetchUser ({ commit }) {
@@ -95,7 +96,7 @@ export default createStore({
           commit('SET_USER', user)
 
           if (router.isReady() && router.currentRoute.value.path === '/login') {
-            router.push('/')
+            this.$router.replace("/");
           }
         }
       })

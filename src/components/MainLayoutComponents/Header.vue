@@ -24,7 +24,8 @@
       <q-route-tab label="Error Page" to="/page4"/>
       <q-route-tab label="Login" to="/login"/>
       <q-route-tab label="Register" to="/register"/>
-      <button v-if="$store.state.user" @click="$store.dispatch('logout')">Logout</button>
+      <!--button v-if="$store.state.user" @click="$store.dispatch('logout')">Logout</button-->
+      <button v-if="$store.state.user" @click="logout, $store.dispatch('logout')">Logout</button>
     </q-tabs>
 
 
@@ -37,16 +38,37 @@
 //import LeftDrawer from "MainLayoutComponents"
 
 
-
+import {getAuth, signOut} from "firebase/auth";
+import $store from "express/lib/router/route";
 
 export default {
   name: "Header.vue",
   emits: ["change"],
+  setup () {
+    const auth = getAuth();
+    return {
+      auth
+    }
+  },
   methods: {
     tryThis() {
       console.log("trying in Header");
       this.$emit("enlargeText", "someValue");
     },
+    logout(){
+      const auth = getAuth();
+
+      signOut(auth).then(() => {
+        $store.dispatch('logout')
+        console.log("Sign-out successful.")
+        // Sign-out successful.
+      }).catch((error) => {
+        console.log("An error happened.")
+        // An error happened.
+      })
+    },
+
+
   },
 }
 </script>
