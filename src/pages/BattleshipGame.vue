@@ -67,6 +67,13 @@ import {ref} from 'vue'
 
 export default {
   name: "BattleshipGame.vue",
+  probs:{
+    testData: {
+      skrri: "99",
+      type:'test',
+      kp: true
+    }
+  },
   components: {
     WelcomeLabel,
     BattleshipSettings,
