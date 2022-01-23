@@ -21,11 +21,15 @@
       <q-route-tab label="The Game" to="/"/>
       <q-route-tab label="About Battleship" to="/aboutTheGame"/>
       <q-route-tab label="Test Page" to="/index"/>
-      <q-route-tab label="Error Page" to="/page4"/>
+      <!--q-route-tab label="Error Page" to="/page4"/-->
       <q-route-tab label="Login" to="/login"/>
       <q-route-tab label="Register" to="/register"/>
-      <!--button v-if="$store.state.user" @click="$store.dispatch('logout')">Logout</button-->
-      <button v-if="$store.state.user" @click="logout, $store.dispatch('logout')">Logout</button>
+      <q-route-tab label="ForgotPassword" to="/forgotPassword"/>
+      <q-route-tab label="user" to="/user"/>
+      <q-route-tab label="home" to="/home"/>
+      <button v-if="$store.state.user" @click="$store.dispatch('logout')">Logout</button>
+      <button v-if="$store.state.user" @click="logout">Logout</button>
+
     </q-tabs>
 
 
@@ -38,16 +42,16 @@
 //import LeftDrawer from "MainLayoutComponents"
 
 
-import {getAuth, signOut} from "firebase/auth";
+import {getAuth, signOut, unlink } from "firebase/auth";
 import $store from "express/lib/router/route";
 
 export default {
   name: "Header.vue",
   emits: ["change"],
   setup () {
-    const auth = getAuth();
+    //const auth = getAuth();
     return {
-      auth
+      //auth
     }
   },
   methods: {
@@ -59,6 +63,14 @@ export default {
       const auth = getAuth();
 
       signOut(auth).then(() => {
+        unlink(auth.currentUser, providerId).then(() => {
+          console.log("unlink successful.")
+          // Auth provider unlinked from account
+          // ...
+        }).catch((error) => {
+          // An error happened
+          // ...
+        })
         $store.dispatch('logout')
         console.log("Sign-out successful.")
         // Sign-out successful.

@@ -25,6 +25,7 @@ import DrawerRight from "components/MainLayoutComponents/DrawerRight.vue"
 import Footer from "components/MainLayoutComponents/Footer.vue"
 import {useStore} from 'vuex'
 
+
 export default {
   name: "MainLayout",
   components: {

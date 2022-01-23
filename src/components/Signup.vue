@@ -10,26 +10,28 @@
       <form class="register" @submit.prevent="register">
         <h2 class="text-center">Register</h2>
         <input
-          type="text"
+          type="name"
           placeholder="Name"
-          v-model="register_form.name" />
+          v-model="user.name" />
+
         <input
           type="email"
           placeholder="Email address"
-          v-model="register_form.email" />
+          v-model="user.email" />
+
         <input
           type="password"
           placeholder="Password"
-          v-model="register_form.password" />
+          v-model="user.password" />
+
         <input
           type="submit"
           value="Register" />
 
-        <v-card-text>
-          <p class="text-center reg row items-center d-flex justify-center">
-            or go back to <router-link to="/login">login</router-link>.
-          </p>
-        </v-card-text>
+        <p class="forgot-password text-right">
+          Already registered
+          <router-link :to="{name: 'login'}">sign in?</router-link>
+        </p>
       </form>
 
     </section>
@@ -37,37 +39,55 @@
   </main>
 </template>
 
+
 <script>
-import { ref } from 'vue'
-import { useStore } from 'vuex'
+//import firebase from "firebase";
+
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 export default {
-  setup () {
-    const register_form = ref({});
-    const store = useStore();
-
-    const register = () => {
-      store.dispatch('register', register_form.value);
-    }
-
+  data() {
     return {
-      register_form,
-      register
+      user: {
+        name: '',
+        email: '',
+        password: ''
+      }
+    };
+  },
+  methods: {
+    userRegistration() {
+      const auth = getAuth();
+      createUserWithEmailAndPassword(auth, this.user.email, this.user.password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+          userCredential.user
+            .updateProfile({
+              displayName: this.user.name
+            })
+            .then(() => {
+              this.$router.push('/login')
+            });
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          alert(error.message);
+          // ..
+        });
     }
   }
-}
+};
 </script>
-
 <style>
 .bg-image {
   background-image: url("/images/seaBackground1Wide.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   hight:100vh;
-}
-
-.q-img{
-  max-width:66vw;
 }
 
 .forms {

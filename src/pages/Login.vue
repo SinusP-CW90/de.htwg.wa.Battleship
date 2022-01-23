@@ -1,57 +1,56 @@
 <template>
   <main class="login row items-center d-flex justify-center bg-image" style="height: 100vh" >
 
-
     <section class="forms">
       <form class="login" @submit.prevent="login"
-            style="
-    padding-top: 30px"
-      >
+            style="padding-top: 30px">
+
         <q-img class="q-img"
                src="images/battleship.jpg"
         ></q-img>
-        <h2 class="text-center">Login</h2>
 
+        <h2 class="text-center">Login</h2>
 
         <input
           type="email"
           placeholder="Email address"
           v-model="login_form.email" />
+
         <input
           type="password"
           placeholder="Password"
           v-model="login_form.password" />
+
         <p class="forgot-password text-right">
-          <router-link to="/forgotPW">Forgot Password?</router-link>
+          <router-link to="/forgetPassword">Forgot Password?</router-link>
         </p>
 
         <input
           type="submit"
           value="Login" />
 
-
-
-
-        <v-card-text>
+        <div>
           <p class="text-center">
             You don't have an account ? <br>
             You can <router-link to="/register">register</router-link>
-            <br>or <br>Sign in with Google <br />
+            <br>
+
+
             <button @click="socialLogin" class="social-button">
               <img
                 alt="Google Logo"
-                src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                src="icons/googleSingIn.png" style="hight:50px; width:300px"
               />
             </button>
-            <br>or <br>Sign in with GitHub <br />
+
             <button @click="githubLogin" class="social-button">
               <img
                 alt="Github Logo"
-                src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" style="hight:20px; width:20px"
+                src="icons/gitHubSignIn.png" style="hight:50px; width:350px"
               />
             </button>
           </p>
-        </v-card-text>
+        </div>
 
       </form>
 
@@ -63,18 +62,22 @@
 <script>
 import { ref } from 'vue'
 import { useStore } from 'vuex'
-import { GithubAuthProvider } from "firebase/auth";
+import { GoogleAuthProvider, FacebookAuthProvider, TwitterAuthProvider, GithubAuthProvider } from "firebase/auth";
 import {
+
   getAuth, getRedirectResult,
-  GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithRedirect,
   signInWithPopup,
 } from "firebase/auth";
 
-
 export default {
   setup () {
+    const googleProvider = new GoogleAuthProvider();
+    const facebookProvider = new FacebookAuthProvider();
+    const twitterProvider = new TwitterAuthProvider();
+    const githubProvider = new GithubAuthProvider();
+
     const login_form = ref({});
     const store = useStore();
 
@@ -88,25 +91,13 @@ export default {
     }
   },
   methods: {
-    socialLogin() {
-      const provider = new GoogleAuthProvider();
-      const auth = getAuth();
-      signInWithRedirect(auth, provider)
-        .then(() => {
-          this.$router.replace("/");
-        })
-        .catch((err) => {
-          alert("Oops. " + err.message);
-        });
-    },
-    githubLogin() {
+    googleLogin(){
       const auth = getAuth();
       signInWithPopup(auth, provider)
         .then((result) => {
-          // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-          const credential = GithubAuthProvider.credentialFromResult(result);
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          const credential = GoogleAuthProvider.credentialFromResult(result);
           const token = credential.accessToken;
-
           // The signed-in user info.
           const user = result.user;
           // ...
@@ -117,36 +108,40 @@ export default {
         // The email of the user's account used.
         const email = error.email;
         // The AuthCredential type that was used.
-        const credential = GithubAuthProvider.credentialFromError(error);
+        const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
       });
+
     },
-
-     googleLogin() {
-      try {
-        const auth = getAuth();
-        getRedirectResult(auth)
-          .then((result) => {
-            // This gives you a Google Access Token. You can use it to access Google APIs.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-
-            // The signed-in user info.
-            const user = result.user;
-          }).catch((error) => {
-          // Handle Errors here.
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // The email of the user's account used.
-          const email = error.email;
-          // The AuthCredential type that was used.
-          const credential = GoogleAuthProvider.credentialFromError(error);
-          // ...
+    socialLogin() {
+      const provider = new GoogleAuthProvider();
+      const auth = getAuth();
+      signInWithRedirect(auth, provider)
+        .then(() => {
+          this.$router.replace("/");
+          console.log(socialLogin)
+          this.successLogin();
+        })
+        .catch((err) => {
+          alert("Oops. " + err.message);
         });
-      } catch (error) {
-        console.log(error);
-      }
     },
+    successLogin() {
+      getRedirectResult(auth).then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        if (credential) {
+          // Accounts successfully linked.
+          const user = result.user;
+          this.$router.replace("/");
+          console.log(user)
+          // ...
+        }
+      }).catch((error) => {
+        // Handle Errors here.
+        // ...
+      })
+    },
+
   },
 }
 </script>

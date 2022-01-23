@@ -1,9 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import BattleshipGame from '../pages/BattleshipGame.vue'
-import Login from '../pages/Login.vue'
-import Register from '../pages/Register.vue'
-import ForgotPW from '../pages/ForgotPW.vue'
-import { auth } from '../firebase'
 
 const routes = [
   {
@@ -19,25 +15,28 @@ const routes = [
         meta: {
           requiresAuth: true
         }},
-
       { path: '',
         name: 'BattleshipGame',
         component: () => import('pages/BattleshipGame.vue'),
         meta: {
           requiresAuth: true
         }},
-      { path: '/page4',
+      /*{ path: '/err404',
         name: 'Error404',
-        component: () => import('pages/Error404.vue') },
+        component: () => import('pages/Error404.vue') },*/
       { path: '/login',
         name: 'Login',
         component: () => import('pages/Login.vue') },
       { path: '/register',
         name: 'Register',
         component: () => import('pages/Register.vue') },
-      { path: '/forgotPW',
-        name: 'ForgotPW',
-        component: () => import('pages/ForgotPW.vue') },
+
+      { path: '/forgotPassword',
+        name: 'ForgotPassword',
+        component: () => import('pages/ForgotPassword.vue') },
+      { path: '/user',
+        name: 'user',
+        component: () => import('pages/User.vue') },
     ]
   },
 

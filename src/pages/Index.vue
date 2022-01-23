@@ -9,8 +9,6 @@
       <div class="grid-item">2</div>
     </div>
 
-    <Battleground></Battleground>
-
   </q-page>
 </template>
 
