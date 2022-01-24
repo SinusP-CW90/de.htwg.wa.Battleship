@@ -62,6 +62,7 @@
 <script>
 import { ref } from 'vue'
 import { useStore } from 'vuex'
+
 import { GoogleAuthProvider, FacebookAuthProvider, TwitterAuthProvider, GithubAuthProvider } from "firebase/auth";
 import {
 
@@ -84,14 +85,18 @@ export default {
     const login = () => {
       store.dispatch('login', login_form.value);
     }
+    const googleLogin = () => {
+      store.dispatch('googleLogin', login_form.value);
+    }
 
     return {
       login_form,
       login,
+      googleLogin
     }
   },
   methods: {
-    googleLogin(){
+    googleLoginX(){
       const auth = getAuth();
       signInWithPopup(auth, provider)
         .then((result) => {

@@ -11,11 +11,11 @@
         <h2 class="text-center">Register</h2>
         <input
           type="text"
-          placeholder="Name"
-          v-model="register_form.name" />
+          placeholder="enter your Name"
+          v-model="register_form.displayName" />
         <input
           type="email"
-          placeholder="Email address"
+          placeholder="Email-Address"
           v-model="register_form.email" />
         <input
           type="password"
@@ -48,12 +48,17 @@ export default {
 
     const register = () => {
       store.dispatch('register', register_form.value);
+      console.log(register_form.value)
+      console.log(register_form.value.email)
     }
 
     return {
       register_form,
       register
     }
+  },
+  methods: {
+
   }
 }
 </script>

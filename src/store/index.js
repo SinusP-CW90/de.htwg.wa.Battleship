@@ -4,8 +4,13 @@ import { auth } from '../firebase'
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut
+  signOut,
+  getAuth,
+  onAuthStateChanged
 } from 'firebase/auth'
+
+import {signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
 
 export default createStore({
   state: {
@@ -15,11 +20,27 @@ export default createStore({
 
     SET_USER (state, user) {
       state.user = user
-      console.log("User: "+ state.user.email +" log in" )
+      state.user.role = "nobody"
+      console.log("User: "+ state.user.email +" SetUser" )
+      console.log("User: "+ state.user +" SetUser" )
+      console.log("User: "+ state +" SetUser" )
+      console.log("User: "+  state.user.role +" SetUser" )
+    },
+
+    SET_GOOGLE_USER (state, user) {
+      state.user = user
+      state.credential = GoogleAuthProvider.credentialFromResult(state);
+      state.token = state.credential.accessToken;
+      state.user.role = "nobody"
+      console.log("User: "+ state.user.email +" SetUser" )
+      console.log("User: "+ state.user +" SetUser" )
+      console.log("User: "+ state +" SetUser" )
+      console.log("User: "+  state.user.role +" SetUser" )
     },
 
     CLEAR_USER (state) {
       state.user = null
+      console.log("User ist cleared!")
     }
 
   },
@@ -28,6 +49,7 @@ export default createStore({
       const { email, password } = details
 
       try {
+
         await signInWithEmailAndPassword(auth, email, password)
       } catch (error) {
         switch(error.code) {
@@ -45,15 +67,54 @@ export default createStore({
       }
 
       commit('SET_USER', auth.currentUser)
+      console.log("User: "+  state.user.role +" login" )
+
+      this.$router.replace("/");
+    },
+
+    async googleLogin ({ commit }, details) {
+      const provider = new GoogleAuthProvider();
+      try {
+        await signInWithPopup(auth, provider)
+      } catch (error) {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert("error Message:" +error.message)
+        // The email of the user's account used.
+        const email = error.email;
+        alert("email error:" +email)
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        alert("credential err: "+credential)
+        switch(error.code) {
+          case 'auth/user-not-found':
+            alert("User not found")
+            break
+          case 'auth/wrong-password':
+            alert("Wrong password")
+            break
+          default:
+            alert("Something went wrong")
+        }
+
+        return
+      }
+
+      commit('SET_GOOGLE_USER', auth.currentUser)
+      console.log("User: "+  state.user.role +" login" )
 
       this.$router.replace("/");
     },
 
     async register ({ commit}, details) {
-      const { email, password } = details
+      const { displayName, email, password } = details
 
       try {
         await createUserWithEmailAndPassword(auth, email, password)
+        auth.currentUser.displayName = displayName;
+        console.log("in reg name: " + displayName)
+        console.log("in reg /auth: " + auth)
       } catch (error) {
         switch(error.code) {
           case 'auth/email-already-in-use':
@@ -78,7 +139,9 @@ export default createStore({
       commit('SET_USER', auth.currentUser)
 
       this.$router.replace("/");
+      console.log(auth.currentUser)
     },
+
 
     async logout ({ commit }) {
       await signOut(auth)

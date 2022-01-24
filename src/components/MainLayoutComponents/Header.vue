@@ -22,13 +22,16 @@
       <q-route-tab label="About Battleship" to="/aboutTheGame"/>
       <q-route-tab label="Test Page" to="/index"/>
       <!--q-route-tab label="Error Page" to="/page4"/-->
+      <!--q-route-tab v-if="!$store.state.user"   label="Login" to="/login"/-->
       <q-route-tab label="Login" to="/login"/>
       <q-route-tab label="Register" to="/register"/>
       <q-route-tab label="ForgotPassword" to="/forgotPassword"/>
       <q-route-tab label="user" to="/user"/>
-      <q-route-tab label="home" to="/home"/>
+      <q-route-tab label="Home" to="/home"/>
+      <q-route-tab label="SecretPage" to="/secretPage"/>
       <button v-if="$store.state.user" @click="$store.dispatch('logout')">Logout</button>
       <button v-if="$store.state.user" @click="logout">Logout</button>
+      <!--button v-if="$store.state.user.displayName" >{{ $store.state.user.displayName }}</button-->
 
     </q-tabs>
 
