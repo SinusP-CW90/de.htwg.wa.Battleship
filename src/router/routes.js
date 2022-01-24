@@ -1,4 +1,9 @@
-import {createRouter, createWebHistory} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
+
+import Login from '../pages/Login.vue'
+import Register from '../pages/Register.vue'
+import User from '../pages/User.vue'
+import { auth } from '../firebase'
 
 const routes = [
   {
@@ -32,12 +37,12 @@ const routes = [
       {
         path: '/login',
         name: 'Login',
-        component: () => import('pages/Login.vue')
+        component: Login
       },
       {
         path: '/register',
         name: 'Register',
-        component: () => import('pages/Register.vue')
+        component: Register
       },
 
       {
@@ -48,7 +53,7 @@ const routes = [
       {
         path: '/user',
         name: 'User',
-        component: () => import('pages/User.vue'),
+        component: User,
         meta: {
           requiresAuth: true,
         }
@@ -56,7 +61,11 @@ const routes = [
       {
         path: '/secretPage',
         name: 'SecretPage',
-        component: () => import('pages/SecretPage.vue')
+        component: () => import('pages/SecretPage.vue'),
+        meta: {
+          //authorize: [auth.currentUser.role]
+        }
+
       },
     ]
   },
@@ -69,4 +78,26 @@ const routes = [
   }
 ]
 
+/*
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes
+})
+
+/*
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login' && auth.currentUser) {
+    next('/')
+    return;
+  }
+
+  if (to.matched.some(record => record.meta.requiresAuth) && !auth.currentUser) {
+    next('/login')
+    return;
+  }
+
+  next();
+})
+*/
 export default routes
+

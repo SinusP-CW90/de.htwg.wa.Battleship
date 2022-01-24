@@ -1,5 +1,5 @@
-<template>
-  <div class="vue-tempalte">
+<template >
+  <div v-if="$store.state.user.role === 'admin'" class="vue-tempalte">
     <h3>Welcome</h3>
     <p>{{$store.state.user.displayName}}</p>
     <p>{{$store.state.user.email}}</p>

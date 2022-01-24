@@ -22,15 +22,12 @@
       <q-route-tab label="About Battleship" to="/aboutTheGame"/>
       <q-route-tab label="Test Page" to="/index"/>
       <!--q-route-tab label="Error Page" to="/page4"/-->
-      <!--q-route-tab v-if="!$store.state.user"   label="Login" to="/login"/-->
-      <q-route-tab label="Login" to="/login"/>
-      <q-route-tab label="Register" to="/register"/>
-      <q-route-tab label="ForgotPassword" to="/forgotPassword"/>
+      <q-route-tab v-if="!$store.state.user"   label="Login" to="/login"/>
+      <q-route-tab v-if="!$store.state.user" label="Register" to="/register"/>
+      <q-route-tab v-if="!$store.state.user" label="ForgotPassword" to="/forgotPassword"/>
       <q-route-tab label="user" to="/user"/>
-      <q-route-tab label="Home" to="/home"/>
-      <q-route-tab label="SecretPage" to="/secretPage"/>
+      <q-route-tab v-if="$store.state.user" label="SecretPage" to="/secretPage"/>
       <button v-if="$store.state.user" @click="$store.dispatch('logout')">Logout</button>
-      <button v-if="$store.state.user" @click="logout">Logout</button>
       <!--button v-if="$store.state.user.displayName" >{{ $store.state.user.displayName }}</button-->
 
     </q-tabs>
@@ -65,24 +62,21 @@ export default {
     logout(){
       const auth = getAuth();
 
-      signOut(auth).then(() => {
-        unlink(auth.currentUser, providerId).then(() => {
-          console.log("unlink successful.")
-          // Auth provider unlinked from account
-          // ...
-        }).catch((error) => {
-          // An error happened
-          // ...
-        })
-        $store.dispatch('logout')
-        console.log("Sign-out successful.")
-        // Sign-out successful.
-      }).catch((error) => {
-        console.log("An error happened.")
-        // An error happened.
-      })
     },
+    mounted() {
+      console.log('mounted!')
+      if($store.state.user.role === 'admin'){
+        console.log("true")
+      }
+      console.log("false")
 
+      //this.name = "newName"
+      this.kp1();
+    },
+    updated() {
+      console.log('updated!')
+      //this.name = "newNEWName"
+    },
 
   },
 }

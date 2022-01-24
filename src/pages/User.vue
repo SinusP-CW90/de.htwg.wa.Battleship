@@ -3,7 +3,9 @@
     <h3>Welcome</h3>
     <p v-if="$store.state.user">{{$store.state.user}}</p>
     <p v-if="$store.state.user">{{$store.state.user.displayName}}</p>
+    <p v-if="$store.state.user">Provider Data: {{$store.state.user.providerData}}</p>
     <p v-if="$store.state.user">{{$store.state.user.email}}</p>
+    <p v-if="$store.state.user">{{$store.state.user.role}}</p>
 
   </div>
 </template>
@@ -36,12 +38,12 @@ export default {
   },
   mounted() {
     console.log('mounted!')
-    this.name = "newName"
+    //this.name = "newName"
     this.kp1();
   },
   updated() {
     console.log('updated!')
-    this.name = "newNEWName"
+    //this.name = "newNEWName"
   },
   methods:{
     kp1(){
@@ -49,9 +51,9 @@ export default {
       const user = auth.currentUser;
       if (user !== null) {
         user.providerData.forEach((profile) => {
-          this.name = profile.providerId;
           console.log("Sign-in provider: " + profile.providerId);
           console.log("  Provider-specific UID: " + profile.uid);
+          this.name = profile.displayName,
           console.log("  Name: " + profile.displayName);
           console.log("  Email: " + profile.email);
           console.log("  Photo URL: " + profile.photoURL);

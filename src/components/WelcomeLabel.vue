@@ -8,7 +8,9 @@
   </q-card-section>
 
   <q-card-section>
-    <div class="text-h3 q-mt-sm q-mb-xs text-orange-9 text-center" v-if="show">Welcome to the Battleship Game</div>
+    <div class="text-h3 q-mt-sm q-mb-xs text-orange-9 text-center" v-if="show">Welcome
+      <p v-if="$store.state.user">{{$store.state.user.displayName}}</p>
+      to the Battleship Game</div>
   </q-card-section>
 
   <q-separator></q-separator>

@@ -14,6 +14,10 @@
           placeholder="enter your Name"
           v-model="register_form.displayName" />
         <input
+          type="text"
+          placeholder="role"
+          v-model="register_form.role" />
+        <input
           type="email"
           placeholder="Email-Address"
           v-model="register_form.email" />
@@ -50,6 +54,7 @@ export default {
       store.dispatch('register', register_form.value);
       console.log(register_form.value)
       console.log(register_form.value.email)
+      console.log(register_form.value.role)
     }
 
     return {

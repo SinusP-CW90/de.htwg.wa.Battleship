@@ -35,18 +35,24 @@
             You can <router-link to="/register">register</router-link>
             <br>
 
-
-            <button @click="socialLogin" class="social-button">
+            <button @click="googleLogin" class="social-button">
               <img
                 alt="Google Logo"
                 src="icons/googleSingIn.png" style="hight:50px; width:300px"
               />
             </button>
-
+            <br>
             <button @click="githubLogin" class="social-button">
               <img
                 alt="Github Logo"
                 src="icons/gitHubSignIn.png" style="hight:50px; width:350px"
+              />
+            </button>
+            <br>
+            <button @click="facebookLogin" class="social-button">
+              <img
+                alt="Facebook Logo"
+                src="icons/facebookLogin.png" style="hight:50px; width:350px"
               />
             </button>
           </p>
@@ -63,22 +69,15 @@
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 
-import { GoogleAuthProvider, FacebookAuthProvider, TwitterAuthProvider, GithubAuthProvider } from "firebase/auth";
+import { GoogleAuthProvider, GithubAuthProvider, FacebookAuthProvider   } from "firebase/auth";
 import {
-
   getAuth, getRedirectResult,
-  signInWithEmailAndPassword,
   signInWithRedirect,
   signInWithPopup,
 } from "firebase/auth";
 
 export default {
   setup () {
-    const googleProvider = new GoogleAuthProvider();
-    const facebookProvider = new FacebookAuthProvider();
-    const twitterProvider = new TwitterAuthProvider();
-    const githubProvider = new GithubAuthProvider();
-
     const login_form = ref({});
     const store = useStore();
 
@@ -86,66 +85,25 @@ export default {
       store.dispatch('login', login_form.value);
     }
     const googleLogin = () => {
-      store.dispatch('googleLogin', login_form.value);
+
+      store.dispatch('providerLogin', new GoogleAuthProvider());
+    }
+    const githubLogin = () => {
+      store.dispatch('providerLogin', new GithubAuthProvider());
+    }
+    const facebookLogin = () => {
+      store.dispatch('providerLogin', new FacebookAuthProvider());
     }
 
     return {
       login_form,
       login,
-      googleLogin
+      googleLogin,
+      githubLogin,
+      facebookLogin
     }
   },
   methods: {
-    googleLoginX(){
-      const auth = getAuth();
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          const credential = GoogleAuthProvider.credentialFromResult(result);
-          const token = credential.accessToken;
-          // The signed-in user info.
-          const user = result.user;
-          // ...
-        }).catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
-
-    },
-    socialLogin() {
-      const provider = new GoogleAuthProvider();
-      const auth = getAuth();
-      signInWithRedirect(auth, provider)
-        .then(() => {
-          this.$router.replace("/");
-          console.log(socialLogin)
-          this.successLogin();
-        })
-        .catch((err) => {
-          alert("Oops. " + err.message);
-        });
-    },
-    successLogin() {
-      getRedirectResult(auth).then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        if (credential) {
-          // Accounts successfully linked.
-          const user = result.user;
-          this.$router.replace("/");
-          console.log(user)
-          // ...
-        }
-      }).catch((error) => {
-        // Handle Errors here.
-        // ...
-      })
-    },
 
   },
 }

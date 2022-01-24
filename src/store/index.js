@@ -5,12 +5,12 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  sendPasswordResetEmail,
   getAuth,
   onAuthStateChanged
 } from 'firebase/auth'
 
 import {signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-
 
 export default createStore({
   state: {
@@ -20,22 +20,21 @@ export default createStore({
 
     SET_USER (state, user) {
       state.user = user
-      state.user.role = "nobody"
-      console.log("User: "+ state.user.email +" SetUser" )
-      console.log("User: "+ state.user +" SetUser" )
-      console.log("User: "+ state +" SetUser" )
-      console.log("User: "+  state.user.role +" SetUser" )
+     //state.user.role = "nobody"
+      console.log("User: "+ state.user.email +" in SetUser" )
+      console.log("User: "+ state.user.displayName +" in SetUser" )
+      console.log("User: "+ state.user.role +" in SetUser" )
     },
 
-    SET_GOOGLE_USER (state, user) {
+    SET_PROVIDER_USER (state, user) {
       state.user = user
-      state.credential = GoogleAuthProvider.credentialFromResult(state);
+      state.credential = this.provider.credentialFromResult(state);
       state.token = state.credential.accessToken;
-      state.user.role = "nobody"
-      console.log("User: "+ state.user.email +" SetUser" )
-      console.log("User: "+ state.user +" SetUser" )
-      console.log("User: "+ state +" SetUser" )
-      console.log("User: "+  state.user.role +" SetUser" )
+      //state.user.role = "nobody"
+      console.log("User: "+ state.user.email +" in Google SetUser" )
+      console.log("User: "+ state.credential +" in Google SetUser" )
+      console.log("User: "+ state.token +" in Google  SetUser" )
+      console.log("User: "+ state.user.role +" in Google  SetUser" )
     },
 
     CLEAR_USER (state) {
@@ -49,7 +48,6 @@ export default createStore({
       const { email, password } = details
 
       try {
-
         await signInWithEmailAndPassword(auth, email, password)
       } catch (error) {
         switch(error.code) {
@@ -65,17 +63,39 @@ export default createStore({
 
         return
       }
-
       commit('SET_USER', auth.currentUser)
-      console.log("User: "+  state.user.role +" login" )
-
       this.$router.replace("/");
     },
 
-    async googleLogin ({ commit }, details) {
-      const provider = new GoogleAuthProvider();
+    async resetPassword ({ commit }, details) {
+      const { email, password } = details
+
+      try {
+        await sendPasswordResetEmail(auth, email)
+        alert("reset-password Email is send")
+      } catch (error) {
+        switch(error.code) {
+          case 'auth/user-not-found':
+            alert("User not found")
+            break
+          case 'auth/wrong-password':
+            alert("Wrong password")
+            break
+          default:
+            alert("Something went wrong")
+        }
+
+        return
+      }
+      //commit('SET_USER', auth.currentUser)
+      this.$router.replace("/");
+    },
+
+    async providerLogin ({ commit }, provider) {
+      //const provider = new GoogleAuthProvider();
       try {
         await signInWithPopup(auth, provider)
+
       } catch (error) {
         // Handle Errors here.
         const errorCode = error.code;
@@ -85,7 +105,7 @@ export default createStore({
         const email = error.email;
         alert("email error:" +email)
         // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
+        const credential = provider.credentialFromError(error);
         alert("credential err: "+credential)
         switch(error.code) {
           case 'auth/user-not-found':
@@ -100,21 +120,23 @@ export default createStore({
 
         return
       }
-
-      commit('SET_GOOGLE_USER', auth.currentUser)
+      console.log("User: "+  auth.currentUser +" login" )
+      commit('SET_PROVIDER_USER', auth.currentUser)
       console.log("User: "+  state.user.role +" login" )
 
       this.$router.replace("/");
     },
 
     async register ({ commit}, details) {
-      const { displayName, email, password } = details
-
+      const { displayName, role, email, password } = details
+      console.log("details: "+  details.role +" von reg" )
       try {
         await createUserWithEmailAndPassword(auth, email, password)
         auth.currentUser.displayName = displayName;
+        auth.currentUser.role = details.role;
         console.log("in reg name: " + displayName)
         console.log("in reg /auth: " + auth)
+        console.log("in reg /auth: " + auth.role)
       } catch (error) {
         switch(error.code) {
           case 'auth/email-already-in-use':

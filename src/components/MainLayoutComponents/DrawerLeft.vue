@@ -57,10 +57,9 @@
         </q-avatar>
         <div class="text-weight-bold">Player 1</div>
 
-        <div v-if="$store.state.user" >{{ myName }}</div>
-        <div v-if="!$store.state.user" >{{ myName }}</div>
-        <div v-if="$store.state.user" >Role: {{ UV }}</div>
-        <div v-if="!$store.state.user">Role: {{ UV }}</div>
+        <div v-if="$store.state.user" >{{ $store.state.user.displayName }}</div>
+
+
 
       </div>
       <div id="app">
