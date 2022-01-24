@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { Vue, Options } from 'vue-class-component';
+
 import {defineComponent} from 'vue';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { updateProfile } from "firebase/auth";
