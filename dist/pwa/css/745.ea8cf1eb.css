@@ -1,4 +1,15 @@
 
+.demo {
+  font-family: sans-serif;
+  border: 1px solid #eee;
+  border-radius: 2px;
+  padding: 20px 30px;
+  margin-top: 1em;
+  margin-bottom: 40px;
+  -webkit-user-select: none;
+          user-select: none;
+  overflow-x: auto;
+}
 @media (min-width: 300px) {
 .header { grid-area: header;
 }
@@ -44,4 +55,4 @@
 }
 
 
-/*# sourceMappingURL=471.8ef73bd2.css.map*/
+/*# sourceMappingURL=745.ea8cf1eb.css.map*/

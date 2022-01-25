@@ -21,7 +21,7 @@ export default {
   },
   data() {
     return {
-      info: BattleshipGame.probs
+      info: "current State: Play "//BattleshipGame.probs
 
     };
   },

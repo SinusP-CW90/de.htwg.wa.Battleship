@@ -30,11 +30,6 @@ export default createStore({
       state.user = user
       state.credential = this.provider.credentialFromResult(state);
       state.token = state.credential.accessToken;
-      //state.user.role = "nobody"
-      console.log("User: "+ state.user.email +" in Google SetUser" )
-      console.log("User: "+ state.credential +" in Google SetUser" )
-      console.log("User: "+ state.token +" in Google  SetUser" )
-      console.log("User: "+ state.user.role +" in Google  SetUser" )
     },
 
     CLEAR_USER (state) {

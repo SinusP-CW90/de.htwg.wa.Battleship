@@ -38,21 +38,21 @@
             <button @click="googleLogin" class="social-button">
               <img
                 alt="Google Logo"
-                src="icons/googleSingIn.png" style="hight:50px; width:300px"
+                src="icons/googleSingIn.png" style="hight:40px; width:300px"
               />
             </button>
             <br>
             <button @click="githubLogin" class="social-button">
               <img
                 alt="Github Logo"
-                src="icons/gitHubSignIn.png" style="hight:50px; width:350px"
+                src="icons/gitHubSignIn.png" style="hight:40px; width:300px"
               />
             </button>
             <br>
             <button @click="facebookLogin" class="social-button">
               <img
                 alt="Facebook Logo"
-                src="icons/facebookLogin.png" style="hight:50px; width:350px"
+                src="icons/facebookLogin.png" style="hight:40px; width:300px"
               />
             </button>
           </p>

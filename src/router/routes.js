@@ -16,14 +16,6 @@ const routes = [
         component: () => import('pages/Index.vue')
       },
       {
-        path: '/aboutTheGame',
-        name: 'About The Game',
-        component: () => import('pages/AboutTheGame.vue'),
-        meta: {
-          requiresAuth: true,
-        }
-      },
-      {
         path: '',
         name: 'BattleshipGame',
         component: () => import('pages/BattleshipGame.vue'),
@@ -31,6 +23,15 @@ const routes = [
           requiresAuth: true
         }
       },
+      {
+        path: '/aboutTheGame',
+        name: 'About The Game',
+        component: () => import('pages/AboutTheGame.vue'),
+        meta: {
+          requiresAuth: true,
+        }
+      },
+
       /*{ path: '/err404',
         name: 'Error404',
         component: () => import('pages/Error404.vue') },*/

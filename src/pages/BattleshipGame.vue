@@ -45,7 +45,7 @@
               ></q-img>
                 </q-card-section>
               <!--BattleshipStepper></BattleshipStepper-->
-                <BattleshipState></BattleshipState>
+              <BattleshipState></BattleshipState>
               <Battleground></Battleground>
                 <!--BattlefildSizeSlider :propsName="example"></BattlefildSizeSlider-->
             </q-card-section>
